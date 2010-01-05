@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MultiIndexTest", "MultiIndexTest.vcproj", "{C5ADCA4F-FC62-4F60-A053-24D879E72CBC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C5ADCA4F-FC62-4F60-A053-24D879E72CBC}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C5ADCA4F-FC62-4F60-A053-24D879E72CBC}.Debug|Win32.Build.0 = Debug|Win32
+		{C5ADCA4F-FC62-4F60-A053-24D879E72CBC}.Release|Win32.ActiveCfg = Release|Win32
+		{C5ADCA4F-FC62-4F60-A053-24D879E72CBC}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
