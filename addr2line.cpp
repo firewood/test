@@ -131,6 +131,7 @@ bool CBinaryFile::ParseDebugLine(const char*& debug_line, ulong section_size) {
 
 	int dwarf_version = *(ushort*)p;
 	p += sizeof(ushort);
+	printf("DWARF version: %d\n", dwarf_version);
 
 	uint header_length = *(uint*)p;
 	p += sizeof(uint);
