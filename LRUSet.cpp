@@ -13,6 +13,7 @@
 struct Content {
 	std::string url;
 	std::string content;
+	Content(std::string url) : url(url) { }
 	Content(std::string url, std::string content) : url(url), content(content) { }
 	bool operator < (const Content &c) const { return c.url < url; }
 	void Print(void) const { std::cout << "  url: " << url << ", content: " << content << std::endl; }
@@ -47,6 +48,21 @@ public:
 	LRUSet() : m_Size(0) {
 		m_Oldest = new SList();
 		m_Newest = m_Oldest;
+	}
+
+	bool Get(Value &value) {
+		typename SListPtrSet::const_iterator current_pos = Find(value);
+		if (current_pos == m_Set.end()) {
+			return false;
+		}
+		value = *((*current_pos)->next->value);
+		Add(value);
+		return true;
+	}
+
+	bool Has(const Value &value) {
+		typename SListPtrSet::const_iterator current_pos = Find(value);
+		return current_pos != m_Set.end();
 	}
 
 	void Add(Value &value) {
@@ -155,7 +171,7 @@ int main(int argc, char *argv[])
 	cache.Add(Content("jkl", "jjj"));
 	cache.Dump();
 
-	cache.Add(Content("def", "ddd"));
+	cache.Get(Content("def"));
 	cache.Dump();
 
 	return 0;
