@@ -1,0 +1,14 @@
+
+package Hogehoge;
+
+message Hoge {
+  required string hoge = 1;
+
+  message Fuga {
+    required string fuga = 1;
+    required string fugaga = 2;
+  }
+
+  repeated Fuga hogege = 2;
+}
+
