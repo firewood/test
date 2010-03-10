@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VisualStudioToolFile
+	Name="ProtocolBuffers"
+	Version="8.00"
+	>
+	<Rules>
+		<CustomBuildRule
+			Name="ProtocolBuffers"
+			DisplayName="ProtocolBuffers"
+			CommandLine="protoc.exe [inputs] --cpp_out=$(InputDir)"
+			Outputs="$(InputName).pb.cc"
+			FileExtensions="*.proto"
+			ExecutionDescription="Executing tool..."
+			SupportsFileBatching="true"
+			ShowOnlyRuleProperties="false"
+			>
+			<Properties>
+			</Properties>
+		</CustomBuildRule>
+	</Rules>
+</VisualStudioToolFile>
