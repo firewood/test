@@ -1,0 +1,781 @@
+diff -Naur ReactOS-0.3.11-org/base/applications/games/solitaire/solitaire.cpp ReactOS-0.3.11/base/applications/games/solitaire/solitaire.cpp
+--- ReactOS-0.3.11-org/base/applications/games/solitaire/solitaire.cpp	Tue Oct 13 03:34:29 2009
++++ ReactOS-0.3.11/base/applications/games/solitaire/solitaire.cpp	Sun Aug 22 14:59:32 2010
+@@ -196,8 +196,6 @@
+ 
+     SaveSettings();
+ 
+-    try { throw 0; } catch (int i) { } /* HACK */
+-
+     return msg.wParam;
+ }
+ 
+diff -Naur ReactOS-0.3.11-org/base/applications/games/spider/spider.cpp ReactOS-0.3.11/base/applications/games/spider/spider.cpp
+--- ReactOS-0.3.11-org/base/applications/games/spider/spider.cpp	Tue Oct 13 03:34:29 2009
++++ ReactOS-0.3.11/base/applications/games/spider/spider.cpp	Sun Aug 22 14:59:32 2010
+@@ -154,9 +154,6 @@
+             DispatchMessage(&msg);
+         }
+     }
+-
+-    try { throw 0; } catch (int i) { } /* HACK */
+-
+     return msg.wParam;
+ }
+ 
+diff -Naur ReactOS-0.3.11-org/dll/directx/ddraw/ddraw.rbuild ReactOS-0.3.11/dll/directx/ddraw/ddraw.rbuild
+--- ReactOS-0.3.11-org/dll/directx/ddraw/ddraw.rbuild	Sat Sep 19 22:16:27 2009
++++ ReactOS-0.3.11/dll/directx/ddraw/ddraw.rbuild	Sun Aug 22 14:59:32 2010
+@@ -70,6 +70,4 @@
+ 		<file>DirectD3D3_Vtable.c</file>
+ 		<file>DirectD3D7_Vtable.c</file>
+ 	</directory>
+-	<!-- See http://gcc.gnu.org/bugzilla/show_bug.cgi?id=38054#c7 -->
+-	<compilerflag compilerset="gcc">-fno-unit-at-a-time</compilerflag>
+ </module>
+diff -Naur ReactOS-0.3.11-org/dll/directx/wine/ddraw/ddraw.rbuild ReactOS-0.3.11/dll/directx/wine/ddraw/ddraw.rbuild
+--- ReactOS-0.3.11-org/dll/directx/wine/ddraw/ddraw.rbuild	Fri Aug 21 15:57:26 2009
++++ ReactOS-0.3.11/dll/directx/wine/ddraw/ddraw.rbuild	Sun Aug 22 14:59:32 2010
+@@ -42,7 +42,4 @@
+ 	<file>viewport.c</file>
+ 
+ 	<dependency>wineheaders</dependency>
+-
+-	<!-- See http://gcc.gnu.org/bugzilla/show_bug.cgi?id=38054#c7 -->
+-	<compilerflag compilerset="gcc">-fno-unit-at-a-time</compilerflag>
+ </module>
+diff -Naur ReactOS-0.3.11-org/dll/win32/actxprxy/actxprxy.rbuild ReactOS-0.3.11/dll/win32/actxprxy/actxprxy.rbuild
+--- ReactOS-0.3.11-org/dll/win32/actxprxy/actxprxy.rbuild	Thu Jun 18 18:18:57 2009
++++ ReactOS-0.3.11/dll/win32/actxprxy/actxprxy.rbuild	Sun Aug 22 14:59:32 2010
+@@ -16,7 +16,6 @@
+ 	<library>rpcrt4</library>
+ 	<library>pseh</library>
+ 	<file>usrmarshal.c</file>
+-	<compilerflag compilerset="gcc">-fno-unit-at-a-time</compilerflag>
+ </module>
+ <module name="actxprxy_interface" type="idlinterface">
+ 	<file>actxprxy_servprov.idl</file>
+diff -Naur ReactOS-0.3.11-org/dll/win32/advapi32/advapi32.rbuild ReactOS-0.3.11/dll/win32/advapi32/advapi32.rbuild
+--- ReactOS-0.3.11-org/dll/win32/advapi32/advapi32.rbuild	Thu Jun 18 18:18:57 2009
++++ ReactOS-0.3.11/dll/win32/advapi32/advapi32.rbuild	Sun Aug 22 14:59:32 2010
+@@ -60,5 +60,4 @@
+ 			<file>token.c</file>
+ 	</directory>
+ 	<file>advapi32.rc</file>
+-	<compilerflag compilerset="gcc">-fno-unit-at-a-time</compilerflag>
+ </module>
+diff -Naur ReactOS-0.3.11-org/dll/win32/crypt32/crypt32.rbuild ReactOS-0.3.11/dll/win32/crypt32/crypt32.rbuild
+--- ReactOS-0.3.11-org/dll/win32/crypt32/crypt32.rbuild	Wed Nov 11 03:21:16 2009
++++ ReactOS-0.3.11/dll/win32/crypt32/crypt32.rbuild	Sun Aug 22 14:59:32 2010
+@@ -43,6 +43,4 @@
+ 	<file>message.c</file>
+ 	<file>crypt32.rc</file>
+ 	<file>version.rc</file>
+-	<!-- See http://gcc.gnu.org/bugzilla/show_bug.cgi?id=38054#c7 -->
+-	<compilerflag compilerset="gcc">-fno-unit-at-a-time</compilerflag>
+ </module>
+diff -Naur ReactOS-0.3.11-org/dll/win32/gdi32/gdi32.rbuild ReactOS-0.3.11/dll/win32/gdi32/gdi32.rbuild
+--- ReactOS-0.3.11-org/dll/win32/gdi32/gdi32.rbuild	Thu Aug 13 09:34:37 2009
++++ ReactOS-0.3.11/dll/win32/gdi32/gdi32.rbuild	Sun Aug 22 14:59:32 2010
+@@ -9,11 +9,9 @@
+ 	<library>pseh</library>
+ 	<library>dxguid</library>
+ 	<library>ntdll</library>
+-	<!-- See http://gcc.gnu.org/bugzilla/show_bug.cgi?id=38269
+ 	<directory name="include">
+ 		<pch>precomp.h</pch>
+ 	</directory>
+-	-->
+ 	<directory name="main">
+ 		<file>dllmain.c</file>
+ 	</directory>
+@@ -50,6 +48,4 @@
+ 		<file>path.c</file>
+ 	</directory>
+ 	<file>gdi32.rc</file>
+-	<!-- See http://gcc.gnu.org/bugzilla/show_bug.cgi?id=38054#c7 -->
+-	<compilerflag compilerset="gcc">-fno-unit-at-a-time</compilerflag>
+ </module>
+diff -Naur ReactOS-0.3.11-org/dll/win32/kernel32/kernel32.rbuild ReactOS-0.3.11/dll/win32/kernel32/kernel32.rbuild
+--- ReactOS-0.3.11-org/dll/win32/kernel32/kernel32.rbuild	Wed Sep 30 13:28:51 2009
++++ ReactOS-0.3.11/dll/win32/kernel32/kernel32.rbuild	Sun Aug 22 14:59:32 2010
+@@ -13,12 +13,8 @@
+ 	<define name="_KERNEL32_" />
+ 	<redefine name="_WIN32_WINNT">0x0600</redefine>
+ 	<dependency>errcodes</dependency>
+-	<!-- See http://gcc.gnu.org/bugzilla/show_bug.cgi?id=38269
+ 	<pch>k32.h</pch>
+-	-->
+ 	<group compilerset="gcc">
+-		<!-- See http://gcc.gnu.org/bugzilla/show_bug.cgi?id=38054#c7 -->
+-		<compilerflag>-fno-unit-at-a-time</compilerflag>
+ 		<compilerflag compiler="cxx">-fno-exceptions</compilerflag>
+ 		<compilerflag compiler="cxx">-fno-rtti</compilerflag>
+ 	</group>
+diff -Naur ReactOS-0.3.11-org/dll/win32/ole32/ole32.rbuild ReactOS-0.3.11/dll/win32/ole32/ole32.rbuild
+--- ReactOS-0.3.11-org/dll/win32/ole32/ole32.rbuild	Thu Jun 18 18:18:57 2009
++++ ReactOS-0.3.11/dll/win32/ole32/ole32.rbuild	Sun Aug 22 14:59:32 2010
+@@ -64,8 +64,6 @@
+ 	<file>dcom.idl</file>
+ 	<file>irot.idl</file>
+ 	<include base="ole32" root="intermediate">.</include>
+-	<!-- See http://gcc.gnu.org/bugzilla/show_bug.cgi?id=38054#c7 -->
+-	<compilerflag compilerset="gcc">-fno-unit-at-a-time</compilerflag>
+ </module>
+ <module name="ole32_irot_server" type="rpcserver">
+ 	<file>irot.idl</file>
+diff -Naur ReactOS-0.3.11-org/dll/win32/psapi/psapi.rbuild ReactOS-0.3.11/dll/win32/psapi/psapi.rbuild
+--- ReactOS-0.3.11-org/dll/win32/psapi/psapi.rbuild	Thu Jun 18 18:18:57 2009
++++ ReactOS-0.3.11/dll/win32/psapi/psapi.rbuild	Sun Aug 22 15:02:46 2010
+@@ -6,12 +6,8 @@
+ 	<library>pseh</library>
+ 	<library>ntdll</library>
+ 	<library>kernel32</library>
+-	<!-- See http://gcc.gnu.org/bugzilla/show_bug.cgi?id=38269
+ 	<pch>precomp.h</pch>
+-	-->
+ 	<file>malloc.c</file>
+ 	<file>psapi.c</file>
+ 	<file>psapi.rc</file>
+-	<!-- See http://gcc.gnu.org/bugzilla/show_bug.cgi?id=38054#c7 -->
+-	<compilerflag compilerset="gcc">-fno-unit-at-a-time</compilerflag>
+ </module>
+diff -Naur ReactOS-0.3.11-org/dll/win32/qmgrprxy/qmgrprxy.rbuild ReactOS-0.3.11/dll/win32/qmgrprxy/qmgrprxy.rbuild
+--- ReactOS-0.3.11-org/dll/win32/qmgrprxy/qmgrprxy.rbuild	Thu Jun 18 18:18:57 2009
++++ ReactOS-0.3.11/dll/win32/qmgrprxy/qmgrprxy.rbuild	Sun Aug 22 14:59:32 2010
+@@ -16,7 +16,6 @@
+ 	<library>rpcrt4</library>
+ 	<library>pseh</library>
+ 	<file>version.rc</file> <!-- we need at least one file in the module -->
+-	<compilerflag compilerset="gcc">-fno-unit-at-a-time</compilerflag>
+ </module>
+ <module name="qmgrprxy_interface" type="idlinterface">
+ 	<file>qmgrprxy.idl</file>
+diff -Naur ReactOS-0.3.11-org/dll/win32/rpcrt4/rpcrt4.rbuild ReactOS-0.3.11/dll/win32/rpcrt4/rpcrt4.rbuild
+--- ReactOS-0.3.11-org/dll/win32/rpcrt4/rpcrt4.rbuild	Wed Nov 25 19:36:10 2009
++++ ReactOS-0.3.11/dll/win32/rpcrt4/rpcrt4.rbuild	Sun Aug 22 14:59:32 2010
+@@ -40,8 +40,6 @@
+ 	<file>rpcrt4.rc</file>
+ 	<file>epm.idl</file>
+ 	<include base="rpcrt4" root="intermediate">.</include>
+-	<!-- See http://gcc.gnu.org/bugzilla/show_bug.cgi?id=38054#c7 -->
+-	<compilerflag compilerset="gcc">-fno-unit-at-a-time</compilerflag>
+ </module>
+ <module name="rpcrt4_epm_client" type="rpcclient">
+ 	<file>epm.idl</file>
+diff -Naur ReactOS-0.3.11-org/dll/win32/setupapi/setupapi.rbuild ReactOS-0.3.11/dll/win32/setupapi/setupapi.rbuild
+--- ReactOS-0.3.11-org/dll/win32/setupapi/setupapi.rbuild	Wed Nov 11 03:21:16 2009
++++ ReactOS-0.3.11/dll/win32/setupapi/setupapi.rbuild	Sun Aug 22 14:59:32 2010
+@@ -40,6 +40,4 @@
+ 	<file>stubs.c</file>
+ 	<file>rpc.c</file>
+ 	<file>setupapi.rc</file>
+-	<!-- See http://gcc.gnu.org/bugzilla/show_bug.cgi?id=38054#c7 -->
+-	<compilerflag compilerset="gcc">-fno-unit-at-a-time</compilerflag>
+ </module>
+diff -Naur ReactOS-0.3.11-org/dll/win32/syssetup/syssetup.rbuild ReactOS-0.3.11/dll/win32/syssetup/syssetup.rbuild
+--- ReactOS-0.3.11-org/dll/win32/syssetup/syssetup.rbuild	Fri Jul 03 11:21:42 2009
++++ ReactOS-0.3.11/dll/win32/syssetup/syssetup.rbuild	Sun Aug 22 14:59:32 2010
+@@ -21,6 +21,4 @@
+ 	<file>logfile.c</file>
+ 	<file>wizard.c</file>
+ 	<file>syssetup.rc</file>
+-	<!-- See http://gcc.gnu.org/bugzilla/show_bug.cgi?id=38054#c7 -->
+-	<compilerflag compilerset="gcc">-fno-unit-at-a-time</compilerflag>
+ </module>
+diff -Naur ReactOS-0.3.11-org/dll/win32/user32/user32.rbuild ReactOS-0.3.11/dll/win32/user32/user32.rbuild
+--- ReactOS-0.3.11-org/dll/win32/user32/user32.rbuild	Tue Sep 15 15:24:09 2009
++++ ReactOS-0.3.11/dll/win32/user32/user32.rbuild	Sun Aug 22 14:59:32 2010
+@@ -12,11 +12,9 @@
+ 	<library>pseh</library>
+ 	<library>ntdll</library>
+ 	<compilerflag compilerset="gcc">-fms-extensions</compilerflag>
+-	<!-- See http://gcc.gnu.org/bugzilla/show_bug.cgi?id=38269
+ 	<directory name="include">
+ 		<pch>user32.h</pch>
+ 	</directory>
+-	-->
+ 	<directory name="controls">
+ 		<file>button.c</file>
+ 		<file>combo.c</file>
+@@ -77,6 +75,4 @@
+ 		<file>winpos.c</file>
+ 	</directory>
+ 	<file>user32.rc</file>
+-	<!-- See http://gcc.gnu.org/bugzilla/show_bug.cgi?id=38054#c7 -->
+-	<compilerflag compilerset="gcc">-fno-unit-at-a-time</compilerflag>
+ </module>
+diff -Naur ReactOS-0.3.11-org/dll/win32/wintrust/wintrust.rbuild ReactOS-0.3.11/dll/win32/wintrust/wintrust.rbuild
+--- ReactOS-0.3.11-org/dll/win32/wintrust/wintrust.rbuild	Thu Jun 18 18:18:57 2009
++++ ReactOS-0.3.11/dll/win32/wintrust/wintrust.rbuild	Sun Aug 22 14:59:32 2010
+@@ -19,6 +19,4 @@
+ 	<file>asn.c</file>
+ 	<file>softpub.c</file>
+ 	<file>version.rc</file>
+-	<!-- See http://gcc.gnu.org/bugzilla/show_bug.cgi?id=38054#c7 -->
+-	<compilerflag compilerset="gcc">-fno-unit-at-a-time</compilerflag>
+ </module>
+diff -Naur ReactOS-0.3.11-org/dll/win32/wlanapi/wlanapi.rbuild ReactOS-0.3.11/dll/win32/wlanapi/wlanapi.rbuild
+--- ReactOS-0.3.11-org/dll/win32/wlanapi/wlanapi.rbuild	Thu Jun 18 18:18:57 2009
++++ ReactOS-0.3.11/dll/win32/wlanapi/wlanapi.rbuild	Sun Aug 22 14:59:32 2010
+@@ -9,6 +9,4 @@
+ 	<library>pseh</library>
+ 	<library>ntdll</library>
+ 	<file>main.c</file>
+-	<!-- See http://gcc.gnu.org/bugzilla/show_bug.cgi?id=38054#c7 -->
+-	<compilerflag compilerset="gcc">-fno-unit-at-a-time</compilerflag>
+ </module>
+diff -Naur ReactOS-0.3.11-org/drivers/input/kbdclass/kbdclass.rbuild ReactOS-0.3.11/drivers/input/kbdclass/kbdclass.rbuild
+--- ReactOS-0.3.11-org/drivers/input/kbdclass/kbdclass.rbuild	Thu Jun 18 18:18:57 2009
++++ ReactOS-0.3.11/drivers/input/kbdclass/kbdclass.rbuild	Sun Aug 22 14:59:32 2010
+@@ -9,6 +9,4 @@
+ 	<file>misc.c</file>
+ 	<file>setup.c</file>
+ 	<file>kbdclass.rc</file>
+-	<!-- See http://gcc.gnu.org/bugzilla/show_bug.cgi?id=38054#c7 -->
+-	<compilerflag compilerset="gcc">-fno-unit-at-a-time</compilerflag>
+ </module>
+diff -Naur ReactOS-0.3.11-org/drivers/input/mouclass/mouclass.rbuild ReactOS-0.3.11/drivers/input/mouclass/mouclass.rbuild
+--- ReactOS-0.3.11-org/drivers/input/mouclass/mouclass.rbuild	Thu Jun 18 18:18:57 2009
++++ ReactOS-0.3.11/drivers/input/mouclass/mouclass.rbuild	Sun Aug 22 14:59:32 2010
+@@ -8,6 +8,4 @@
+ 	<file>misc.c</file>
+ 	<file>mouclass.c</file>
+ 	<file>mouclass.rc</file>
+-	<!-- See http://gcc.gnu.org/bugzilla/show_bug.cgi?id=38054#c7 -->
+-	<compilerflag compilerset="gcc">-fno-unit-at-a-time</compilerflag>
+ </module>
+diff -Naur ReactOS-0.3.11-org/drivers/network/afd/afd.rbuild ReactOS-0.3.11/drivers/network/afd/afd.rbuild
+--- ReactOS-0.3.11-org/drivers/network/afd/afd.rbuild	Thu Jun 18 18:18:57 2009
++++ ReactOS-0.3.11/drivers/network/afd/afd.rbuild	Sun Aug 22 14:59:32 2010
+@@ -8,9 +8,7 @@
+ 	<library>ntoskrnl</library>
+ 	<library>hal</library>
+ 	<directory name="include">
+-	<!-- See http://gcc.gnu.org/bugzilla/show_bug.cgi?id=38269
+ 	<pch>afd.h</pch>
+-	-->
+ 	</directory>
+ 	<directory name="afd">
+ 		<file>bind.c</file>
+@@ -27,6 +25,4 @@
+ 		<file>write.c</file>
+ 	</directory>
+ 	<file>afd.rc</file>
+-	<!-- See http://gcc.gnu.org/bugzilla/show_bug.cgi?id=38054#c7 -->
+-	<compilerflag compilerset="gcc">-fno-unit-at-a-time</compilerflag>
+ </module>
+diff -Naur ReactOS-0.3.11-org/drivers/network/tcpip/tcpip.rbuild ReactOS-0.3.11/drivers/network/tcpip/tcpip.rbuild
+--- ReactOS-0.3.11-org/drivers/network/tcpip/tcpip.rbuild	Mon Nov 30 21:52:07 2009
++++ ReactOS-0.3.11/drivers/network/tcpip/tcpip.rbuild	Sun Aug 22 14:59:32 2010
+@@ -13,11 +13,9 @@
+ 	<library>chew</library>
+ 	<library>ntoskrnl</library>
+ 	<library>hal</library>
+-	<!-- See http://gcc.gnu.org/bugzilla/show_bug.cgi?id=38269
+ 	<directory name="include">
+ 		<pch>precomp.h</pch>
+ 	</directory>
+-	-->
+ 	<directory name="datalink">
+ 		<file>lan.c</file>
+ 	</directory>
+@@ -40,6 +38,4 @@
+ 		<file>wait.c</file>
+ 	</directory>
+ 	<file>tcpip.rc</file>
+-	<!-- See http://gcc.gnu.org/bugzilla/show_bug.cgi?id=38054#c7 -->
+-	<compilerflag compilerset="gcc">-fno-unit-at-a-time</compilerflag>
+ </module>
+diff -Naur ReactOS-0.3.11-org/lib/rtl/rtl.rbuild ReactOS-0.3.11/lib/rtl/rtl.rbuild
+--- ReactOS-0.3.11-org/lib/rtl/rtl.rbuild	Fri Oct 23 22:51:39 2009
++++ ReactOS-0.3.11/lib/rtl/rtl.rbuild	Sun Aug 22 14:59:32 2010
+@@ -96,9 +96,5 @@
+ 	<file>version.c</file>
+ 	<file>wait.c</file>
+ 	<file>workitem.c</file>
+-	<!-- See http://gcc.gnu.org/bugzilla/show_bug.cgi?id=38269
+ 	<pch>rtl.h</pch>
+-	-->
+-	<!-- See http://gcc.gnu.org/bugzilla/show_bug.cgi?id=38054#c7 -->
+-	<compilerflag compilerset="gcc">-fno-unit-at-a-time</compilerflag>
+ </module>
+diff -Naur ReactOS-0.3.11-org/Makefile ReactOS-0.3.11/Makefile
+--- ReactOS-0.3.11-org/Makefile	Tue Nov 17 02:54:29 2009
++++ ReactOS-0.3.11/Makefile	Sun Aug 22 14:59:32 2010
+@@ -169,11 +169,7 @@
+ endif
+ 
+ ifeq ($(ROS_AUTOMAKE),)
+-  ifeq ($(ARCH),i386)
+-    ROS_AUTOMAKE=makefile.auto
+-  else
+-    ROS_AUTOMAKE=makefile-$(ARCH).auto
+-  endif
++  ROS_AUTOMAKE=makefile-$(ARCH).auto
+ endif
+ 
+ all: $(ROS_AUTOMAKE)
+diff -Naur ReactOS-0.3.11-org/ntoskrnl/include/ntoskrnl.h ReactOS-0.3.11/ntoskrnl/include/ntoskrnl.h
+--- ReactOS-0.3.11-org/ntoskrnl/include/ntoskrnl.h	Sun Nov 30 06:00:58 2008
++++ ReactOS-0.3.11/ntoskrnl/include/ntoskrnl.h	Sun Aug 22 14:59:32 2010
+@@ -1,5 +1,96 @@
+-#include "precomp.h"
++/*
++ * COPYRIGHT:       See COPYING in the top level directory
++ * PROJECT:         ReactOS Kernel
++ * FILE:            ntoskrnl/include/ntoskrnl.h
++ * PURPOSE:         Main Kernel Header
++ * PROGRAMMER:      Alex Ionescu (alex@relsoft.net)
++ */
++
++/* INCLUDES ******************************************************************/
++
++/* Version Data */
++#undef __MSVCRT__
++#include <psdk/ntverp.h>
++
++/* DDK/IFS/NDK Headers */
++#define _REALLY_GET_CALLERS_CALLER
++#include <excpt.h>
++#include <ntdef.h>
++#undef DECLSPEC_IMPORT
++#define DECLSPEC_IMPORT
++#include <ntifs.h>
++#include <wdmguid.h>
++#include <arc/arc.h>
++#undef NTHALAPI
++#define NTHALAPI __declspec(dllimport)
++#include <ntndk.h>
++#undef TEXT
++#define TEXT(s) L##s
++#include <regstr.h>
++
++/* FIXME: Temporary until Winldr is used */
++#include <rosldr.h>
++
++/* C Headers */
++#include <stdlib.h>
++#include <stdio.h>
++#include <ctype.h>
++#include <malloc.h>
++#include <wchar.h>
++
++/* SEH support with PSEH */
++#include <pseh/pseh2.h>
++
++/* ReactOS Headers */
++#include <reactos/buildno.h>
++#include <reactos/bugcodes.h>
++
++/* SetupLDR Support */
++#include <arc/setupblk.h>
++
++/* KD Support */
++#define NOEXTAPI
++#include <windbgkd.h>
++#include <wdbgexts.h>
++#include <kddll.h>
++#ifndef _WINKD_
++#include <reactos/rossym.h>
++#endif
++
++/* PNP GUIDs */
++#include <umpnpmgr/sysguid.h>
++
++/* Internal Headers */
++#include "internal/ntoskrnl.h"
++#include "config.h"
+ 
+-/* Headers that shouldn't be precompiled due to GCC bugs */
+ #include <reactos/probe.h>
+ #include "internal/probe.h"
++
++//
++// Define the internal versions of external and public global data
++//
++#define IoFileObjectType                _IoFileObjectType
++#define PsThreadType                    _PsThreadType
++#define PsProcessType                   _PsProcessType
++#define ExEventObjectType               _ExEventObjectType
++#define ExSemaphoreObjectType           _ExSemaphoreObjectType
++#define KdDebuggerEnabled               _KdDebuggerEnabled
++#define KdDebuggerNotPresent            _KdDebuggerNotPresent
++#define NlsOemLeadByteInfo              _NlsOemLeadByteInfo
++extern PUSHORT _NlsOemLeadByteInfo;
++#define FsRtlLegalAnsiCharacterArray    _FsRtlLegalAnsiCharacterArray
++#undef LEGAL_ANSI_CHARACTER_ARRAY
++#undef NLS_MB_CODE_PAGE_TAG
++#undef NLS_OEM_LEAD_BYTE_INFO
++#define LEGAL_ANSI_CHARACTER_ARRAY      FsRtlLegalAnsiCharacterArray
++#define NLS_MB_CODE_PAGE_TAG            NlsMbOemCodePageTag
++#define NLS_OEM_LEAD_BYTE_INFO          _NlsOemLeadByteInfo
++#undef KD_DEBUGGER_ENABLED
++#undef KD_DEBUGGER_NOT_PRESENT
++#define KD_DEBUGGER_ENABLED             KdDebuggerEnabled
++#define KD_DEBUGGER_NOT_PRESENT         KdDebuggerNotPresent
++#define HalDispatchTable                _HalDispatchTable
++#undef HALDISPATCH
++#define HALDISPATCH                     (&HalDispatchTable)
++#define ExRaiseStatus RtlRaiseStatus
+diff -Naur ReactOS-0.3.11-org/ntoskrnl/include/precomp.h ReactOS-0.3.11/ntoskrnl/include/precomp.h
+--- ReactOS-0.3.11-org/ntoskrnl/include/precomp.h	Fri Aug 07 10:45:59 2009
++++ ReactOS-0.3.11/ntoskrnl/include/precomp.h	Sun Aug 22 14:59:32 2010
+@@ -1,93 +0,0 @@
+-/*
+- * COPYRIGHT:       See COPYING in the top level directory
+- * PROJECT:         ReactOS Kernel
+- * FILE:            ntoskrnl/include/ntoskrnl.h
+- * PURPOSE:         Main Kernel Header
+- * PROGRAMMER:      Alex Ionescu (alex@relsoft.net)
+- */
+-
+-/* INCLUDES ******************************************************************/
+-
+-/* Version Data */
+-#undef __MSVCRT__
+-#include <psdk/ntverp.h>
+-
+-/* DDK/IFS/NDK Headers */
+-#define _REALLY_GET_CALLERS_CALLER
+-#include <excpt.h>
+-#include <ntdef.h>
+-#undef DECLSPEC_IMPORT
+-#define DECLSPEC_IMPORT
+-#include <ntifs.h>
+-#include <wdmguid.h>
+-#include <arc/arc.h>
+-#undef NTHALAPI
+-#define NTHALAPI __declspec(dllimport)
+-#include <ntndk.h>
+-#undef TEXT
+-#define TEXT(s) L##s
+-#include <regstr.h>
+-
+-/* FIXME: Temporary until Winldr is used */
+-#include <rosldr.h>
+-
+-/* C Headers */
+-#include <stdlib.h>
+-#include <stdio.h>
+-#include <ctype.h>
+-#include <malloc.h>
+-#include <wchar.h>
+-
+-/* SEH support with PSEH */
+-#include <pseh/pseh2.h>
+-
+-/* ReactOS Headers */
+-#include <reactos/buildno.h>
+-#include <reactos/bugcodes.h>
+-
+-/* SetupLDR Support */
+-#include <arc/setupblk.h>
+-
+-/* KD Support */
+-#define NOEXTAPI
+-#include <windbgkd.h>
+-#include <wdbgexts.h>
+-#include <kddll.h>
+-#ifndef _WINKD_
+-#include <reactos/rossym.h>
+-#endif
+-
+-/* PNP GUIDs */
+-#include <umpnpmgr/sysguid.h>
+-
+-/* Internal Headers */
+-#include "internal/ntoskrnl.h"
+-#include "config.h"
+-
+-//
+-// Define the internal versions of external and public global data
+-//
+-#define IoFileObjectType                _IoFileObjectType
+-#define PsThreadType                    _PsThreadType
+-#define PsProcessType                   _PsProcessType
+-#define ExEventObjectType               _ExEventObjectType
+-#define ExSemaphoreObjectType           _ExSemaphoreObjectType
+-#define KdDebuggerEnabled               _KdDebuggerEnabled
+-#define KdDebuggerNotPresent            _KdDebuggerNotPresent
+-#define NlsOemLeadByteInfo              _NlsOemLeadByteInfo
+-extern PUSHORT _NlsOemLeadByteInfo;
+-#define FsRtlLegalAnsiCharacterArray    _FsRtlLegalAnsiCharacterArray
+-#undef LEGAL_ANSI_CHARACTER_ARRAY
+-#undef NLS_MB_CODE_PAGE_TAG
+-#undef NLS_OEM_LEAD_BYTE_INFO
+-#define LEGAL_ANSI_CHARACTER_ARRAY      FsRtlLegalAnsiCharacterArray
+-#define NLS_MB_CODE_PAGE_TAG            NlsMbOemCodePageTag
+-#define NLS_OEM_LEAD_BYTE_INFO          _NlsOemLeadByteInfo
+-#undef KD_DEBUGGER_ENABLED
+-#undef KD_DEBUGGER_NOT_PRESENT
+-#define KD_DEBUGGER_ENABLED             KdDebuggerEnabled
+-#define KD_DEBUGGER_NOT_PRESENT         KdDebuggerNotPresent
+-#define HalDispatchTable                _HalDispatchTable
+-#undef HALDISPATCH
+-#define HALDISPATCH                     (&HalDispatchTable)
+-#define ExRaiseStatus RtlRaiseStatus
+diff -Naur ReactOS-0.3.11-org/ntoskrnl/ntoskrnl-generic.rbuild ReactOS-0.3.11/ntoskrnl/ntoskrnl-generic.rbuild
+--- ReactOS-0.3.11-org/ntoskrnl/ntoskrnl-generic.rbuild	Mon Nov 09 21:38:26 2009
++++ ReactOS-0.3.11/ntoskrnl/ntoskrnl-generic.rbuild	Sun Aug 22 14:59:32 2010
+@@ -30,11 +30,9 @@
+ 	<library>bootvid</library>
+ 	<library>wdmguid</library>
+ 	<dependency>bugcodes</dependency>
+-	<!-- See http://gcc.gnu.org/bugzilla/show_bug.cgi?id=38269
+ 	<directory name="include">
+-		<pch>precomp.h</pch>
++		<pch>ntoskrnl.h</pch>
+ 	</directory>
+-	-->
+ 	<directory name="ke">
+ 		<if property="ARCH" value="i386">
+ 			<directory name="i386">
+@@ -505,7 +503,4 @@
+ 	</directory>
+ 	<file>ntoskrnl.rc</file>
+ 	<linkerscript>ntoskrnl_$(ARCH).lnk</linkerscript>
+-
+-	<!-- See http://gcc.gnu.org/bugzilla/show_bug.cgi?id=38054#c7 -->
+-	<compilerflag compilerset="gcc">-fno-unit-at-a-time</compilerflag>
+ </group>
+diff -Naur ReactOS-0.3.11-org/ReactOS-generic.rbuild ReactOS-0.3.11/ReactOS-generic.rbuild
+--- ReactOS-0.3.11-org/ReactOS-generic.rbuild	Mon Oct 19 21:30:34 2009
++++ ReactOS-0.3.11/ReactOS-generic.rbuild	Sun Aug 22 14:59:32 2010
+@@ -122,11 +122,6 @@
+ 		<compilerflag>-Wno-strict-aliasing</compilerflag>
+ 		<compilerflag>-Wpointer-arith</compilerflag>
+ 		<compilerflag>-Wno-multichar</compilerflag>
+-		<!--
+-		<compilerflag>-Wno-error=uninitialized</compilerflag>
+-		<compilerflag>-Wno-error=unused-function</compilerflag>
+-		<compilerflag>-Wno-error=write-strings</compilerflag>
+-		-->
+ 		<!-- compilerflag>-H</compilerflag>    enable this for header traces -->
+ 	</group>
+ 
+diff -Naur ReactOS-0.3.11-org/ReactOS-i386.rbuild ReactOS-0.3.11/ReactOS-i386.rbuild
+--- ReactOS-0.3.11-org/ReactOS-i386.rbuild	Wed Nov 11 03:41:14 2009
++++ ReactOS-0.3.11/ReactOS-i386.rbuild	Sun Aug 22 14:59:32 2010
+@@ -1,6 +1,6 @@
+ <?xml version="1.0"?>
+ <!DOCTYPE project SYSTEM "tools/rbuild/project.dtd">
+-<project name="ReactOS" makefile="makefile.auto" xmlns:xi="http://www.w3.org/2001/XInclude">
++<project name="ReactOS" makefile="makefile-i386.auto" xmlns:xi="http://www.w3.org/2001/XInclude">
+ 	<xi:include href="config.rbuild">
+ 		<xi:fallback>
+ 			<xi:include href="config.template.rbuild" />
+diff -Naur ReactOS-0.3.11-org/subsystems/win32/win32k/objects/gdiobj.c ReactOS-0.3.11/subsystems/win32/win32k/objects/gdiobj.c
+--- ReactOS-0.3.11-org/subsystems/win32/win32k/objects/gdiobj.c	Thu Oct 29 18:28:27 2009
++++ ReactOS-0.3.11/subsystems/win32/win32k/objects/gdiobj.c	Sun Aug 22 14:59:32 2010
+@@ -30,7 +30,7 @@
+ 
+ #include "gdidbg.c"
+ 
+-/* static */ /* FIXME: -fno-unit-at-a-time breaks this */
++static
+ BOOL INTERNAL_CALL GDI_CleanupDummy(PVOID ObjectBody);
+ 
+ /** GLOBALS *******************************************************************/
+@@ -87,7 +87,7 @@
+ /*
+  * Dummy GDI Cleanup Callback
+  */
+-/* static */ /* FIXME: -fno-unit-at-a-time breaks this */
++static
+ BOOL INTERNAL_CALL
+ GDI_CleanupDummy(PVOID ObjectBody)
+ {
+diff -Naur ReactOS-0.3.11-org/subsystems/win32/win32k/win32k.rbuild ReactOS-0.3.11/subsystems/win32/win32k/win32k.rbuild
+--- ReactOS-0.3.11-org/subsystems/win32/win32k/win32k.rbuild	Tue Nov 17 17:00:01 2009
++++ ReactOS-0.3.11/subsystems/win32/win32k/win32k.rbuild	Sun Aug 22 14:59:32 2010
+@@ -20,9 +20,7 @@
+ 	<compilerflag compilerset="msc">/wd4276</compilerflag>
+ 	<define name="LANGPACK" />
+ 	<define name="_WIN32K_" />
+-	<!-- See http://gcc.gnu.org/bugzilla/show_bug.cgi?id=38269
+ 	<pch>pch.h</pch>
+-	-->
+ 
+ 	<directory name="dib" root="intermediate">
+ 		<file>dib8gen.c</file>
+@@ -205,8 +203,5 @@
+ 		<file>stubs.c</file>
+ 		<file>umpdstubs.c</file>
+ 	</directory>
+-
+-	<!-- See http://gcc.gnu.org/bugzilla/show_bug.cgi?id=38054#c7 -->
+-	<compilerflag compilerset="gcc">-fno-unit-at-a-time</compilerflag>
+ </module>
+ </group>
+diff -Naur ReactOS-0.3.11-org/tools/rbuild/backend/mingw/compilers/gcc.mak ReactOS-0.3.11/tools/rbuild/backend/mingw/compilers/gcc.mak
+--- ReactOS-0.3.11-org/tools/rbuild/backend/mingw/compilers/gcc.mak	Fri Jun 19 02:28:33 2009
++++ ReactOS-0.3.11/tools/rbuild/backend/mingw/compilers/gcc.mak	Sun Aug 22 14:59:32 2010
+@@ -12,6 +12,12 @@
+ BUILTIN_CFLAGS+= -fno-optimize-sibling-calls
+ BUILTIN_CXXFLAGS+= -fno-optimize-sibling-calls
+ 
++# Add -fno-set-stack-executable required for x86/MinGW
++ifneq (,$(filter $(ARCH),amd64 i386))
++	BUILTIN_CFLAGS+= -fno-set-stack-executable
++	BUILTIN_CXXFLAGS+= -fno-set-stack-executable
++endif
++
+ #(module, source, dependencies, cflags, output)
+ define RBUILD_DEPENDS
+ 
+diff -Naur ReactOS-0.3.11-org/tools/rbuild/backend/mingw/linkers/ld.mak ReactOS-0.3.11/tools/rbuild/backend/mingw/linkers/ld.mak
+--- ReactOS-0.3.11-org/tools/rbuild/backend/mingw/linkers/ld.mak	Tue Nov 17 16:18:34 2009
++++ ReactOS-0.3.11/tools/rbuild/backend/mingw/linkers/ld.mak	Sun Aug 22 14:59:32 2010
+@@ -1,5 +1,6 @@
+-LDFLAG_DLL:=-shared
+-LDFLAG_DRIVER:=-shared --subsystem=native
++# -exclude-all-symbols disables autoexporting all symbols *if none were found* (either in a DEF file or using __declspec(dllexport)
++LDFLAG_DLL:=-shared -exclude-all-symbols
++LDFLAG_DRIVER:=-shared --subsystem=native -exclude-all-symbols
+ LDFLAG_NOSTDLIB:=-nostartfiles -nostdlib
+ LDFLAG_CONSOLE:=--subsystem=console
+ LDFLAG_WINDOWS:=--subsystem=windows
+@@ -40,7 +41,7 @@
+ $(5): ${call RBUILD_intermediate_dir,$(5)}$$(SEP)$(1)_objs.rsp $(7) $(3) $$(RSYM_TARGET) $$(PEFIXUP_TARGET) | ${call RBUILD_dir,$(5)}
+ 	$$(ECHO_LD)
+ #~	$${ld} --entry=$(8) --image-base=$(9) @${call RBUILD_intermediate_dir,$(5)}$$(SEP)$(1)_objs.rsp $(7) ${call RBUILD_ldflags,$(1),$(4)} -o $$@
+-	$${ld} --entry=$(8) --image-base=$(9) @${call RBUILD_intermediate_dir,$(5)}$$(SEP)$(1)_objs.rsp $(10) $(7) $(10) ${call RBUILD_ldflags,$(1),$(4)} -o $$@
++	$${ld} --entry=$(8) --image-base=$(9) @${call RBUILD_intermediate_dir,$(5)}$$(SEP)$(1)_objs.rsp --start-group $(10) $(7) --end-group ${call RBUILD_ldflags,$(1),$(4)} -o $$@
+ ifneq ($(or $(6),$$(MODULETYPE$$($(1)_TYPE)_KMODE)),)
+ 	$$(ECHO_PEFIXUP)
+ 	$$(Q)$$(PEFIXUP_TARGET) $$@ $(if $(6),-exports) $$(if $$(MODULETYPE$($(1)_TYPE)_KMODE),-sections)
+diff -Naur ReactOS-0.3.11-org/tools/rbuild/backend/mingw/mingw.cpp ReactOS-0.3.11/tools/rbuild/backend/mingw/mingw.cpp
+--- ReactOS-0.3.11-org/tools/rbuild/backend/mingw/mingw.cpp	Tue Nov 17 16:18:34 2009
++++ ReactOS-0.3.11/tools/rbuild/backend/mingw/mingw.cpp	Sun Aug 22 14:59:32 2010
+@@ -480,8 +480,11 @@
+ 		fputs ( "BUILTIN_CXXINCLUDES+= $(TARGET_CPPFLAGS)\n", fMakefile );
+ 
+ 		fprintf ( fMakefile, "PROJECT_CCLIBS := \"$(shell ${TARGET_CC} -print-libgcc-file-name)\"\n" );
+-		fprintf ( fMakefile, "PROJECT_CXXLIBS := \"$(shell ${TARGET_CPP} -print-file-name=libstdc++.a)\" \"$(shell ${TARGET_CPP} -print-file-name=libgcc.a)\" \"$(shell ${TARGET_CPP} -print-file-name=libmingw32.a)\" \"$(shell ${TARGET_CPP} -print-file-name=libmingwex.a)\" \"$(shell ${TARGET_CPP} -print-file-name=libcoldname.a)\"\n" );
+-
++		
++		// We use our proprietary "ofmt_stub.a" to implement a stub for "_get_output_format" required by "libmingwex.a".
++		// This archive just contains the compiled "ofmt_stub.s" supplied with the MinGW Runtime sources.
++		fprintf ( fMakefile, "PROJECT_CXXLIBS := \"$(shell ${TARGET_CPP} -print-file-name=libstdc++.a)\" \"$(shell ${TARGET_CPP} -print-libgcc-file-name)\" \"$(shell ${TARGET_CPP} -print-file-name=libmingw32.a)\" \"$(shell ${TARGET_CPP} -print-file-name=libmingwex.a)\" \"$(shell ${TARGET_CPP} -print-file-name=ofmt_stub.a)\" \"$(shell ${TARGET_CPP} -print-file-name=libcoldname.a)\"\n" );
++		
+ 		/* hack to get libgcc_eh.a, should check mingw version or something */
+ 		if (Environment::GetArch() == "amd64")
+ 		{
+@@ -844,7 +847,7 @@
+ 	buffer[i] = '\0';
+ 	pclose ( fp );
+ 
+-	char separators[] = " ()";
++	char separators[] = " ()\n";
+ 	char *token;
+ 	char *prevtoken = NULL;
+ 
+@@ -888,7 +891,7 @@
+ string
+ MingwBackend::GetCompilerVersion ( const string& compilerCommand )
+ {
+-	string versionCommand = ssprintf ( "%s --version gcc",
++	string versionCommand = ssprintf ( "%s --version",
+ 	                                   compilerCommand.c_str (),
+ 	                                   NUL,
+ 	                                   NUL );
+@@ -908,7 +911,7 @@
+ bool
+ MingwBackend::IsSupportedCompilerVersion ( const string& compilerVersion )
+ {
+-	if ( strcmp ( compilerVersion.c_str (), "3.4.2") < 0 )
++	if ( strcmp ( compilerVersion.c_str (), "4.4.0") < 0 )
+ 		return false;
+ 	else
+ 		return true;
+@@ -970,27 +973,32 @@
+ bool
+ MingwBackend::IsSupportedBinutilsVersion ( const string& binutilsVersion )
+ {
+-	if ( manualBinutilsSetting ) return true;
+-
+-	/* linux */
+-	if ( binutilsVersion.find('.') != std::string::npos )
++	int digit = binutilsVersion.find_last_of(".");
++	if(digit == -1)
+ 	{
+-		/* TODO: blacklist versions on version number instead of date */
+-		return true;
+-	}
+-
+-	/*
+-	 * - Binutils older than 2003/10/01 have broken windres which can't handle
+-	 *   icons with alpha channel.
+-	 * - Binutils between 2004/09/02 and 2004/10/08 have broken handling of
+-	 *   forward exports in dlltool.
+-	 */
+-	if ( ( ( strcmp ( binutilsVersion.c_str (), "20040902") >= 0 ) &&
+-	       ( strcmp ( binutilsVersion.c_str (), "20041008") <= 0 ) ) ||
+-	       ( strcmp ( binutilsVersion.c_str (), "20031001") < 0 ) )
++		printf("Unable to detect binutils version!\n");
+ 		return false;
++	}
++	
++	string date = string(binutilsVersion, digit + 1);
++	if(date.length() == 8)
++	{
++		/* This is a real date in the format YYYYMMDD.
++		   Check whether we have at least Binutils 20091016 (the oldest one
++		   we were still using after upgrading to RosBE 1.5). */
++		if(strcmp(date.c_str(), "20091016") < 0)
++			return false;
++	}
+ 	else
+-		return true;
++	{
++		/* This is no date, so binutilsVersion should just contain the version
++		   number.
++		   Binutils 2.20 will hopefully contain the required features. */
++		if(strcmp(binutilsVersion.c_str(), "2.20") < 0)
++			return false;
++	}
++	
++	return true;
+ }
+ 
+ void
+diff -Naur ReactOS-0.3.11-org/tools/rbuild/backend/mingw/rules.mak ReactOS-0.3.11/tools/rbuild/backend/mingw/rules.mak
+--- ReactOS-0.3.11-org/tools/rbuild/backend/mingw/rules.mak	Wed Nov 11 03:41:14 2009
++++ ReactOS-0.3.11/tools/rbuild/backend/mingw/rules.mak	Sun Aug 22 14:59:32 2010
+@@ -259,7 +259,7 @@
+ 	$$(ECHO_WIDL)
+ 	$$(Q)$$(widl_TARGET) ${call RBUILD_midlflags,$(1),$(4),-I${call RBUILD_dir,$(2)}} -h -H ${call RBUILD_intermediate_path_noext,$(2)}_c.h -c -C ${call RBUILD_intermediate_path_noext,$(2)}_c.c $(2)
+ 
+-${call RBUILD_CC,$(1),${call RBUILD_intermediate_path_noext,$(2)}_c.c,,-fno-unit-at-a-time,${call RBUILD_intermediate_path_noext,$(2)}_c.o}
++${call RBUILD_CC,$(1),${call RBUILD_intermediate_path_noext,$(2)}_c.c,,,${call RBUILD_intermediate_path_noext,$(2)}_c.o}
+ 
+ endef
+ 
+@@ -272,7 +272,7 @@
+ 	$$(ECHO_WIDL)
+ 	$$(Q)$$(widl_TARGET) ${call RBUILD_midlflags,$(1),$(4),-I${call RBUILD_dir,$(2)}} -h -H ${call RBUILD_intermediate_path_noext,$(2)}_s.h -s -S ${call RBUILD_intermediate_path_noext,$(2)}_s.c $(2)
+ 
+-${call RBUILD_CC,$(1),${call RBUILD_intermediate_path_noext,$(2)}_s.c,,-fno-unit-at-a-time,${call RBUILD_intermediate_path_noext,$(2)}_s.o}
++${call RBUILD_CC,$(1),${call RBUILD_intermediate_path_noext,$(2)}_s.c,,,${call RBUILD_intermediate_path_noext,$(2)}_s.o}
+ 
+ endef
+ 
+@@ -285,7 +285,7 @@
+ 	$$(ECHO_WIDL)
+ 	$$(Q)$$(widl_TARGET) ${call RBUILD_midlflags,$(1),$(4),-I${call RBUILD_dir,$(2)}} -h -H ${call RBUILD_intermediate_path_noext,$(2)}_p.h -p -P ${call RBUILD_intermediate_path_noext,$(2)}_p.c $(2)
+ 
+-${call RBUILD_CC,$(1),${call RBUILD_intermediate_path_noext,$(2)}_p.c,,-fno-unit-at-a-time,${call RBUILD_intermediate_path_noext,$(2)}_p.o}
++${call RBUILD_CC,$(1),${call RBUILD_intermediate_path_noext,$(2)}_p.c,,,${call RBUILD_intermediate_path_noext,$(2)}_p.o}
+ 
+ endef
+ 
+@@ -298,7 +298,7 @@
+ 	$$(ECHO_WIDL)
+ 	$$(Q)$$(widl_TARGET) ${call RBUILD_midlflags,$(1),$(4),-I${call RBUILD_dir,$(2)}} -u -U $$@ $$<
+ 
+-${call RBUILD_CC,$(1),${call RBUILD_intermediate_path_noext,$(2)}_i.c,,-fno-unit-at-a-time,${call RBUILD_intermediate_path_noext,$(2)}_i.o}
++${call RBUILD_CC,$(1),${call RBUILD_intermediate_path_noext,$(2)}_i.c,,,${call RBUILD_intermediate_path_noext,$(2)}_i.o}
+ 
+ endef
+ 
