@@ -4,7 +4,6 @@ function generate_random_string($length) {
     $result = '';
     $chars = '0123456789@ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_';
     $rand_max = strlen($chars) - 1;
-    mt_srand();
     while (--$length >= 0) {
         $result .= $chars[mt_rand(0, $rand_max)];
     }
@@ -88,6 +87,8 @@ function bench_string_array($keys, $length) {
 }
 
 try {
+
+    mt_srand();
 
     bench_integer_array(10, 100);
     bench_integer_array(100, 10000);
