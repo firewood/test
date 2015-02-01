@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <openssl/rsa.h> 
 #include <openssl/pem.h> 
 #include <openssl/rand.h> 
@@ -11,70 +12,111 @@
 
 using namespace std;
 
+int decode_base64(const char *src, int srclen, unsigned char *dst)
+{
+	BIO *b64 = BIO_new(BIO_f_base64());
+	BIO_set_flags(b64, BIO_FLAGS_BASE64_NO_NL);
+	BIO *bmem = BIO_new_mem_buf((void *)src, srclen);
+	bmem = BIO_push(b64, bmem);
+	return BIO_read(bmem, dst, srclen);
+}
+
 struct rsa_public_key {
 	RSA *_rsa;
-	bool load(const char *filename) {
-		FILE *fp = fopen(filename, "rt");
-		if (fp == NULL) {
+	bool load(FILE *fp) {
+		if (!fp) {
 			return false;
 		}
-		do {
-			_rsa = PEM_read_RSAPublicKey(fp, NULL, NULL, NULL);
-			if (_rsa) {
-				break;
-			}
-			rewind(fp);
-			_rsa = PEM_read_RSA_PUBKEY(fp, NULL, NULL, NULL);
-		} while (false);
-		fclose(fp);
+		rewind(fp);
+		_rsa = PEM_read_RSAPublicKey(fp, NULL, NULL, NULL);
+		if (_rsa) {
+			return true;
+		}
+		rewind(fp);
+		_rsa = PEM_read_RSA_PUBKEY(fp, NULL, NULL, NULL);
 		return _rsa != NULL;
 	}
 };
 
-static void append(unsigned char *&dst, const unsigned char *src, int len)
-{
-	*dst++ = len >> 24;
-	*dst++ = len >> 16;
-	*dst++ = len >> 8;
-	*dst++ = len;
-	memcpy(dst, src, len);
-	dst += len;
-}
+struct openssh_public_key {
+	unsigned char _buffer[2048];
+	int _length;
+	void append(const unsigned char *src, int len)
+	{
+		_buffer[_length++] = len >> 24;
+		_buffer[_length++] = len >> 16;
+		_buffer[_length++] = len >> 8;
+		_buffer[_length++] = len;
+		memcpy(_buffer + _length, src, len);
+		_length += len;
+	}
+	bool load(FILE *fp) {
+		if (!fp) {
+			return false;
+		}
+		rewind(fp);
+		char buff[4096] = {};
+		fread(buff, 1, 4096, fp);
+		char *s = strstr(buff, "ssh-rsa ");
+		if (!s) {
+			return false;
+		}
+		s += 8;
+		char *e = strchr(s, ' ');
+		int len = e - s;
+		_length = decode_base64(s, len, _buffer);
+		return _length > 0;
+	}
+	bool load_pem(FILE *fp) {
+		rsa_public_key pubkey;
+		if (!pubkey.load(fp)) {
+			return false;
+		}
+		_length = 0;
+		append((const unsigned char *)"ssh-rsa", 7);
+		unsigned char temp[1024] = {};
+		int len = BN_bn2bin(pubkey._rsa->e, temp + 1);
+		append(temp + 1, len);
+		len = BN_bn2bin(pubkey._rsa->n, temp + 1);
+		int sign = (temp[1] & 0x80) != 0;
+		append(temp + 1 - sign, len + sign);
+		return true;
+	}
+	string fingerprint() const {
+		char buffer[256] = {};
+		string f;
+		unsigned char md5[16];
+		EVP_Digest(_buffer, _length, md5, NULL, EVP_md5(), NULL);
+		for (int i = 0; i < 16; ++i) {
+			sprintf(buffer + strlen(buffer), ":%02x", md5[i]);
+		}
+		return buffer + 1;
+	}
+	void dump() const {
+		printf("Source binary:\n");
+		for (int i = 0; i < _length; ++i) {
+			printf("%02x:", _buffer[i]);
+		}
+		printf("\n\n");
+	}
+};
 
 int main(int argc, char* argv[])
 {
 	OpenSSL_add_all_algorithms();
-	rsa_public_key pubkey;
-	if (!pubkey.load("./pubkey")) {
-		cout << "Pubkey load FAILED" << endl;
-		return 1;
+
+	FILE *fp = fopen("./pubkey", "rb");
+	openssh_public_key pubkey;
+	if (!pubkey.load(fp)) {
+		if (!pubkey.load_pem(fp)) {
+			cout << "Pubkey load FAILED" << endl;
+			return 1;
+		}
 	}
+	fclose(fp);
 
-	unsigned char buff[4096];
-	unsigned char *dst = buff;
-	append(dst, (const unsigned char *)"ssh-rsa", 7);
-	unsigned char temp[1024] = {};
-	int len = BN_bn2bin(pubkey._rsa->e, temp+1);
-	append(dst, temp+1, len);
-	len = BN_bn2bin(pubkey._rsa->n, temp+1);
-	int sign = (temp[1] & 0x80) != 0;
-	append(dst, temp+1-sign, len+sign);
-	len = dst - buff;
-
-	printf("Source binary:\n");
-	for (int i = 0; i < len; ++i) {
-		printf("%02x:", buff[i]);
-	}
-	printf("\n\n");
-
-	unsigned char md5[64];
-	EVP_Digest(buff, len, md5, NULL, EVP_md5(), NULL);
-
-	printf("Fingerprint:\n");
-	for (int i = 0; i < 16; ++i) {
-		printf("%s%02x", i ? ":" : "", md5[i]);
-	}
-	printf("\n");
+	pubkey.dump();
+	cout << "Fingerprint:" << endl << pubkey.fingerprint() << endl;
 
 	return 0;
 }
