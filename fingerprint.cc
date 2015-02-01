@@ -1,16 +1,35 @@
-
+#include <iostream>
+#include <openssl/rsa.h> 
 #include <openssl/pem.h> 
 #include <openssl/rand.h> 
-#ifdef _DEBUG
-#pragma comment( lib, "gtestd.lib" )
-#pragma comment( lib, "libeay32MTd.lib" )
-#endif
 #ifdef _WIN32
 #include <openssl/applink.c>
+#ifdef _DEBUG
+#pragma comment( lib, "libeay32MTd.lib" )
 #endif
-#include <iostream>
+#endif
 
 using namespace std;
+
+struct rsa_public_key {
+	RSA *_rsa;
+	bool load(const char *filename) {
+		FILE *fp = fopen(filename, "rt");
+		if (fp == NULL) {
+			return false;
+		}
+		do {
+			_rsa = PEM_read_RSAPublicKey(fp, NULL, NULL, NULL);
+			if (_rsa) {
+				break;
+			}
+			rewind(fp);
+			_rsa = PEM_read_RSA_PUBKEY(fp, NULL, NULL, NULL);
+		} while (false);
+		fclose(fp);
+		return _rsa != NULL;
+	}
+};
 
 static void append(unsigned char *&dst, const unsigned char *src, int len)
 {
@@ -24,16 +43,14 @@ static void append(unsigned char *&dst, const unsigned char *src, int len)
 
 int main(int argc, char* argv[])
 {
+	OpenSSL_add_all_algorithms();
 	rsa_public_key pubkey;
 	if (!pubkey.load("./pubkey")) {
 		cout << "Pubkey load FAILED" << endl;
 		return 1;
 	}
 
-	cout << "Pubkey load OK" << endl;
-
 	unsigned char buff[4096];
-
 	unsigned char *dst = buff;
 	append(dst, (const unsigned char *)"ssh-rsa", 7);
 	unsigned char temp[1024] = {};
@@ -44,18 +61,18 @@ int main(int argc, char* argv[])
 	append(dst, temp+1-sign, len+sign);
 	len = dst - buff;
 
-	printf("binary:\n");
+	printf("Source binary:\n");
 	for (int i = 0; i < len; ++i) {
 		printf("%02x:", buff[i]);
 	}
-	printf("\n");
+	printf("\n\n");
 
-	unsigned char sum[64];
-	MD5(buff, len, sum);
+	unsigned char md5[64];
+	EVP_Digest(buff, len, md5, NULL, EVP_md5(), NULL);
 
-	printf("fingerprint (MD5):\n");
+	printf("Fingerprint:\n");
 	for (int i = 0; i < 16; ++i) {
-		printf("%02x:", sum[i]);
+		printf("%s%02x", i ? ":" : "", md5[i]);
 	}
 	printf("\n");
 
