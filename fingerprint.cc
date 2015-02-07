@@ -18,7 +18,9 @@ int decode_base64(const char *src, int srclen, unsigned char *dst)
 	BIO_set_flags(b64, BIO_FLAGS_BASE64_NO_NL);
 	BIO *bmem = BIO_new_mem_buf((void *)src, srclen);
 	bmem = BIO_push(b64, bmem);
-	return BIO_read(bmem, dst, srclen);
+	int dstlen = BIO_read(bmem, dst, srclen);
+	BIO_free_all(bmem);
+	return dstlen;
 }
 
 struct rsa_public_key {
