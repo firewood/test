@@ -1,34 +1,36 @@
-#include <cstdio>
+#include <string>
+#include <iostream>
+#include <cstring>
 #define XBYAK32
 #include "xbyak/xbyak.h"
 
-class HelloWorld: public Xbyak::CodeGenerator {
+class PutString: public Xbyak::CodeGenerator {
 	void syscall() { db(0x0F); db(0x05); }
 	void int80h() { db(0xCD); db(0x80); }
 public:
-	HelloWorld() {
-		mov(dword[esp - 16], 0x6c6c6548);
-		mov(dword[esp - 12], 0x77202c6f);
-		mov(dword[esp - 8], 0x646c726f);
-		mov(word[esp - 4], 0x00000a21);
-		mov(edx, 14);
-		mov(edi, 1);
+	PutString(const std::string &message) {
+		unsigned int *data = (unsigned int *)message.data();
+		mov(dword[esp - 16], data[0]);
+		mov(dword[esp - 12], data[1]);
+		mov(dword[esp - 8], data[2]);
+		mov(word[esp - 4], data[3]);
+		mov(edx, message.length());
 		dec(eax);
-		mov(eax, 0x1);
+		mov(ebx, 1);
 		jmp("@f");
-		nop();
-		nop();
+		add(byte[eax], al);
 		dec(eax);
 		lea(esi, ptr[esp - 16]);
+		mov(edi, 1);
 		mov(eax, edi);
 		syscall();
 		mov(eax, 60);
 		syscall();
 L("@@");
 		lea(ecx, ptr[esp - 16]);
-		mov(ebx, edi);
 		mov(eax, 4);
 		int80h();
+		xor(ebx, ebx);
 		mov(eax, 1);
 		int80h();
 	}
@@ -36,12 +38,14 @@ L("@@");
 
 int main(int argc, char * argv[])
 {
-	HelloWorld hello_world;
-	unsigned int *bin = hello_world.getCode<unsigned int *>();
-	printf("_[]={");
-	for (int i = 0; i < 22; ++i) {
-		printf("%s 0x%08x", i ? "," : "", bin[i]);
+	PutString put_string("Hello, world!\n");
+	unsigned int *bin = put_string.getCode<unsigned int *>();
+	size_t dwords = (put_string.getSize() + 3) / 4;
+	std::string delim = "_[]={";
+	for (size_t i = 0; i < dwords; ++i) {
+		std::cout << delim << "0x" << std::hex << bin[i];
+		delim = ",";
 	}
-	printf(" };\n");
+	std::cout << "};" << std::endl;
 	return 0;
 }
