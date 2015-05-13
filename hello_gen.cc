@@ -24,6 +24,7 @@ public:
 		mov(edi, 1);
 		mov(eax, edi);
 		syscall();
+		xor(edi, edi);
 		mov(eax, 60);
 		syscall();
 L("@@");
@@ -41,11 +42,11 @@ int main(int argc, char * argv[])
 	PutString put_string("Hello, world!\n");
 	unsigned int *bin = put_string.getCode<unsigned int *>();
 	size_t dwords = (put_string.getSize() + 3) / 4;
-	std::string delim = "_[]={";
+	std::string delim = "";
 	for (size_t i = 0; i < dwords; ++i) {
-		std::cout << delim << "0x" << std::hex << bin[i];
-		delim = ",";
+		std::cout << "cout << " + delim + "string(Char<" << std::dec << bin[i] << ">()) << endl;";
+		std::cout << "  // " << std::hex << bin[i];
+		std::cout << std::endl;
+		delim = "\",\" + ";
 	}
-	std::cout << "};" << std::endl;
-	return 0;
 }
