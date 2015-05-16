@@ -44,7 +44,7 @@ int main(int argc, char * argv[])
 	size_t dwords = (put_string.getSize() + 3) / 4;
 	std::string delim = "";
 	for (size_t i = 0; i < dwords; ++i) {
-		std::cout << "cout << " + delim + "string(Char<" << std::dec << bin[i] << "U>()) << endl;";
+		std::cout << "cout << " + delim + "Symbolizer<" << std::dec << bin[i] << "U>().s << endl;";
 		std::cout << "  // " << std::hex << bin[i];
 		std::cout << std::endl;
 		delim = "\",\" + ";
