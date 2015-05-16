@@ -1,15 +1,4 @@
 
-#hello: char
-#	./char > _.c
-#	$(CC) -c -Wa,-R -w _.c
-#	$(LD) _.o -e _ -o $@
-#	./$@
-
-#char: chars.cc char.cc
-#	./hello_gen > chars.cc
-#	$(CXX) char.cc -o char
-
-
 default: hello
 	./$<
 
@@ -20,10 +9,10 @@ hello: _.c
 _.c: hello_gen
 	./$< > $@
 
-hello_gen: hello_gen.cc chars.cc
+hello_gen: hello_gen.cc numbers.cc
 	$(CXX) -o $@ $<
 
-chars.cc: hello_gen_gen
+numbers.cc: hello_gen_gen
 	./$< > $@
 
 hello_gen_gen: hello_gen_gen.cc
