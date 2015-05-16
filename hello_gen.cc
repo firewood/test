@@ -9,22 +9,22 @@ template <unsigned int n> struct Symbolizer {
 		if (n >= 0x10000) {
 			s = "(" + Symbolizer<(n >> 16)>().s + ")<<(" + Symbolizer<16>().s + ")";
 			if (n & 0xffff) {
-				s = "(" + s + ")|" + Symbolizer<(n & 0xffff)>().s;
+				s = Symbolizer<(n & 0xffff)>().s + "|(" + s + ")";
 			}
 		} else if (n >= 0x100) {
 			s = "(" + Symbolizer<(n >> 8)>().s + ")<<(" + Symbolizer<8>().s + ")";
 			if (n & 0xff) {
-				s = "(" + s + ")|" + Symbolizer<(n & 0xff)>().s;
+				s = Symbolizer<(n & 0xff)>().s + "|(" + s + ")";
 			}
 		} else if (n >= 0x10) {
 			s = "(" + Symbolizer<(n >> 4)>().s + ")<<(" + Symbolizer<4>().s + ")";
 			if (n & 0xf) {
-				s = "(" + s + ")|" + Symbolizer<(n & 0xf)>().s;
+				s = Symbolizer<(n & 0xf)>().s + "|(" + s + ")";
 			}
 		} else {
 			s = "(" + Symbolizer<(n >> 1)>().s + ")<<(" + Symbolizer<1>().s + ")";
 			if (n & 1) {
-				s = "(" + s + ")|" + Symbolizer<1>().s;
+				s = Symbolizer<1>().s + "|(" + s + ")";
 			}
 		}
 	}
@@ -51,7 +51,7 @@ template <> Symbolizer<16>::Symbolizer() { s = "'='-'-'"; }
 int main(int argc, char* argv[])
 {
 	cout << "_[]={" << endl;
-#include "chars.cc"
+#include "numbers.cc"
 	cout << "};" << endl;
 	return 0;
 }
