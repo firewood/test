@@ -107,7 +107,8 @@ int main(int argc, char* argv[])
 {
 	OpenSSL_add_all_algorithms();
 
-	FILE *fp = fopen("./pubkey", "rb");
+	const char *filename = argc >= 2 ? argv[1] : "pubkey";
+	FILE *fp = fopen(filename, "rb");
 	openssh_public_key pubkey;
 	if (!pubkey.load(fp)) {
 		if (!pubkey.load_pem(fp)) {
