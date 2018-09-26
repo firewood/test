@@ -8,3 +8,6 @@ arm64-aapcs: callconv.c
 arm64-darwin: callconv.c
 	xcrun -sdk iphoneos clang -arch arm64 -S $< -o $<.$@
 
+windows: callconv.c
+	cl /c /Fa$<.$@ $<
+
