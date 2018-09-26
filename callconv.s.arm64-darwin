@@ -1,0 +1,268 @@
+	.section	__TEXT,__text,regular,pure_instructions
+	.build_version ios, 12, 0
+	.globl	_int_args               ; -- Begin function int_args
+	.p2align	2
+_int_args:                              ; @int_args
+	.cfi_startproc
+; %bb.0:
+	sub	sp, sp, #48             ; =48
+	.cfi_def_cfa_offset 48
+	ldr	w8, [sp, #60]
+	ldr	w9, [sp, #56]
+	ldr	w10, [sp, #52]
+	ldr	w11, [sp, #48]
+	str	w0, [sp, #44]
+	str	w1, [sp, #40]
+	str	w2, [sp, #36]
+	str	w3, [sp, #32]
+	str	w4, [sp, #28]
+	str	w5, [sp, #24]
+	str	w6, [sp, #20]
+	str	w7, [sp, #16]
+	ldr	w0, [sp, #44]
+	str	w11, [sp, #12]          ; 4-byte Folded Spill
+	str	w10, [sp, #8]           ; 4-byte Folded Spill
+	str	w8, [sp, #4]            ; 4-byte Folded Spill
+	str	w9, [sp]                ; 4-byte Folded Spill
+	add	sp, sp, #48             ; =48
+	ret
+	.cfi_endproc
+                                        ; -- End function
+	.globl	_float_args             ; -- Begin function float_args
+	.p2align	2
+_float_args:                            ; @float_args
+	.cfi_startproc
+; %bb.0:
+	sub	sp, sp, #48             ; =48
+	.cfi_def_cfa_offset 48
+	ldr	s16, [sp, #52]
+	ldr	s17, [sp, #48]
+	str	w0, [sp, #44]
+	str	w1, [sp, #40]
+	str	s0, [sp, #36]
+	str	s1, [sp, #32]
+	str	s2, [sp, #28]
+	str	s3, [sp, #24]
+	str	s4, [sp, #20]
+	str	s5, [sp, #16]
+	str	s6, [sp, #12]
+	str	s7, [sp, #8]
+	ldr	s0, [sp, #36]
+	ldr	s1, [sp, #32]
+	fmul	s0, s0, s1
+	str	s17, [sp, #4]           ; 4-byte Folded Spill
+	str	s16, [sp]               ; 4-byte Folded Spill
+	add	sp, sp, #48             ; =48
+	ret
+	.cfi_endproc
+                                        ; -- End function
+	.globl	_var_args               ; -- Begin function var_args
+	.p2align	2
+_var_args:                              ; @var_args
+	.cfi_startproc
+; %bb.0:
+	sub	sp, sp, #48             ; =48
+	.cfi_def_cfa_offset 48
+	str	w0, [sp, #44]
+	str	w1, [sp, #40]
+	add	x8, sp, #48             ; =48
+	str	x8, [sp, #32]
+	ldr	x8, [sp, #32]
+	add	x9, x8, #8              ; =8
+	str	x9, [sp, #32]
+	ldr	w0, [x8]
+	str	w0, [sp, #24]
+	ldr	w0, [sp, #24]
+	str	w0, [sp, #28]
+	ldr	x8, [sp, #32]
+	add	x9, x8, #8              ; =8
+	str	x9, [sp, #32]
+	ldr	w0, [x8]
+	str	w0, [sp, #16]
+	ldr	w0, [sp, #16]
+	str	w0, [sp, #20]
+	ldr	x8, [sp, #32]
+	add	x9, x8, #8              ; =8
+	str	x9, [sp, #32]
+	ldr	w0, [x8]
+	str	w0, [sp, #8]
+	ldr	w0, [sp, #8]
+	str	w0, [sp, #12]
+	ldr	x8, [sp, #32]
+	add	x9, x8, #8              ; =8
+	str	x9, [sp, #32]
+	ldr	w0, [x8]
+	str	w0, [sp]
+	ldr	w0, [sp]
+	str	w0, [sp, #4]
+	ldr	w0, [sp, #28]
+	ldr	w1, [sp, #20]
+	add	w0, w0, w1
+	ldr	w1, [sp, #12]
+	ldr	w10, [sp, #4]
+	mul	w10, w1, w10
+	add	w0, w0, w10
+	add	sp, sp, #48             ; =48
+	ret
+	.cfi_endproc
+                                        ; -- End function
+	.globl	_test_int_args          ; -- Begin function test_int_args
+	.p2align	2
+_test_int_args:                         ; @test_int_args
+	.cfi_startproc
+; %bb.0:
+	sub	sp, sp, #48             ; =48
+	stp	x29, x30, [sp, #32]     ; 8-byte Folded Spill
+	add	x29, sp, #32            ; =32
+	.cfi_def_cfa w29, 16
+	.cfi_offset w30, -8
+	.cfi_offset w29, -16
+	mov	w0, #97
+	mov	w1, #98
+	mov	w2, #99
+	mov	w3, #100
+	mov	w4, #101
+	mov	w5, #102
+	mov	w6, #103
+	mov	w7, #104
+	mov	w8, #105
+	mov	w9, #106
+	mov	w10, #107
+	mov	w11, #108
+	str	w8, [sp]
+	str	w9, [sp, #4]
+	str	w10, [sp, #8]
+	str	w11, [sp, #12]
+	bl	_int_args
+	stur	w0, [x29, #-4]          ; 4-byte Folded Spill
+	ldp	x29, x30, [sp, #32]     ; 8-byte Folded Reload
+	add	sp, sp, #48             ; =48
+	ret
+	.cfi_endproc
+                                        ; -- End function
+	.globl	_test_float_args        ; -- Begin function test_float_args
+	.p2align	2
+_test_float_args:                       ; @test_float_args
+	.cfi_startproc
+; %bb.0:
+	sub	sp, sp, #32             ; =32
+	stp	x29, x30, [sp, #16]     ; 8-byte Folded Spill
+	add	x29, sp, #16            ; =16
+	.cfi_def_cfa w29, 16
+	.cfi_offset w30, -8
+	.cfi_offset w29, -16
+	mov	w0, #97
+	mov	w1, #98
+	fmov	s0, #3.00000000
+	fmov	s1, #4.00000000
+	fmov	s2, #5.00000000
+	fmov	s3, #6.00000000
+	fmov	s4, #7.00000000
+	fmov	s5, #8.00000000
+	fmov	s6, #9.00000000
+	fmov	s7, #10.00000000
+	fmov	s16, #11.00000000
+	fmov	s17, #12.00000000
+	str	s16, [sp]
+	str	s17, [sp, #4]
+	bl	_float_args
+	stur	s0, [x29, #-4]          ; 4-byte Folded Spill
+	ldp	x29, x30, [sp, #16]     ; 8-byte Folded Reload
+	add	sp, sp, #32             ; =32
+	ret
+	.cfi_endproc
+                                        ; -- End function
+	.globl	_test_var_args_1        ; -- Begin function test_var_args_1
+	.p2align	2
+_test_var_args_1:                       ; @test_var_args_1
+	.cfi_startproc
+; %bb.0:
+	sub	sp, sp, #112            ; =112
+	stp	x29, x30, [sp, #96]     ; 8-byte Folded Spill
+	add	x29, sp, #96            ; =96
+	.cfi_def_cfa w29, 16
+	.cfi_offset w30, -8
+	.cfi_offset w29, -16
+	mov	x8, sp
+	mov	w9, #108
+	mov	x10, x9
+	str	x10, [x8, #72]
+	mov	w9, #107
+	mov	x10, x9
+	str	x10, [x8, #64]
+	mov	w9, #106
+	mov	x10, x9
+	str	x10, [x8, #56]
+	mov	w9, #105
+	mov	x10, x9
+	str	x10, [x8, #48]
+	mov	w9, #104
+	mov	x10, x9
+	str	x10, [x8, #40]
+	mov	w9, #103
+	mov	x10, x9
+	str	x10, [x8, #32]
+	mov	w9, #102
+	mov	x10, x9
+	str	x10, [x8, #24]
+	mov	w9, #101
+	mov	x10, x9
+	str	x10, [x8, #16]
+	mov	w9, #100
+	mov	x10, x9
+	str	x10, [x8, #8]
+	mov	w9, #99
+	mov	x10, x9
+	str	x10, [x8]
+	mov	w0, #97
+	mov	w1, #98
+	bl	_var_args
+	stur	w0, [x29, #-4]          ; 4-byte Folded Spill
+	ldp	x29, x30, [sp, #96]     ; 8-byte Folded Reload
+	add	sp, sp, #112            ; =112
+	ret
+	.cfi_endproc
+                                        ; -- End function
+	.globl	_test_var_args_2        ; -- Begin function test_var_args_2
+	.p2align	2
+_test_var_args_2:                       ; @test_var_args_2
+	.cfi_startproc
+; %bb.0:
+	sub	sp, sp, #112            ; =112
+	stp	x29, x30, [sp, #96]     ; 8-byte Folded Spill
+	add	x29, sp, #96            ; =96
+	.cfi_def_cfa w29, 16
+	.cfi_offset w30, -8
+	.cfi_offset w29, -16
+	mov	x8, sp
+	mov	x9, #4622945017495814144
+	str	x9, [x8, #72]
+	mov	x9, #4622382067542392832
+	str	x9, [x8, #64]
+	mov	x9, #4621819117588971520
+	str	x9, [x8, #56]
+	mov	x9, #4621256167635550208
+	str	x9, [x8, #48]
+	mov	x9, #4620693217682128896
+	str	x9, [x8, #40]
+	mov	x9, #4619567317775286272
+	str	x9, [x8, #32]
+	mov	x9, #4618441417868443648
+	str	x9, [x8, #24]
+	mov	x9, #4617315517961601024
+	str	x9, [x8, #16]
+	mov	x9, #4616189618054758400
+	str	x9, [x8, #8]
+	mov	x9, #4613937818241073152
+	str	x9, [x8]
+	mov	w0, #97
+	mov	w1, #98
+	bl	_var_args
+	stur	w0, [x29, #-4]          ; 4-byte Folded Spill
+	ldp	x29, x30, [sp, #96]     ; 8-byte Folded Reload
+	add	sp, sp, #112            ; =112
+	ret
+	.cfi_endproc
+                                        ; -- End function
+
+.subsections_via_symbols

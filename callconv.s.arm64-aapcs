@@ -1,0 +1,400 @@
+	.text
+	.syntax unified
+	.eabi_attribute	67, "2.09"	@ Tag_conformance
+	.cpu	arm7tdmi
+	.eabi_attribute	6, 2	@ Tag_CPU_arch
+	.eabi_attribute	8, 1	@ Tag_ARM_ISA_use
+	.eabi_attribute	9, 1	@ Tag_THUMB_ISA_use
+	.eabi_attribute	34, 0	@ Tag_CPU_unaligned_access
+	.eabi_attribute	15, 1	@ Tag_ABI_PCS_RW_data
+	.eabi_attribute	16, 1	@ Tag_ABI_PCS_RO_data
+	.eabi_attribute	17, 2	@ Tag_ABI_PCS_GOT_use
+	.eabi_attribute	20, 1	@ Tag_ABI_FP_denormal
+	.eabi_attribute	21, 1	@ Tag_ABI_FP_exceptions
+	.eabi_attribute	23, 3	@ Tag_ABI_FP_number_model
+	.eabi_attribute	24, 1	@ Tag_ABI_align_needed
+	.eabi_attribute	25, 1	@ Tag_ABI_align_preserved
+	.eabi_attribute	38, 1	@ Tag_ABI_FP_16bit_format
+	.eabi_attribute	18, 4	@ Tag_ABI_PCS_wchar_t
+	.eabi_attribute	26, 2	@ Tag_ABI_enum_size
+	.eabi_attribute	14, 0	@ Tag_ABI_PCS_R9_use
+	.file	"callconv.c"
+	.globl	int_args                @ -- Begin function int_args
+	.p2align	2
+	.type	int_args,%function
+	.code	32                      @ @int_args
+int_args:
+	.fnstart
+@ %bb.0:
+	.save	{r4, r5, r6, r7, r8, r9, r10, r11, lr}
+	push	{r4, r5, r6, r7, r8, r9, r10, r11, lr}
+	.setfp	r11, sp, #28
+	add	r11, sp, #28
+	.pad	#68
+	sub	sp, sp, #68
+	ldr	r12, [r11, #36]
+	ldr	lr, [r11, #32]
+	ldr	r4, [r11, #28]
+	ldr	r5, [r11, #24]
+	ldr	r6, [r11, #20]
+	ldr	r7, [r11, #16]
+	ldr	r8, [r11, #12]
+	ldr	r9, [r11, #8]
+	mov	r10, r3
+	str	r0, [sp, #48]           @ 4-byte Spill
+	mov	r0, r2
+	str	r0, [sp, #44]           @ 4-byte Spill
+	mov	r0, r1
+	str	r0, [sp, #40]           @ 4-byte Spill
+	ldr	r0, [sp, #48]           @ 4-byte Reload
+	str	r0, [sp, #36]           @ 4-byte Spill
+	ldr	r0, [sp, #48]           @ 4-byte Reload
+	str	r0, [r11, #-32]
+	str	r1, [r11, #-36]
+	str	r2, [r11, #-40]
+	str	r3, [r11, #-44]
+	ldr	r0, [r11, #-32]
+	str	r8, [sp, #32]           @ 4-byte Spill
+	str	r9, [sp, #28]           @ 4-byte Spill
+	str	r10, [sp, #24]          @ 4-byte Spill
+	str	r7, [sp, #20]           @ 4-byte Spill
+	str	r12, [sp, #16]          @ 4-byte Spill
+	str	lr, [sp, #12]           @ 4-byte Spill
+	str	r4, [sp, #8]            @ 4-byte Spill
+	str	r5, [sp, #4]            @ 4-byte Spill
+	str	r6, [sp]                @ 4-byte Spill
+	sub	sp, r11, #28
+	pop	{r4, r5, r6, r7, r8, r9, r10, r11, lr}
+	bx	lr
+.Lfunc_end0:
+	.size	int_args, .Lfunc_end0-int_args
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.globl	float_args              @ -- Begin function float_args
+	.p2align	2
+	.type	float_args,%function
+	.code	32                      @ @float_args
+float_args:
+	.fnstart
+@ %bb.0:
+	.save	{r4, r5, r6, r7, r8, r9, r10, r11, lr}
+	push	{r4, r5, r6, r7, r8, r9, r10, r11, lr}
+	.setfp	r11, sp, #28
+	add	r11, sp, #28
+	.pad	#68
+	sub	sp, sp, #68
+	ldr	r12, [r11, #36]
+	ldr	lr, [r11, #32]
+	ldr	r4, [r11, #28]
+	ldr	r5, [r11, #24]
+	ldr	r6, [r11, #20]
+	ldr	r7, [r11, #16]
+	ldr	r8, [r11, #12]
+	ldr	r9, [r11, #8]
+	mov	r10, r3
+	str	r0, [sp, #48]           @ 4-byte Spill
+	mov	r0, r2
+	str	r0, [sp, #44]           @ 4-byte Spill
+	mov	r0, r1
+	str	r0, [sp, #40]           @ 4-byte Spill
+	ldr	r0, [sp, #48]           @ 4-byte Reload
+	str	r0, [sp, #36]           @ 4-byte Spill
+	ldr	r0, [sp, #48]           @ 4-byte Reload
+	str	r0, [r11, #-32]
+	str	r1, [r11, #-36]
+	str	r2, [r11, #-40]
+	str	r3, [r11, #-44]
+	ldr	r0, [r11, #-40]
+	ldr	r1, [r11, #-44]
+	str	r8, [sp, #32]           @ 4-byte Spill
+	str	r9, [sp, #28]           @ 4-byte Spill
+	str	r10, [sp, #24]          @ 4-byte Spill
+	str	r7, [sp, #20]           @ 4-byte Spill
+	str	r12, [sp, #16]          @ 4-byte Spill
+	str	lr, [sp, #12]           @ 4-byte Spill
+	str	r4, [sp, #8]            @ 4-byte Spill
+	str	r5, [sp, #4]            @ 4-byte Spill
+	str	r6, [sp]                @ 4-byte Spill
+	bl	__aeabi_fmul
+	sub	sp, r11, #28
+	pop	{r4, r5, r6, r7, r8, r9, r10, r11, lr}
+	bx	lr
+.Lfunc_end1:
+	.size	float_args, .Lfunc_end1-float_args
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.globl	var_args                @ -- Begin function var_args
+	.p2align	2
+	.type	var_args,%function
+	.code	32                      @ @var_args
+var_args:
+	.fnstart
+@ %bb.0:
+	.pad	#8
+	sub	sp, sp, #8
+	.save	{r11, lr}
+	push	{r11, lr}
+	.setfp	r11, sp
+	mov	r11, sp
+	.pad	#36
+	sub	sp, sp, #36
+	str	r3, [r11, #12]
+	str	r2, [r11, #8]
+	mov	r2, r1
+	mov	r3, r0
+	str	r0, [r11, #-4]
+	str	r1, [r11, #-8]
+	add	r0, r11, #8
+	str	r0, [r11, #-12]
+	ldr	r0, [r11, #-12]
+	add	r1, r0, #4
+	str	r1, [r11, #-12]
+	ldr	r0, [r0]
+	str	r0, [r11, #-16]
+	ldr	r0, [r11, #-12]
+	add	r1, r0, #4
+	str	r1, [r11, #-12]
+	ldr	r0, [r0]
+	str	r0, [sp, #16]
+	ldr	r0, [r11, #-12]
+	add	r1, r0, #4
+	str	r1, [r11, #-12]
+	ldr	r0, [r0]
+	str	r0, [sp, #12]
+	ldr	r0, [r11, #-12]
+	add	r1, r0, #4
+	str	r1, [r11, #-12]
+	ldr	r0, [r0]
+	str	r0, [sp, #8]
+	ldr	r0, [r11, #-16]
+	ldr	r1, [sp, #16]
+	add	r0, r0, r1
+	ldr	r1, [sp, #12]
+	ldr	r12, [sp, #8]
+	mla	lr, r1, r12, r0
+	mov	r0, lr
+	str	r3, [sp, #4]            @ 4-byte Spill
+	str	r2, [sp]                @ 4-byte Spill
+	mov	sp, r11
+	pop	{r11, lr}
+	add	sp, sp, #8
+	bx	lr
+.Lfunc_end2:
+	.size	var_args, .Lfunc_end2-var_args
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.globl	test_int_args           @ -- Begin function test_int_args
+	.p2align	2
+	.type	test_int_args,%function
+	.code	32                      @ @test_int_args
+test_int_args:
+	.fnstart
+@ %bb.0:
+	.save	{r11, lr}
+	push	{r11, lr}
+	.setfp	r11, sp
+	mov	r11, sp
+	.pad	#40
+	sub	sp, sp, #40
+	mov	r0, sp
+	mov	r1, #108
+	str	r1, [r0, #28]
+	mov	r1, #107
+	str	r1, [r0, #24]
+	mov	r1, #106
+	str	r1, [r0, #20]
+	mov	r1, #105
+	str	r1, [r0, #16]
+	mov	r1, #104
+	str	r1, [r0, #12]
+	mov	r1, #103
+	str	r1, [r0, #8]
+	mov	r1, #102
+	str	r1, [r0, #4]
+	mov	r1, #101
+	str	r1, [r0]
+	mov	r0, #97
+	mov	r1, #98
+	mov	r2, #99
+	mov	r3, #100
+	bl	int_args
+	str	r0, [r11, #-4]          @ 4-byte Spill
+	mov	sp, r11
+	pop	{r11, lr}
+	bx	lr
+.Lfunc_end3:
+	.size	test_int_args, .Lfunc_end3-test_int_args
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.globl	test_float_args         @ -- Begin function test_float_args
+	.p2align	2
+	.type	test_float_args,%function
+	.code	32                      @ @test_float_args
+test_float_args:
+	.fnstart
+@ %bb.0:
+	.save	{r11, lr}
+	push	{r11, lr}
+	.setfp	r11, sp
+	mov	r11, sp
+	.pad	#40
+	sub	sp, sp, #40
+	mov	r0, sp
+	mov	r1, #20971520
+	orr	r1, r1, #1073741824
+	str	r1, [r0, #28]
+	mov	r1, #19922944
+	orr	r1, r1, #1073741824
+	str	r1, [r0, #24]
+	mov	r1, #18874368
+	orr	r1, r1, #1073741824
+	str	r1, [r0, #20]
+	mov	r1, #17825792
+	orr	r1, r1, #1073741824
+	str	r1, [r0, #16]
+	mov	r1, #1090519040
+	str	r1, [r0, #12]
+	mov	r1, #14680064
+	orr	r1, r1, #1073741824
+	str	r1, [r0, #8]
+	mov	r1, #12582912
+	orr	r1, r1, #1073741824
+	str	r1, [r0, #4]
+	mov	r1, #10485760
+	orr	r1, r1, #1073741824
+	str	r1, [r0]
+	mov	r0, #97
+	mov	r1, #98
+	mov	r2, #4194304
+	orr	r2, r2, #1073741824
+	mov	r3, #8388608
+	orr	r3, r3, #1073741824
+	bl	float_args
+	str	r0, [r11, #-4]          @ 4-byte Spill
+	mov	sp, r11
+	pop	{r11, lr}
+	bx	lr
+.Lfunc_end4:
+	.size	test_float_args, .Lfunc_end4-test_float_args
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.globl	test_var_args_1         @ -- Begin function test_var_args_1
+	.p2align	2
+	.type	test_var_args_1,%function
+	.code	32                      @ @test_var_args_1
+test_var_args_1:
+	.fnstart
+@ %bb.0:
+	.save	{r11, lr}
+	push	{r11, lr}
+	.setfp	r11, sp
+	mov	r11, sp
+	.pad	#40
+	sub	sp, sp, #40
+	mov	r0, sp
+	mov	r1, #108
+	str	r1, [r0, #28]
+	mov	r1, #107
+	str	r1, [r0, #24]
+	mov	r1, #106
+	str	r1, [r0, #20]
+	mov	r1, #105
+	str	r1, [r0, #16]
+	mov	r1, #104
+	str	r1, [r0, #12]
+	mov	r1, #103
+	str	r1, [r0, #8]
+	mov	r1, #102
+	str	r1, [r0, #4]
+	mov	r1, #101
+	str	r1, [r0]
+	mov	r0, #97
+	mov	r1, #98
+	mov	r2, #99
+	mov	r3, #100
+	bl	var_args
+	str	r0, [r11, #-4]          @ 4-byte Spill
+	mov	sp, r11
+	pop	{r11, lr}
+	bx	lr
+.Lfunc_end5:
+	.size	test_var_args_1, .Lfunc_end5-test_var_args_1
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.globl	test_var_args_2         @ -- Begin function test_var_args_2
+	.p2align	2
+	.type	test_var_args_2,%function
+	.code	32                      @ @test_var_args_2
+test_var_args_2:
+	.fnstart
+@ %bb.0:
+	.save	{r11, lr}
+	push	{r11, lr}
+	.setfp	r11, sp
+	mov	r11, sp
+	.pad	#80
+	sub	sp, sp, #80
+	mov	r0, sp
+	mov	r1, #2621440
+	orr	r1, r1, #1073741824
+	str	r1, [r0, #68]
+	mov	r1, #0
+	str	r1, [r0, #64]
+	mov	r2, #2490368
+	orr	r2, r2, #1073741824
+	str	r2, [r0, #60]
+	str	r1, [r0, #56]
+	mov	r2, #2359296
+	orr	r2, r2, #1073741824
+	str	r2, [r0, #52]
+	str	r1, [r0, #48]
+	mov	r2, #2228224
+	orr	r2, r2, #1073741824
+	str	r2, [r0, #44]
+	str	r1, [r0, #40]
+	mov	r2, #2097152
+	orr	r2, r2, #1073741824
+	str	r2, [r0, #36]
+	str	r1, [r0, #32]
+	mov	r2, #1835008
+	orr	r2, r2, #1073741824
+	str	r2, [r0, #28]
+	str	r1, [r0, #24]
+	mov	r2, #1572864
+	orr	r2, r2, #1073741824
+	str	r2, [r0, #20]
+	str	r1, [r0, #16]
+	mov	r2, #1310720
+	orr	r2, r2, #1073741824
+	str	r2, [r0, #12]
+	str	r1, [r0, #8]
+	mov	r2, #1048576
+	orr	r2, r2, #1073741824
+	str	r2, [r0, #4]
+	str	r1, [r0]
+	mov	r0, #97
+	mov	r2, #98
+	mov	r3, #524288
+	orr	r3, r3, #1073741824
+	str	r1, [r11, #-4]          @ 4-byte Spill
+	mov	r1, r2
+	ldr	r2, [r11, #-4]          @ 4-byte Reload
+	bl	var_args
+	str	r0, [r11, #-8]          @ 4-byte Spill
+	mov	sp, r11
+	pop	{r11, lr}
+	bx	lr
+.Lfunc_end6:
+	.size	test_var_args_2, .Lfunc_end6-test_var_args_2
+	.cantunwind
+	.fnend
+                                        @ -- End function
+
+	.ident	"Android (4751641 based on r328903) clang version 7.0.2 (https://android.googlesource.com/toolchain/clang 003100370607242ddd5815e4a043907ea9004281) (https://android.googlesource.com/toolchain/llvm 1d739ffb0366421d383e04ff80ec2ee591315116) (based on LLVM 7.0.2svn)"
+	.section	".note.GNU-stack","",%progbits
