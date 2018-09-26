@@ -1,0 +1,485 @@
+	.section	__TEXT,__text,regular,pure_instructions
+	.macosx_version_min 10, 13
+	.globl	_int_args               ## -- Begin function int_args
+	.p2align	4, 0x90
+_int_args:                              ## @int_args
+	.cfi_startproc
+## %bb.0:
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset %rbp, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register %rbp
+	pushq	%r15
+	pushq	%r14
+	pushq	%rbx
+	.cfi_offset %rbx, -40
+	.cfi_offset %r14, -32
+	.cfi_offset %r15, -24
+	movl	56(%rbp), %eax
+	movl	48(%rbp), %r10d
+	movl	40(%rbp), %r11d
+	movl	32(%rbp), %ebx
+	movl	24(%rbp), %r14d
+	movl	16(%rbp), %r15d
+	movl	%edi, -28(%rbp)
+	movl	%esi, -32(%rbp)
+	movl	%edx, -36(%rbp)
+	movl	%ecx, -40(%rbp)
+	movl	%r8d, -44(%rbp)
+	movl	%r9d, -48(%rbp)
+	movl	-28(%rbp), %ecx
+	movl	%eax, -52(%rbp)         ## 4-byte Spill
+	movl	%ecx, %eax
+	movl	%r15d, -56(%rbp)        ## 4-byte Spill
+	movl	%r14d, -60(%rbp)        ## 4-byte Spill
+	movl	%r10d, -64(%rbp)        ## 4-byte Spill
+	movl	%r11d, -68(%rbp)        ## 4-byte Spill
+	movl	%ebx, -72(%rbp)         ## 4-byte Spill
+	popq	%rbx
+	popq	%r14
+	popq	%r15
+	popq	%rbp
+	retq
+	.cfi_endproc
+                                        ## -- End function
+	.globl	_float_args             ## -- Begin function float_args
+	.p2align	4, 0x90
+_float_args:                            ## @float_args
+	.cfi_startproc
+## %bb.0:
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset %rbp, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register %rbp
+	movss	24(%rbp), %xmm8         ## xmm8 = mem[0],zero,zero,zero
+	movss	16(%rbp), %xmm9         ## xmm9 = mem[0],zero,zero,zero
+	movl	%edi, -4(%rbp)
+	movl	%esi, -8(%rbp)
+	movss	%xmm0, -12(%rbp)
+	movss	%xmm1, -16(%rbp)
+	movss	%xmm2, -20(%rbp)
+	movss	%xmm3, -24(%rbp)
+	movss	%xmm4, -28(%rbp)
+	movss	%xmm5, -32(%rbp)
+	movss	%xmm6, -36(%rbp)
+	movss	%xmm7, -40(%rbp)
+	movss	-12(%rbp), %xmm0        ## xmm0 = mem[0],zero,zero,zero
+	mulss	-16(%rbp), %xmm0
+	movss	%xmm9, -44(%rbp)        ## 4-byte Spill
+	movss	%xmm8, -48(%rbp)        ## 4-byte Spill
+	popq	%rbp
+	retq
+	.cfi_endproc
+                                        ## -- End function
+	.globl	_var_args               ## -- Begin function var_args
+	.p2align	4, 0x90
+_var_args:                              ## @var_args
+	.cfi_startproc
+## %bb.0:
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset %rbp, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register %rbp
+	subq	$528, %rsp              ## imm = 0x210
+	testb	%al, %al
+	movaps	%xmm7, -256(%rbp)       ## 16-byte Spill
+	movaps	%xmm6, -272(%rbp)       ## 16-byte Spill
+	movaps	%xmm5, -288(%rbp)       ## 16-byte Spill
+	movaps	%xmm4, -304(%rbp)       ## 16-byte Spill
+	movaps	%xmm3, -320(%rbp)       ## 16-byte Spill
+	movaps	%xmm2, -336(%rbp)       ## 16-byte Spill
+	movaps	%xmm1, -352(%rbp)       ## 16-byte Spill
+	movaps	%xmm0, -368(%rbp)       ## 16-byte Spill
+	movl	%edi, -372(%rbp)        ## 4-byte Spill
+	movq	%r9, -384(%rbp)         ## 8-byte Spill
+	movq	%r8, -392(%rbp)         ## 8-byte Spill
+	movq	%rcx, -400(%rbp)        ## 8-byte Spill
+	movq	%rdx, -408(%rbp)        ## 8-byte Spill
+	movl	%esi, -412(%rbp)        ## 4-byte Spill
+	je	LBB2_16
+## %bb.15:
+	movaps	-368(%rbp), %xmm0       ## 16-byte Reload
+	movaps	%xmm0, -192(%rbp)
+	movaps	-352(%rbp), %xmm1       ## 16-byte Reload
+	movaps	%xmm1, -176(%rbp)
+	movaps	-336(%rbp), %xmm2       ## 16-byte Reload
+	movaps	%xmm2, -160(%rbp)
+	movaps	-320(%rbp), %xmm3       ## 16-byte Reload
+	movaps	%xmm3, -144(%rbp)
+	movaps	-304(%rbp), %xmm4       ## 16-byte Reload
+	movaps	%xmm4, -128(%rbp)
+	movaps	-288(%rbp), %xmm5       ## 16-byte Reload
+	movaps	%xmm5, -112(%rbp)
+	movaps	-272(%rbp), %xmm6       ## 16-byte Reload
+	movaps	%xmm6, -96(%rbp)
+	movaps	-256(%rbp), %xmm7       ## 16-byte Reload
+	movaps	%xmm7, -80(%rbp)
+LBB2_16:
+	movq	-384(%rbp), %rax        ## 8-byte Reload
+	movq	%rax, -200(%rbp)
+	movq	-392(%rbp), %rcx        ## 8-byte Reload
+	movq	%rcx, -208(%rbp)
+	movq	-400(%rbp), %rdx        ## 8-byte Reload
+	movq	%rdx, -216(%rbp)
+	movq	-408(%rbp), %rsi        ## 8-byte Reload
+	movq	%rsi, -224(%rbp)
+	movl	-412(%rbp), %edi        ## 4-byte Reload
+	movl	-372(%rbp), %r8d        ## 4-byte Reload
+	leaq	-32(%rbp), %r9
+	movq	___stack_chk_guard@GOTPCREL(%rip), %r10
+	movq	(%r10), %r10
+	movq	%r10, -8(%rbp)
+	movl	%r8d, -36(%rbp)
+	movl	%edi, -40(%rbp)
+	movq	%r9, %r10
+	leaq	-240(%rbp), %r11
+	movq	%r11, 16(%r10)
+	leaq	16(%rbp), %r11
+	movq	%r11, 8(%r10)
+	movl	$48, 4(%r10)
+	movl	$16, (%r10)
+	movl	-32(%rbp), %edi
+	cmpl	$40, %edi
+	movq	%r9, -424(%rbp)         ## 8-byte Spill
+	movl	%edi, -428(%rbp)        ## 4-byte Spill
+	ja	LBB2_2
+## %bb.1:
+	movl	-428(%rbp), %eax        ## 4-byte Reload
+	movslq	%eax, %rcx
+	movq	-424(%rbp), %rdx        ## 8-byte Reload
+	addq	16(%rdx), %rcx
+	addl	$8, %eax
+	movl	%eax, (%rdx)
+	movq	%rcx, -440(%rbp)        ## 8-byte Spill
+	jmp	LBB2_3
+LBB2_2:
+	movq	-424(%rbp), %rax        ## 8-byte Reload
+	movq	8(%rax), %rcx
+	movq	%rcx, %rdx
+	addq	$8, %rcx
+	movq	%rcx, 8(%rax)
+	movq	%rdx, -440(%rbp)        ## 8-byte Spill
+LBB2_3:
+	movq	-440(%rbp), %rax        ## 8-byte Reload
+	leaq	-32(%rbp), %rcx
+	movl	(%rax), %edx
+	movl	%edx, -44(%rbp)
+	movl	-32(%rbp), %edx
+	cmpl	$40, %edx
+	movq	%rcx, -448(%rbp)        ## 8-byte Spill
+	movl	%edx, -452(%rbp)        ## 4-byte Spill
+	ja	LBB2_5
+## %bb.4:
+	movl	-452(%rbp), %eax        ## 4-byte Reload
+	movslq	%eax, %rcx
+	movq	-448(%rbp), %rdx        ## 8-byte Reload
+	addq	16(%rdx), %rcx
+	addl	$8, %eax
+	movl	%eax, (%rdx)
+	movq	%rcx, -464(%rbp)        ## 8-byte Spill
+	jmp	LBB2_6
+LBB2_5:
+	movq	-448(%rbp), %rax        ## 8-byte Reload
+	movq	8(%rax), %rcx
+	movq	%rcx, %rdx
+	addq	$8, %rcx
+	movq	%rcx, 8(%rax)
+	movq	%rdx, -464(%rbp)        ## 8-byte Spill
+LBB2_6:
+	movq	-464(%rbp), %rax        ## 8-byte Reload
+	leaq	-32(%rbp), %rcx
+	movl	(%rax), %edx
+	movl	%edx, -48(%rbp)
+	movl	-32(%rbp), %edx
+	cmpl	$40, %edx
+	movq	%rcx, -472(%rbp)        ## 8-byte Spill
+	movl	%edx, -476(%rbp)        ## 4-byte Spill
+	ja	LBB2_8
+## %bb.7:
+	movl	-476(%rbp), %eax        ## 4-byte Reload
+	movslq	%eax, %rcx
+	movq	-472(%rbp), %rdx        ## 8-byte Reload
+	addq	16(%rdx), %rcx
+	addl	$8, %eax
+	movl	%eax, (%rdx)
+	movq	%rcx, -488(%rbp)        ## 8-byte Spill
+	jmp	LBB2_9
+LBB2_8:
+	movq	-472(%rbp), %rax        ## 8-byte Reload
+	movq	8(%rax), %rcx
+	movq	%rcx, %rdx
+	addq	$8, %rcx
+	movq	%rcx, 8(%rax)
+	movq	%rdx, -488(%rbp)        ## 8-byte Spill
+LBB2_9:
+	movq	-488(%rbp), %rax        ## 8-byte Reload
+	leaq	-32(%rbp), %rcx
+	movl	(%rax), %edx
+	movl	%edx, -52(%rbp)
+	movl	-32(%rbp), %edx
+	cmpl	$40, %edx
+	movq	%rcx, -496(%rbp)        ## 8-byte Spill
+	movl	%edx, -500(%rbp)        ## 4-byte Spill
+	ja	LBB2_11
+## %bb.10:
+	movl	-500(%rbp), %eax        ## 4-byte Reload
+	movslq	%eax, %rcx
+	movq	-496(%rbp), %rdx        ## 8-byte Reload
+	addq	16(%rdx), %rcx
+	addl	$8, %eax
+	movl	%eax, (%rdx)
+	movq	%rcx, -512(%rbp)        ## 8-byte Spill
+	jmp	LBB2_12
+LBB2_11:
+	movq	-496(%rbp), %rax        ## 8-byte Reload
+	movq	8(%rax), %rcx
+	movq	%rcx, %rdx
+	addq	$8, %rcx
+	movq	%rcx, 8(%rax)
+	movq	%rdx, -512(%rbp)        ## 8-byte Spill
+LBB2_12:
+	movq	-512(%rbp), %rax        ## 8-byte Reload
+	leaq	-32(%rbp), %rcx
+	movl	(%rax), %edx
+	movl	%edx, -56(%rbp)
+	movl	-44(%rbp), %edx
+	addl	-48(%rbp), %edx
+	movl	-52(%rbp), %esi
+	imull	-56(%rbp), %esi
+	addl	%esi, %edx
+	movq	___stack_chk_guard@GOTPCREL(%rip), %rax
+	movq	(%rax), %rax
+	movq	-8(%rbp), %rdi
+	cmpq	%rdi, %rax
+	movq	%rcx, -520(%rbp)        ## 8-byte Spill
+	movl	%edx, -524(%rbp)        ## 4-byte Spill
+	jne	LBB2_14
+## %bb.13:
+	movl	-524(%rbp), %eax        ## 4-byte Reload
+	addq	$528, %rsp              ## imm = 0x210
+	popq	%rbp
+	retq
+LBB2_14:
+	callq	___stack_chk_fail
+	ud2
+	.cfi_endproc
+                                        ## -- End function
+	.globl	_test_int_args          ## -- Begin function test_int_args
+	.p2align	4, 0x90
+_test_int_args:                         ## @test_int_args
+	.cfi_startproc
+## %bb.0:
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset %rbp, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register %rbp
+	pushq	%r15
+	pushq	%r14
+	pushq	%rbx
+	subq	$88, %rsp
+	.cfi_offset %rbx, -40
+	.cfi_offset %r14, -32
+	.cfi_offset %r15, -24
+	movl	$97, %edi
+	movl	$98, %esi
+	movl	$99, %edx
+	movl	$100, %ecx
+	movl	$101, %r8d
+	movl	$102, %r9d
+	movl	$103, %eax
+	movl	$104, %r10d
+	movl	$105, %r11d
+	movl	$106, %ebx
+	movl	$107, %r14d
+	movl	$108, %r15d
+	movl	$103, (%rsp)
+	movl	$104, 8(%rsp)
+	movl	$105, 16(%rsp)
+	movl	$106, 24(%rsp)
+	movl	$107, 32(%rsp)
+	movl	$108, 40(%rsp)
+	movl	%r15d, -28(%rbp)        ## 4-byte Spill
+	movl	%r14d, -32(%rbp)        ## 4-byte Spill
+	movl	%ebx, -36(%rbp)         ## 4-byte Spill
+	movl	%r11d, -40(%rbp)        ## 4-byte Spill
+	movl	%r10d, -44(%rbp)        ## 4-byte Spill
+	movl	%eax, -48(%rbp)         ## 4-byte Spill
+	callq	_int_args
+	movl	%eax, -52(%rbp)         ## 4-byte Spill
+	addq	$88, %rsp
+	popq	%rbx
+	popq	%r14
+	popq	%r15
+	popq	%rbp
+	retq
+	.cfi_endproc
+                                        ## -- End function
+	.section	__TEXT,__literal4,4byte_literals
+	.p2align	2               ## -- Begin function test_float_args
+LCPI4_0:
+	.long	1077936128              ## float 3
+LCPI4_1:
+	.long	1082130432              ## float 4
+LCPI4_2:
+	.long	1084227584              ## float 5
+LCPI4_3:
+	.long	1086324736              ## float 6
+LCPI4_4:
+	.long	1088421888              ## float 7
+LCPI4_5:
+	.long	1090519040              ## float 8
+LCPI4_6:
+	.long	1091567616              ## float 9
+LCPI4_7:
+	.long	1092616192              ## float 10
+LCPI4_8:
+	.long	1093664768              ## float 11
+LCPI4_9:
+	.long	1094713344              ## float 12
+	.section	__TEXT,__text,regular,pure_instructions
+	.globl	_test_float_args
+	.p2align	4, 0x90
+_test_float_args:                       ## @test_float_args
+	.cfi_startproc
+## %bb.0:
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset %rbp, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register %rbp
+	subq	$32, %rsp
+	movl	$97, %edi
+	movl	$98, %esi
+	movss	LCPI4_0(%rip), %xmm0    ## xmm0 = mem[0],zero,zero,zero
+	movss	LCPI4_1(%rip), %xmm1    ## xmm1 = mem[0],zero,zero,zero
+	movss	LCPI4_2(%rip), %xmm2    ## xmm2 = mem[0],zero,zero,zero
+	movss	LCPI4_3(%rip), %xmm3    ## xmm3 = mem[0],zero,zero,zero
+	movss	LCPI4_4(%rip), %xmm4    ## xmm4 = mem[0],zero,zero,zero
+	movss	LCPI4_5(%rip), %xmm5    ## xmm5 = mem[0],zero,zero,zero
+	movss	LCPI4_6(%rip), %xmm6    ## xmm6 = mem[0],zero,zero,zero
+	movss	LCPI4_7(%rip), %xmm7    ## xmm7 = mem[0],zero,zero,zero
+	movss	LCPI4_8(%rip), %xmm8    ## xmm8 = mem[0],zero,zero,zero
+	movss	LCPI4_9(%rip), %xmm9    ## xmm9 = mem[0],zero,zero,zero
+	movss	%xmm8, (%rsp)
+	movss	%xmm9, 8(%rsp)
+	callq	_float_args
+	movss	%xmm0, -4(%rbp)         ## 4-byte Spill
+	addq	$32, %rsp
+	popq	%rbp
+	retq
+	.cfi_endproc
+                                        ## -- End function
+	.globl	_test_var_args_1        ## -- Begin function test_var_args_1
+	.p2align	4, 0x90
+_test_var_args_1:                       ## @test_var_args_1
+	.cfi_startproc
+## %bb.0:
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset %rbp, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register %rbp
+	pushq	%r15
+	pushq	%r14
+	pushq	%rbx
+	subq	$88, %rsp
+	.cfi_offset %rbx, -40
+	.cfi_offset %r14, -32
+	.cfi_offset %r15, -24
+	movl	$97, %edi
+	movl	$98, %esi
+	movl	$99, %edx
+	movl	$100, %ecx
+	movl	$101, %r8d
+	movl	$102, %r9d
+	movl	$103, %eax
+	movl	$104, %r10d
+	movl	$105, %r11d
+	movl	$106, %ebx
+	movl	$107, %r14d
+	movl	$108, %r15d
+	movl	$103, (%rsp)
+	movl	$104, 8(%rsp)
+	movl	$105, 16(%rsp)
+	movl	$106, 24(%rsp)
+	movl	$107, 32(%rsp)
+	movl	$108, 40(%rsp)
+	movl	%eax, -28(%rbp)         ## 4-byte Spill
+	movb	$0, %al
+	movl	%r15d, -32(%rbp)        ## 4-byte Spill
+	movl	%r14d, -36(%rbp)        ## 4-byte Spill
+	movl	%ebx, -40(%rbp)         ## 4-byte Spill
+	movl	%r11d, -44(%rbp)        ## 4-byte Spill
+	movl	%r10d, -48(%rbp)        ## 4-byte Spill
+	callq	_var_args
+	movl	%eax, -52(%rbp)         ## 4-byte Spill
+	addq	$88, %rsp
+	popq	%rbx
+	popq	%r14
+	popq	%r15
+	popq	%rbp
+	retq
+	.cfi_endproc
+                                        ## -- End function
+	.section	__TEXT,__literal8,8byte_literals
+	.p2align	3               ## -- Begin function test_var_args_2
+LCPI6_0:
+	.quad	4613937818241073152     ## double 3
+LCPI6_1:
+	.quad	4616189618054758400     ## double 4
+LCPI6_2:
+	.quad	4617315517961601024     ## double 5
+LCPI6_3:
+	.quad	4618441417868443648     ## double 6
+LCPI6_4:
+	.quad	4619567317775286272     ## double 7
+LCPI6_5:
+	.quad	4620693217682128896     ## double 8
+LCPI6_6:
+	.quad	4621256167635550208     ## double 9
+LCPI6_7:
+	.quad	4621819117588971520     ## double 10
+LCPI6_8:
+	.quad	4622382067542392832     ## double 11
+LCPI6_9:
+	.quad	4622945017495814144     ## double 12
+	.section	__TEXT,__text,regular,pure_instructions
+	.globl	_test_var_args_2
+	.p2align	4, 0x90
+_test_var_args_2:                       ## @test_var_args_2
+	.cfi_startproc
+## %bb.0:
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset %rbp, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register %rbp
+	subq	$32, %rsp
+	movl	$97, %edi
+	movl	$98, %esi
+	movsd	LCPI6_0(%rip), %xmm0    ## xmm0 = mem[0],zero
+	movsd	LCPI6_1(%rip), %xmm1    ## xmm1 = mem[0],zero
+	movsd	LCPI6_2(%rip), %xmm2    ## xmm2 = mem[0],zero
+	movsd	LCPI6_3(%rip), %xmm3    ## xmm3 = mem[0],zero
+	movsd	LCPI6_4(%rip), %xmm4    ## xmm4 = mem[0],zero
+	movsd	LCPI6_5(%rip), %xmm5    ## xmm5 = mem[0],zero
+	movsd	LCPI6_6(%rip), %xmm6    ## xmm6 = mem[0],zero
+	movsd	LCPI6_7(%rip), %xmm7    ## xmm7 = mem[0],zero
+	movsd	LCPI6_8(%rip), %xmm8    ## xmm8 = mem[0],zero
+	movsd	LCPI6_9(%rip), %xmm9    ## xmm9 = mem[0],zero
+	movsd	%xmm8, (%rsp)
+	movsd	%xmm9, 8(%rsp)
+	movb	$8, %al
+	callq	_var_args
+	movl	%eax, -4(%rbp)          ## 4-byte Spill
+	addq	$32, %rsp
+	popq	%rbp
+	retq
+	.cfi_endproc
+                                        ## -- End function
+
+.subsections_via_symbols
