@@ -1,0 +1,437 @@
+	.text
+	.syntax unified
+	.eabi_attribute	67, "2.09"	@ Tag_conformance
+	.cpu	arm1176jzf-s
+	.eabi_attribute	6, 6	@ Tag_CPU_arch
+	.eabi_attribute	8, 1	@ Tag_ARM_ISA_use
+	.eabi_attribute	9, 1	@ Tag_THUMB_ISA_use
+	.fpu	vfpv2
+	.eabi_attribute	34, 0	@ Tag_CPU_unaligned_access
+	.eabi_attribute	68, 1	@ Tag_Virtualization_use
+	.eabi_attribute	17, 1	@ Tag_ABI_PCS_GOT_use
+	.eabi_attribute	20, 1	@ Tag_ABI_FP_denormal
+	.eabi_attribute	21, 1	@ Tag_ABI_FP_exceptions
+	.eabi_attribute	23, 3	@ Tag_ABI_FP_number_model
+	.eabi_attribute	24, 1	@ Tag_ABI_align_needed
+	.eabi_attribute	25, 1	@ Tag_ABI_align_preserved
+	.eabi_attribute	28, 1	@ Tag_ABI_VFP_args
+	.eabi_attribute	38, 1	@ Tag_ABI_FP_16bit_format
+	.eabi_attribute	18, 4	@ Tag_ABI_PCS_wchar_t
+	.eabi_attribute	26, 2	@ Tag_ABI_enum_size
+	.eabi_attribute	14, 0	@ Tag_ABI_PCS_R9_use
+	.file	"callconv.c"
+	.globl	int_args                @ -- Begin function int_args
+	.p2align	2
+	.type	int_args,%function
+	.code	32                      @ @int_args
+int_args:
+	.fnstart
+@ %bb.0:
+	.save	{r4, r5, r6, r7, r8, r9, r11, lr}
+	push	{r4, r5, r6, r7, r8, r9, r11, lr}
+	.setfp	r11, sp, #24
+	add	r11, sp, #24
+	.pad	#48
+	sub	sp, sp, #48
+	ldr	r12, [r11, #36]
+	ldr	lr, [r11, #32]
+	ldr	r4, [r11, #28]
+	ldr	r5, [r11, #24]
+	ldr	r6, [r11, #20]
+	ldr	r7, [r11, #16]
+	ldr	r8, [r11, #12]
+	ldr	r9, [r11, #8]
+	str	r0, [r11, #-28]
+	str	r1, [r11, #-32]
+	str	r2, [sp, #36]
+	str	r3, [sp, #32]
+	ldr	r0, [r11, #-28]
+	str	r9, [sp, #28]           @ 4-byte Spill
+	str	r6, [sp, #24]           @ 4-byte Spill
+	str	r7, [sp, #20]           @ 4-byte Spill
+	str	r8, [sp, #16]           @ 4-byte Spill
+	str	r12, [sp, #12]          @ 4-byte Spill
+	str	lr, [sp, #8]            @ 4-byte Spill
+	str	r4, [sp, #4]            @ 4-byte Spill
+	str	r5, [sp]                @ 4-byte Spill
+	sub	sp, r11, #24
+	pop	{r4, r5, r6, r7, r8, r9, r11, pc}
+.Lfunc_end0:
+	.size	int_args, .Lfunc_end0-int_args
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.globl	float_args              @ -- Begin function float_args
+	.p2align	2
+	.type	float_args,%function
+	.code	32                      @ @float_args
+float_args:
+	.fnstart
+@ %bb.0:
+	.pad	#48
+	sub	sp, sp, #48
+	str	r0, [sp, #44]
+	str	r1, [sp, #40]
+	vstr	s0, [sp, #36]
+	vstr	s1, [sp, #32]
+	vstr	s2, [sp, #28]
+	vstr	s3, [sp, #24]
+	vstr	s4, [sp, #20]
+	vstr	s5, [sp, #16]
+	vstr	s6, [sp, #12]
+	vstr	s7, [sp, #8]
+	vstr	s8, [sp, #4]
+	vstr	s9, [sp]
+	vldr	s0, [sp, #36]
+	vldr	s2, [sp, #32]
+	vmul.f32	s0, s0, s2
+	add	sp, sp, #48
+	bx	lr
+.Lfunc_end1:
+	.size	float_args, .Lfunc_end1-float_args
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.globl	var_args                @ -- Begin function var_args
+	.p2align	2
+	.type	var_args,%function
+	.code	32                      @ @var_args
+var_args:
+	.fnstart
+@ %bb.0:
+	.pad	#8
+	sub	sp, sp, #8
+	.pad	#32
+	sub	sp, sp, #32
+	str	r3, [sp, #36]
+	str	r2, [sp, #32]
+	str	r0, [sp, #28]
+	str	r1, [sp, #24]
+	add	r0, sp, #20
+	mov	r1, r0
+	add	r2, sp, #32
+	str	r2, [r1]
+	ldr	r1, [sp, #20]
+	add	r2, r1, #4
+	str	r2, [sp, #20]
+	ldr	r1, [r1]
+	str	r1, [sp, #16]
+	ldr	r1, [sp, #20]
+	add	r2, r1, #4
+	str	r2, [sp, #20]
+	ldr	r1, [r1]
+	str	r1, [sp, #12]
+	ldr	r1, [sp, #20]
+	add	r2, r1, #4
+	str	r2, [sp, #20]
+	ldr	r1, [r1]
+	str	r1, [sp, #8]
+	ldr	r1, [sp, #20]
+	add	r2, r1, #4
+	str	r2, [sp, #20]
+	ldr	r1, [r1]
+	str	r1, [sp, #4]
+	ldr	r1, [sp, #16]
+	ldr	r2, [sp, #12]
+	add	r1, r1, r2
+	ldr	r2, [sp, #8]
+	ldr	r3, [sp, #4]
+	mul	r2, r2, r3
+	add	r1, r1, r2
+	str	r0, [sp]                @ 4-byte Spill
+	mov	r0, r1
+	add	sp, sp, #32
+	add	sp, sp, #8
+	bx	lr
+.Lfunc_end2:
+	.size	var_args, .Lfunc_end2-var_args
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.globl	test_int_args           @ -- Begin function test_int_args
+	.p2align	2
+	.type	test_int_args,%function
+	.code	32                      @ @test_int_args
+test_int_args:
+	.fnstart
+@ %bb.0:
+	.save	{r4, r5, r6, r7, r8, r9, r11, lr}
+	push	{r4, r5, r6, r7, r8, r9, r11, lr}
+	.setfp	r11, sp, #24
+	add	r11, sp, #24
+	.pad	#40
+	sub	sp, sp, #40
+	ldr	r0, .LCPI3_0
+	ldr	r1, .LCPI3_1
+	ldr	r2, .LCPI3_2
+	ldr	r3, .LCPI3_3
+	ldr	r12, .LCPI3_4
+	ldr	lr, .LCPI3_5
+	ldr	r4, .LCPI3_6
+	ldr	r5, .LCPI3_7
+	ldr	r6, .LCPI3_8
+	ldr	r7, .LCPI3_9
+	ldr	r8, .LCPI3_10
+	ldr	r9, .LCPI3_11
+	str	r12, [sp]
+	str	lr, [sp, #4]
+	str	r4, [sp, #8]
+	str	r5, [sp, #12]
+	str	r6, [sp, #16]
+	str	r7, [sp, #20]
+	str	r8, [sp, #24]
+	str	r9, [sp, #28]
+	bl	int_args
+	str	r0, [r11, #-28]         @ 4-byte Spill
+	sub	sp, r11, #24
+	pop	{r4, r5, r6, r7, r8, r9, r11, pc}
+	.p2align	2
+@ %bb.1:
+.LCPI3_0:
+	.long	97                      @ 0x61
+.LCPI3_1:
+	.long	98                      @ 0x62
+.LCPI3_2:
+	.long	99                      @ 0x63
+.LCPI3_3:
+	.long	100                     @ 0x64
+.LCPI3_4:
+	.long	101                     @ 0x65
+.LCPI3_5:
+	.long	102                     @ 0x66
+.LCPI3_6:
+	.long	103                     @ 0x67
+.LCPI3_7:
+	.long	104                     @ 0x68
+.LCPI3_8:
+	.long	105                     @ 0x69
+.LCPI3_9:
+	.long	106                     @ 0x6a
+.LCPI3_10:
+	.long	107                     @ 0x6b
+.LCPI3_11:
+	.long	108                     @ 0x6c
+.Lfunc_end3:
+	.size	test_int_args, .Lfunc_end3-test_int_args
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.globl	test_float_args         @ -- Begin function test_float_args
+	.p2align	2
+	.type	test_float_args,%function
+	.code	32                      @ @test_float_args
+test_float_args:
+	.fnstart
+@ %bb.0:
+	.save	{r11, lr}
+	push	{r11, lr}
+	.setfp	r11, sp
+	mov	r11, sp
+	.pad	#8
+	sub	sp, sp, #8
+	ldr	r0, .LCPI4_0
+	ldr	r1, .LCPI4_1
+	vldr	s0, .LCPI4_2
+	vldr	s1, .LCPI4_3
+	vldr	s2, .LCPI4_4
+	vldr	s3, .LCPI4_5
+	vldr	s4, .LCPI4_6
+	vldr	s5, .LCPI4_7
+	vldr	s6, .LCPI4_8
+	vldr	s7, .LCPI4_9
+	vldr	s8, .LCPI4_10
+	vldr	s9, .LCPI4_11
+	bl	float_args
+	vstr	s0, [sp, #4]            @ 4-byte Spill
+	mov	sp, r11
+	pop	{r11, pc}
+	.p2align	2
+@ %bb.1:
+.LCPI4_0:
+	.long	97                      @ 0x61
+.LCPI4_1:
+	.long	98                      @ 0x62
+.LCPI4_2:
+	.long	1077936128              @ float 3
+.LCPI4_3:
+	.long	1082130432              @ float 4
+.LCPI4_4:
+	.long	1084227584              @ float 5
+.LCPI4_5:
+	.long	1086324736              @ float 6
+.LCPI4_6:
+	.long	1088421888              @ float 7
+.LCPI4_7:
+	.long	1090519040              @ float 8
+.LCPI4_8:
+	.long	1091567616              @ float 9
+.LCPI4_9:
+	.long	1092616192              @ float 10
+.LCPI4_10:
+	.long	1093664768              @ float 11
+.LCPI4_11:
+	.long	1094713344              @ float 12
+.Lfunc_end4:
+	.size	test_float_args, .Lfunc_end4-test_float_args
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.globl	test_var_args_1         @ -- Begin function test_var_args_1
+	.p2align	2
+	.type	test_var_args_1,%function
+	.code	32                      @ @test_var_args_1
+test_var_args_1:
+	.fnstart
+@ %bb.0:
+	.save	{r4, r5, r6, r7, r8, r9, r11, lr}
+	push	{r4, r5, r6, r7, r8, r9, r11, lr}
+	.setfp	r11, sp, #24
+	add	r11, sp, #24
+	.pad	#40
+	sub	sp, sp, #40
+	ldr	r0, .LCPI5_0
+	ldr	r1, .LCPI5_1
+	ldr	r2, .LCPI5_2
+	ldr	r3, .LCPI5_3
+	ldr	r12, .LCPI5_4
+	ldr	lr, .LCPI5_5
+	ldr	r4, .LCPI5_6
+	ldr	r5, .LCPI5_7
+	ldr	r6, .LCPI5_8
+	ldr	r7, .LCPI5_9
+	ldr	r8, .LCPI5_10
+	ldr	r9, .LCPI5_11
+	str	r12, [sp]
+	str	lr, [sp, #4]
+	str	r4, [sp, #8]
+	str	r5, [sp, #12]
+	str	r6, [sp, #16]
+	str	r7, [sp, #20]
+	str	r8, [sp, #24]
+	str	r9, [sp, #28]
+	bl	var_args
+	str	r0, [r11, #-28]         @ 4-byte Spill
+	sub	sp, r11, #24
+	pop	{r4, r5, r6, r7, r8, r9, r11, pc}
+	.p2align	2
+@ %bb.1:
+.LCPI5_0:
+	.long	97                      @ 0x61
+.LCPI5_1:
+	.long	98                      @ 0x62
+.LCPI5_2:
+	.long	99                      @ 0x63
+.LCPI5_3:
+	.long	100                     @ 0x64
+.LCPI5_4:
+	.long	101                     @ 0x65
+.LCPI5_5:
+	.long	102                     @ 0x66
+.LCPI5_6:
+	.long	103                     @ 0x67
+.LCPI5_7:
+	.long	104                     @ 0x68
+.LCPI5_8:
+	.long	105                     @ 0x69
+.LCPI5_9:
+	.long	106                     @ 0x6a
+.LCPI5_10:
+	.long	107                     @ 0x6b
+.LCPI5_11:
+	.long	108                     @ 0x6c
+.Lfunc_end5:
+	.size	test_var_args_1, .Lfunc_end5-test_var_args_1
+	.cantunwind
+	.fnend
+                                        @ -- End function
+	.globl	test_var_args_2         @ -- Begin function test_var_args_2
+	.p2align	3
+	.type	test_var_args_2,%function
+	.code	32                      @ @test_var_args_2
+test_var_args_2:
+	.fnstart
+@ %bb.0:
+	.save	{r11, lr}
+	push	{r11, lr}
+	.setfp	r11, sp
+	mov	r11, sp
+	.vsave	{d8, d9}
+	vpush	{d8, d9}
+	.pad	#80
+	sub	sp, sp, #80
+	ldr	r0, .LCPI6_0
+	ldr	r1, .LCPI6_1
+	vldr	d0, .LCPI6_2
+	vldr	d1, .LCPI6_3
+	vldr	d2, .LCPI6_4
+	vldr	d3, .LCPI6_5
+	vldr	d4, .LCPI6_6
+	vldr	d5, .LCPI6_7
+	vldr	d6, .LCPI6_8
+	vldr	d7, .LCPI6_9
+	vldr	d8, .LCPI6_10
+	vldr	d9, .LCPI6_11
+	vmov	r2, r3, d0
+	vstr	d1, [sp]
+	vstr	d2, [sp, #8]
+	vstr	d3, [sp, #16]
+	vstr	d4, [sp, #24]
+	vstr	d5, [sp, #32]
+	vstr	d6, [sp, #40]
+	vstr	d7, [sp, #48]
+	vstr	d8, [sp, #56]
+	vstr	d9, [sp, #64]
+	bl	var_args
+	str	r0, [r11, #-20]         @ 4-byte Spill
+	sub	sp, r11, #16
+	vpop	{d8, d9}
+	pop	{r11, pc}
+	.p2align	3
+@ %bb.1:
+.LCPI6_2:
+	.long	0                       @ double 3
+	.long	1074266112
+.LCPI6_3:
+	.long	0                       @ double 4
+	.long	1074790400
+.LCPI6_4:
+	.long	0                       @ double 5
+	.long	1075052544
+.LCPI6_5:
+	.long	0                       @ double 6
+	.long	1075314688
+.LCPI6_6:
+	.long	0                       @ double 7
+	.long	1075576832
+.LCPI6_7:
+	.long	0                       @ double 8
+	.long	1075838976
+.LCPI6_8:
+	.long	0                       @ double 9
+	.long	1075970048
+.LCPI6_9:
+	.long	0                       @ double 10
+	.long	1076101120
+.LCPI6_10:
+	.long	0                       @ double 11
+	.long	1076232192
+.LCPI6_11:
+	.long	0                       @ double 12
+	.long	1076363264
+.LCPI6_0:
+	.long	97                      @ 0x61
+.LCPI6_1:
+	.long	98                      @ 0x62
+.Lfunc_end6:
+	.size	test_var_args_2, .Lfunc_end6-test_var_args_2
+	.cantunwind
+	.fnend
+                                        @ -- End function
+
+	.ident	"clang version 8.0.0 (trunk 342987) (llvm/trunk 342982)"
+	.section	".note.GNU-stack","",%progbits
+	.addrsig
+	.addrsig_sym int_args
+	.addrsig_sym float_args
+	.addrsig_sym var_args
+	.eabi_attribute	30, 6	@ Tag_ABI_optimization_goals
