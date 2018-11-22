@@ -1,0 +1,598 @@
+	.text
+	.file	"callconv.c"
+	.globl	int_args                // -- Begin function int_args
+	.p2align	2
+	.type	int_args,@function
+int_args:                               // @int_args
+// %bb.0:
+	sub	sp, sp, #48             // =48
+	ldr	w8, [sp, #48]
+	ldr	w9, [sp, #56]
+	ldr	w10, [sp, #64]
+	ldr	w11, [sp, #72]
+	str	w0, [sp, #44]
+	str	w1, [sp, #40]
+	str	w2, [sp, #36]
+	str	w3, [sp, #32]
+	str	w4, [sp, #28]
+	str	w5, [sp, #24]
+	str	w6, [sp, #20]
+	str	w7, [sp, #16]
+	str	w8, [sp, #12]
+	str	w9, [sp, #8]
+	str	w10, [sp, #4]
+	str	w11, [sp]
+	ldr	w0, [sp, #44]
+	add	sp, sp, #48             // =48
+	ret
+.Lfunc_end0:
+	.size	int_args, .Lfunc_end0-int_args
+                                        // -- End function
+	.globl	float_args              // -- Begin function float_args
+	.p2align	2
+	.type	float_args,@function
+float_args:                             // @float_args
+// %bb.0:
+	sub	sp, sp, #64             // =64
+	ldr	x8, [sp, #64]
+	ldr	x9, [sp, #72]
+	str	w0, [sp, #60]
+	str	w1, [sp, #56]
+	str	s0, [sp, #52]
+	str	s1, [sp, #48]
+	str	s2, [sp, #44]
+	str	s3, [sp, #40]
+	str	s4, [sp, #36]
+	str	s5, [sp, #32]
+	str	d6, [sp, #24]
+	str	d7, [sp, #16]
+	str	x8, [sp, #8]
+	str	x9, [sp]
+	ldr	s0, [sp, #52]
+	ldr	s1, [sp, #48]
+	fmul	s0, s0, s1
+	add	sp, sp, #64             // =64
+	ret
+.Lfunc_end1:
+	.size	float_args, .Lfunc_end1-float_args
+                                        // -- End function
+	.globl	var_args_int            // -- Begin function var_args_int
+	.p2align	2
+	.type	var_args_int,@function
+var_args_int:                           // @var_args_int
+// %bb.0:
+	sub	sp, sp, #352            // =352
+	str	x28, [sp, #336]         // 8-byte Folded Spill
+	str	q7, [sp, #208]
+	str	q6, [sp, #192]
+	str	q5, [sp, #176]
+	str	q4, [sp, #160]
+	str	q3, [sp, #144]
+	str	q2, [sp, #128]
+	str	q1, [sp, #112]
+	str	q0, [sp, #96]
+	str	x7, [sp, #272]
+	str	x6, [sp, #264]
+	str	x5, [sp, #256]
+	str	x4, [sp, #248]
+	str	x3, [sp, #240]
+	str	x2, [sp, #232]
+	str	w0, [sp, #332]
+	str	w1, [sp, #328]
+	orr	w0, wzr, #0xffffff80
+	str	w0, [sp, #324]
+	mov	w0, #-48
+	str	w0, [sp, #320]
+	add	x2, sp, #96             // =96
+	add	x2, x2, #128            // =128
+	str	x2, [sp, #312]
+	add	x2, sp, #232            // =232
+	add	x2, x2, #48             // =48
+	str	x2, [sp, #304]
+	add	x2, sp, #352            // =352
+	str	x2, [sp, #296]
+	add	x2, sp, #296            // =296
+	add	x2, x2, #24             // =24
+	ldr	w0, [sp, #320]
+	mov	w1, w0
+	str	x2, [sp, #88]           // 8-byte Folded Spill
+	str	w1, [sp, #84]           // 4-byte Folded Spill
+	tbz	w0, #31, .LBB2_3
+	b	.LBB2_1
+.LBB2_1:
+	ldr	w8, [sp, #84]           // 4-byte Folded Reload
+	add	w9, w8, #8              // =8
+	ldr	x10, [sp, #88]          // 8-byte Folded Reload
+	str	w9, [x10]
+	subs	w9, w9, #0              // =0
+	str	w9, [sp, #80]           // 4-byte Folded Spill
+	b.gt	.LBB2_3
+	b	.LBB2_2
+.LBB2_2:
+	ldr	x8, [sp, #304]
+	ldr	w9, [sp, #84]           // 4-byte Folded Reload
+	add	x8, x8, w9, sxtw
+	str	x8, [sp, #72]           // 8-byte Folded Spill
+	b	.LBB2_4
+.LBB2_3:
+	ldr	x8, [sp, #296]
+	add	x9, x8, #8              // =8
+	str	x9, [sp, #296]
+	str	x8, [sp, #72]           // 8-byte Folded Spill
+	b	.LBB2_4
+.LBB2_4:
+	ldr	x8, [sp, #72]           // 8-byte Folded Reload
+	ldr	w9, [x8]
+	str	w9, [sp, #292]
+	add	x8, sp, #296            // =296
+	add	x8, x8, #24             // =24
+	ldr	w9, [sp, #320]
+	mov	w10, w9
+	str	x8, [sp, #64]           // 8-byte Folded Spill
+	str	w10, [sp, #60]          // 4-byte Folded Spill
+	tbz	w9, #31, .LBB2_7
+	b	.LBB2_5
+.LBB2_5:
+	ldr	w8, [sp, #60]           // 4-byte Folded Reload
+	add	w9, w8, #8              // =8
+	ldr	x10, [sp, #64]          // 8-byte Folded Reload
+	str	w9, [x10]
+	subs	w9, w9, #0              // =0
+	str	w9, [sp, #56]           // 4-byte Folded Spill
+	b.gt	.LBB2_7
+	b	.LBB2_6
+.LBB2_6:
+	ldr	x8, [sp, #304]
+	ldr	w9, [sp, #60]           // 4-byte Folded Reload
+	add	x8, x8, w9, sxtw
+	str	x8, [sp, #48]           // 8-byte Folded Spill
+	b	.LBB2_8
+.LBB2_7:
+	ldr	x8, [sp, #296]
+	add	x9, x8, #8              // =8
+	str	x9, [sp, #296]
+	str	x8, [sp, #48]           // 8-byte Folded Spill
+	b	.LBB2_8
+.LBB2_8:
+	ldr	x8, [sp, #48]           // 8-byte Folded Reload
+	ldr	w9, [x8]
+	str	w9, [sp, #288]
+	add	x8, sp, #296            // =296
+	add	x8, x8, #24             // =24
+	ldr	w9, [sp, #320]
+	mov	w10, w9
+	str	x8, [sp, #40]           // 8-byte Folded Spill
+	str	w10, [sp, #36]          // 4-byte Folded Spill
+	tbz	w9, #31, .LBB2_11
+	b	.LBB2_9
+.LBB2_9:
+	ldr	w8, [sp, #36]           // 4-byte Folded Reload
+	add	w9, w8, #8              // =8
+	ldr	x10, [sp, #40]          // 8-byte Folded Reload
+	str	w9, [x10]
+	subs	w9, w9, #0              // =0
+	str	w9, [sp, #32]           // 4-byte Folded Spill
+	b.gt	.LBB2_11
+	b	.LBB2_10
+.LBB2_10:
+	ldr	x8, [sp, #304]
+	ldr	w9, [sp, #36]           // 4-byte Folded Reload
+	add	x8, x8, w9, sxtw
+	str	x8, [sp, #24]           // 8-byte Folded Spill
+	b	.LBB2_12
+.LBB2_11:
+	ldr	x8, [sp, #296]
+	add	x9, x8, #8              // =8
+	str	x9, [sp, #296]
+	str	x8, [sp, #24]           // 8-byte Folded Spill
+	b	.LBB2_12
+.LBB2_12:
+	ldr	x8, [sp, #24]           // 8-byte Folded Reload
+	ldr	w9, [x8]
+	str	w9, [sp, #284]
+	add	x8, sp, #296            // =296
+	add	x8, x8, #24             // =24
+	ldr	w9, [sp, #320]
+	mov	w10, w9
+	str	x8, [sp, #16]           // 8-byte Folded Spill
+	str	w10, [sp, #12]          // 4-byte Folded Spill
+	tbz	w9, #31, .LBB2_15
+	b	.LBB2_13
+.LBB2_13:
+	ldr	w8, [sp, #12]           // 4-byte Folded Reload
+	add	w9, w8, #8              // =8
+	ldr	x10, [sp, #16]          // 8-byte Folded Reload
+	str	w9, [x10]
+	subs	w9, w9, #0              // =0
+	str	w9, [sp, #8]            // 4-byte Folded Spill
+	b.gt	.LBB2_15
+	b	.LBB2_14
+.LBB2_14:
+	ldr	x8, [sp, #304]
+	ldr	w9, [sp, #12]           // 4-byte Folded Reload
+	add	x8, x8, w9, sxtw
+	str	x8, [sp]                // 8-byte Folded Spill
+	b	.LBB2_16
+.LBB2_15:
+	ldr	x8, [sp, #296]
+	add	x9, x8, #8              // =8
+	str	x9, [sp, #296]
+	str	x8, [sp]                // 8-byte Folded Spill
+	b	.LBB2_16
+.LBB2_16:
+	ldr	x8, [sp]                // 8-byte Folded Reload
+	ldr	w9, [x8]
+	str	w9, [sp, #280]
+	ldr	w9, [sp, #292]
+	ldr	w10, [sp, #288]
+	add	w9, w9, w10
+	ldr	w10, [sp, #284]
+	ldr	w11, [sp, #280]
+	mul	w10, w10, w11
+	add	w0, w9, w10
+	ldr	x28, [sp, #336]         // 8-byte Folded Reload
+	add	sp, sp, #352            // =352
+	ret
+.Lfunc_end2:
+	.size	var_args_int, .Lfunc_end2-var_args_int
+                                        // -- End function
+	.globl	var_args                // -- Begin function var_args
+	.p2align	2
+	.type	var_args,@function
+var_args:                               // @var_args
+// %bb.0:
+	sub	sp, sp, #336            // =336
+	str	x28, [sp, #320]         // 8-byte Folded Spill
+	str	q7, [sp, #192]
+	str	q6, [sp, #176]
+	str	q5, [sp, #160]
+	str	q4, [sp, #144]
+	str	q3, [sp, #128]
+	str	q2, [sp, #112]
+	str	q1, [sp, #96]
+	str	x7, [sp, #248]
+	str	x6, [sp, #240]
+	str	x5, [sp, #232]
+	str	x4, [sp, #224]
+	str	x3, [sp, #216]
+	str	x2, [sp, #208]
+	str	s0, [sp, #316]
+	str	w0, [sp, #312]
+	str	w1, [sp, #308]
+	mov	w0, #-112
+	str	w0, [sp, #300]
+	mov	w0, #-48
+	str	w0, [sp, #296]
+	add	x2, sp, #96             // =96
+	add	x2, x2, #112            // =112
+	str	x2, [sp, #288]
+	add	x2, sp, #208            // =208
+	add	x2, x2, #48             // =48
+	str	x2, [sp, #280]
+	add	x2, sp, #336            // =336
+	str	x2, [sp, #272]
+	add	x2, sp, #272            // =272
+	add	x2, x2, #24             // =24
+	ldr	w0, [sp, #296]
+	mov	w1, w0
+	str	x2, [sp, #88]           // 8-byte Folded Spill
+	str	w1, [sp, #84]           // 4-byte Folded Spill
+	tbz	w0, #31, .LBB3_3
+	b	.LBB3_1
+.LBB3_1:
+	ldr	w8, [sp, #84]           // 4-byte Folded Reload
+	add	w9, w8, #8              // =8
+	ldr	x10, [sp, #88]          // 8-byte Folded Reload
+	str	w9, [x10]
+	subs	w9, w9, #0              // =0
+	str	w9, [sp, #80]           // 4-byte Folded Spill
+	b.gt	.LBB3_3
+	b	.LBB3_2
+.LBB3_2:
+	ldr	x8, [sp, #280]
+	ldr	w9, [sp, #84]           // 4-byte Folded Reload
+	add	x8, x8, w9, sxtw
+	str	x8, [sp, #72]           // 8-byte Folded Spill
+	b	.LBB3_4
+.LBB3_3:
+	ldr	x8, [sp, #272]
+	add	x9, x8, #8              // =8
+	str	x9, [sp, #272]
+	str	x8, [sp, #72]           // 8-byte Folded Spill
+	b	.LBB3_4
+.LBB3_4:
+	ldr	x8, [sp, #72]           // 8-byte Folded Reload
+	ldr	w9, [x8]
+	str	w9, [sp, #268]
+	add	x8, sp, #272            // =272
+	add	x8, x8, #24             // =24
+	ldr	w9, [sp, #296]
+	mov	w10, w9
+	str	x8, [sp, #64]           // 8-byte Folded Spill
+	str	w10, [sp, #60]          // 4-byte Folded Spill
+	tbz	w9, #31, .LBB3_7
+	b	.LBB3_5
+.LBB3_5:
+	ldr	w8, [sp, #60]           // 4-byte Folded Reload
+	add	w9, w8, #8              // =8
+	ldr	x10, [sp, #64]          // 8-byte Folded Reload
+	str	w9, [x10]
+	subs	w9, w9, #0              // =0
+	str	w9, [sp, #56]           // 4-byte Folded Spill
+	b.gt	.LBB3_7
+	b	.LBB3_6
+.LBB3_6:
+	ldr	x8, [sp, #280]
+	ldr	w9, [sp, #60]           // 4-byte Folded Reload
+	add	x8, x8, w9, sxtw
+	str	x8, [sp, #48]           // 8-byte Folded Spill
+	b	.LBB3_8
+.LBB3_7:
+	ldr	x8, [sp, #272]
+	add	x9, x8, #8              // =8
+	str	x9, [sp, #272]
+	str	x8, [sp, #48]           // 8-byte Folded Spill
+	b	.LBB3_8
+.LBB3_8:
+	ldr	x8, [sp, #48]           // 8-byte Folded Reload
+	ldr	w9, [x8]
+	str	w9, [sp, #264]
+	add	x8, sp, #272            // =272
+	add	x8, x8, #24             // =24
+	ldr	w9, [sp, #296]
+	mov	w10, w9
+	str	x8, [sp, #40]           // 8-byte Folded Spill
+	str	w10, [sp, #36]          // 4-byte Folded Spill
+	tbz	w9, #31, .LBB3_11
+	b	.LBB3_9
+.LBB3_9:
+	ldr	w8, [sp, #36]           // 4-byte Folded Reload
+	add	w9, w8, #8              // =8
+	ldr	x10, [sp, #40]          // 8-byte Folded Reload
+	str	w9, [x10]
+	subs	w9, w9, #0              // =0
+	str	w9, [sp, #32]           // 4-byte Folded Spill
+	b.gt	.LBB3_11
+	b	.LBB3_10
+.LBB3_10:
+	ldr	x8, [sp, #280]
+	ldr	w9, [sp, #36]           // 4-byte Folded Reload
+	add	x8, x8, w9, sxtw
+	str	x8, [sp, #24]           // 8-byte Folded Spill
+	b	.LBB3_12
+.LBB3_11:
+	ldr	x8, [sp, #272]
+	add	x9, x8, #8              // =8
+	str	x9, [sp, #272]
+	str	x8, [sp, #24]           // 8-byte Folded Spill
+	b	.LBB3_12
+.LBB3_12:
+	ldr	x8, [sp, #24]           // 8-byte Folded Reload
+	ldr	w9, [x8]
+	str	w9, [sp, #260]
+	add	x8, sp, #272            // =272
+	add	x8, x8, #24             // =24
+	ldr	w9, [sp, #296]
+	mov	w10, w9
+	str	x8, [sp, #16]           // 8-byte Folded Spill
+	str	w10, [sp, #12]          // 4-byte Folded Spill
+	tbz	w9, #31, .LBB3_15
+	b	.LBB3_13
+.LBB3_13:
+	ldr	w8, [sp, #12]           // 4-byte Folded Reload
+	add	w9, w8, #8              // =8
+	ldr	x10, [sp, #16]          // 8-byte Folded Reload
+	str	w9, [x10]
+	subs	w9, w9, #0              // =0
+	str	w9, [sp, #8]            // 4-byte Folded Spill
+	b.gt	.LBB3_15
+	b	.LBB3_14
+.LBB3_14:
+	ldr	x8, [sp, #280]
+	ldr	w9, [sp, #12]           // 4-byte Folded Reload
+	add	x8, x8, w9, sxtw
+	str	x8, [sp]                // 8-byte Folded Spill
+	b	.LBB3_16
+.LBB3_15:
+	ldr	x8, [sp, #272]
+	add	x9, x8, #8              // =8
+	str	x9, [sp, #272]
+	str	x8, [sp]                // 8-byte Folded Spill
+	b	.LBB3_16
+.LBB3_16:
+	ldr	x8, [sp]                // 8-byte Folded Reload
+	ldr	w9, [x8]
+	str	w9, [sp, #256]
+	ldr	w9, [sp, #268]
+	ldr	w10, [sp, #264]
+	add	w9, w9, w10
+	ldr	w10, [sp, #260]
+	ldr	w11, [sp, #256]
+	mul	w10, w10, w11
+	add	w0, w9, w10
+	ldr	x28, [sp, #320]         // 8-byte Folded Reload
+	add	sp, sp, #336            // =336
+	ret
+.Lfunc_end3:
+	.size	var_args, .Lfunc_end3-var_args
+                                        // -- End function
+	.globl	test_int_args           // -- Begin function test_int_args
+	.p2align	2
+	.type	test_int_args,@function
+test_int_args:                          // @test_int_args
+// %bb.0:
+	sub	sp, sp, #48             // =48
+	stp	x29, x30, [sp, #32]     // 8-byte Folded Spill
+	add	x29, sp, #32            // =32
+	mov	w0, #97
+	mov	w1, #98
+	mov	w2, #99
+	mov	w3, #100
+	mov	w4, #101
+	mov	w5, #102
+	mov	w6, #103
+	mov	w7, #104
+	mov	w8, #105
+	mov	w9, #106
+	mov	w10, #107
+	mov	w11, #108
+	mov	x12, sp
+	str	w8, [x12]
+	mov	x12, sp
+	str	w9, [x12, #8]
+	mov	x12, sp
+	str	w10, [x12, #16]
+	mov	x12, sp
+	str	w11, [x12, #24]
+	bl	int_args
+	ldp	x29, x30, [sp, #32]     // 8-byte Folded Reload
+	add	sp, sp, #48             // =48
+	ret
+.Lfunc_end4:
+	.size	test_int_args, .Lfunc_end4-test_int_args
+                                        // -- End function
+	.globl	test_float_args         // -- Begin function test_float_args
+	.p2align	2
+	.type	test_float_args,@function
+test_float_args:                        // @test_float_args
+// %bb.0:
+	sub	sp, sp, #32             // =32
+	stp	x29, x30, [sp, #16]     // 8-byte Folded Spill
+	add	x29, sp, #16            // =16
+	mov	w0, #97
+	mov	w1, #98
+	mov	w8, #1077936128
+	fmov	s0, w8
+	mov	w8, #1082130432
+	fmov	s1, w8
+	mov	w8, #1084227584
+	fmov	s2, w8
+	mov	w8, #1086324736
+	fmov	s3, w8
+	mov	w8, #1088421888
+	fmov	s4, w8
+	mov	w8, #1090519040
+	fmov	s5, w8
+	mov	x9, #4621256167635550208
+	fmov	d6, x9
+	mov	x9, #4621819117588971520
+	fmov	d7, x9
+	mov	x9, #4622382067542392832
+	fmov	d16, x9
+	mov	x9, #4622945017495814144
+	fmov	d17, x9
+	mov	x9, sp
+	str	d16, [x9]
+	mov	x9, sp
+	str	d17, [x9, #8]
+	bl	float_args
+	ldp	x29, x30, [sp, #16]     // 8-byte Folded Reload
+	add	sp, sp, #32             // =32
+	ret
+.Lfunc_end5:
+	.size	test_float_args, .Lfunc_end5-test_float_args
+                                        // -- End function
+	.globl	test_var_args_int       // -- Begin function test_var_args_int
+	.p2align	2
+	.type	test_var_args_int,@function
+test_var_args_int:                      // @test_var_args_int
+// %bb.0:
+	sub	sp, sp, #48             // =48
+	stp	x29, x30, [sp, #32]     // 8-byte Folded Spill
+	add	x29, sp, #32            // =32
+	mov	w8, #1120010240
+	fmov	s0, w8
+	mov	w0, #98
+	mov	w1, #99
+	mov	w2, #100
+	mov	w3, #101
+	mov	w4, #102
+	mov	w5, #103
+	mov	w6, #104
+	mov	w7, #105
+	mov	w8, #106
+	mov	w9, #107
+	mov	w10, #108
+	mov	x11, sp
+	str	w8, [x11]
+	mov	x11, sp
+	str	w9, [x11, #8]
+	mov	x11, sp
+	str	w10, [x11, #16]
+	bl	var_args
+	ldp	x29, x30, [sp, #32]     // 8-byte Folded Reload
+	add	sp, sp, #48             // =48
+	ret
+.Lfunc_end6:
+	.size	test_var_args_int, .Lfunc_end6-test_var_args_int
+                                        // -- End function
+	.globl	test_var_args_float     // -- Begin function test_var_args_float
+	.p2align	2
+	.type	test_var_args_float,@function
+test_var_args_float:                    // @test_var_args_float
+// %bb.0:
+	sub	sp, sp, #32             // =32
+	stp	x29, x30, [sp, #16]     // 8-byte Folded Spill
+	add	x29, sp, #16            // =16
+	orr	w8, wzr, #0x3f800000
+	fmov	s0, w8
+	mov	w0, #97
+	mov	w1, #98
+	orr	x9, xzr, #0x4000000000000000
+	fmov	d1, x9
+	orr	w2, wzr, #0x3
+	mov	x9, #4616189618054758400
+	fmov	d2, x9
+	mov	w3, #5
+	mov	x9, #4618441417868443648
+	fmov	d3, x9
+	mov	x9, #4619567317775286272
+	fmov	d4, x9
+	mov	x9, #4620693217682128896
+	fmov	d5, x9
+	mov	x9, #4621256167635550208
+	fmov	d6, x9
+	mov	x9, #4621819117588971520
+	fmov	d7, x9
+	mov	x9, #4622382067542392832
+	fmov	d16, x9
+	mov	x9, #4622945017495814144
+	fmov	d17, x9
+	mov	x9, sp
+	str	d16, [x9]
+	mov	x9, sp
+	str	d17, [x9, #8]
+	bl	var_args
+	ldp	x29, x30, [sp, #16]     // 8-byte Folded Reload
+	add	sp, sp, #32             // =32
+	ret
+.Lfunc_end7:
+	.size	test_var_args_float, .Lfunc_end7-test_var_args_float
+                                        // -- End function
+	.globl	test_unknown_function   // -- Begin function test_unknown_function
+	.p2align	2
+	.type	test_unknown_function,@function
+test_unknown_function:                  // @test_unknown_function
+// %bb.0:
+	stp	x29, x30, [sp, #-16]!   // 8-byte Folded Spill
+	mov	x29, sp
+	orr	w0, wzr, #0x1
+	orr	x8, xzr, #0x4000000000000000
+	fmov	d0, x8
+	orr	w1, wzr, #0x3
+	mov	x8, #4616189618054758400
+	fmov	d1, x8
+	mov	w2, #5
+	mov	x8, #4618441417868443648
+	fmov	d2, x8
+	adrp	x8, :got:unknown_function
+	ldr	x8, [x8, :got_lo12:unknown_function]
+	blr	x8
+	ldp	x29, x30, [sp], #16     // 8-byte Folded Reload
+	ret
+.Lfunc_end8:
+	.size	test_unknown_function, .Lfunc_end8-test_unknown_function
+                                        // -- End function
+
+	.ident	"Android (4751641 based on r328903) clang version 7.0.2 (https://android.googlesource.com/toolchain/clang 003100370607242ddd5815e4a043907ea9004281) (https://android.googlesource.com/toolchain/llvm 1d739ffb0366421d383e04ff80ec2ee591315116) (based on LLVM 7.0.2svn)"
+	.section	".note.GNU-stack","",@progbits
