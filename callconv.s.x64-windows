@@ -7,14 +7,16 @@ INCLUDELIB OLDNAMES
 
 PUBLIC	int_args
 PUBLIC	float_args
+PUBLIC	var_args_int
 PUBLIC	var_args
 PUBLIC	test_int_args
 PUBLIC	test_float_args
-PUBLIC	test_var_args_1
-PUBLIC	test_var_args_2
-PUBLIC	__real@4008000000000000
+PUBLIC	test_var_args_int
+PUBLIC	test_var_args_float
+PUBLIC	test_unknown_function
+PUBLIC	__real@3f800000
+PUBLIC	__real@4000000000000000
 PUBLIC	__real@4010000000000000
-PUBLIC	__real@4014000000000000
 PUBLIC	__real@4018000000000000
 PUBLIC	__real@401c000000000000
 PUBLIC	__real@4020000000000000
@@ -28,14 +30,15 @@ PUBLIC	__real@40a00000
 PUBLIC	__real@40c00000
 PUBLIC	__real@40e00000
 PUBLIC	__real@41000000
-PUBLIC	__real@41100000
-PUBLIC	__real@41200000
-PUBLIC	__real@41300000
-PUBLIC	__real@41400000
+PUBLIC	__real@42c20000
+EXTRN	unknown_function:PROC
 EXTRN	_fltused:DWORD
 pdata	SEGMENT
-$pdata$var_args DD imagerel $LN3
+$pdata$var_args_int DD imagerel $LN3
 	DD	imagerel $LN3+171
+	DD	imagerel $unwind$var_args_int
+$pdata$var_args DD imagerel $LN3
+	DD	imagerel $LN3+173
 	DD	imagerel $unwind$var_args
 $pdata$test_int_args DD imagerel $LN3
 	DD	imagerel $LN3+100
@@ -43,28 +46,19 @@ $pdata$test_int_args DD imagerel $LN3
 $pdata$test_float_args DD imagerel $LN3
 	DD	imagerel $LN3+152
 	DD	imagerel $unwind$test_float_args
-$pdata$test_var_args_1 DD imagerel $LN3
-	DD	imagerel $LN3+100
-	DD	imagerel $unwind$test_var_args_1
-$pdata$test_var_args_2 DD imagerel $LN3
-	DD	imagerel $LN3+162
-	DD	imagerel $unwind$test_var_args_2
+$pdata$test_var_args_int DD imagerel $LN3
+	DD	imagerel $LN3+107
+	DD	imagerel $unwind$test_var_args_int
+$pdata$test_var_args_float DD imagerel $LN3
+	DD	imagerel $LN3+178
+	DD	imagerel $unwind$test_var_args_float
+$pdata$test_unknown_function DD imagerel $LN3
+	DD	imagerel $LN3+73
+	DD	imagerel $unwind$test_unknown_function
 pdata	ENDS
-;	COMDAT __real@41400000
+;	COMDAT __real@42c20000
 CONST	SEGMENT
-__real@41400000 DD 041400000r			; 12
-CONST	ENDS
-;	COMDAT __real@41300000
-CONST	SEGMENT
-__real@41300000 DD 041300000r			; 11
-CONST	ENDS
-;	COMDAT __real@41200000
-CONST	SEGMENT
-__real@41200000 DD 041200000r			; 10
-CONST	ENDS
-;	COMDAT __real@41100000
-CONST	SEGMENT
-__real@41100000 DD 041100000r			; 9
+__real@42c20000 DD 042c20000r			; 97
 CONST	ENDS
 ;	COMDAT __real@41000000
 CONST	SEGMENT
@@ -118,74 +112,103 @@ CONST	ENDS
 CONST	SEGMENT
 __real@4018000000000000 DQ 04018000000000000r	; 6
 CONST	ENDS
-;	COMDAT __real@4014000000000000
-CONST	SEGMENT
-__real@4014000000000000 DQ 04014000000000000r	; 5
-CONST	ENDS
 ;	COMDAT __real@4010000000000000
 CONST	SEGMENT
 __real@4010000000000000 DQ 04010000000000000r	; 4
 CONST	ENDS
-;	COMDAT __real@4008000000000000
+;	COMDAT __real@4000000000000000
 CONST	SEGMENT
-__real@4008000000000000 DQ 04008000000000000r	; 3
+__real@4000000000000000 DQ 04000000000000000r	; 2
+CONST	ENDS
+;	COMDAT __real@3f800000
+CONST	SEGMENT
+__real@3f800000 DD 03f800000r			; 1
 CONST	ENDS
 xdata	SEGMENT
-$unwind$var_args DD 011601H
+$unwind$var_args_int DD 011601H
 	DD	04216H
+$unwind$var_args DD 011801H
+	DD	04218H
 $unwind$test_int_args DD 010401H
 	DD	0c204H
 $unwind$test_float_args DD 010401H
 	DD	0c204H
-$unwind$test_var_args_1 DD 010401H
+$unwind$test_var_args_int DD 010401H
 	DD	0c204H
-$unwind$test_var_args_2 DD 010401H
-	DD	0c204H
+$unwind$test_var_args_float DD 010401H
+	DD	0e204H
+$unwind$test_unknown_function DD 010401H
+	DD	06204H
 xdata	ENDS
 ; Function compile flags: /Odtp
 _TEXT	SEGMENT
-test_var_args_2 PROC
+test_unknown_function PROC
 ; File c:\prj\misc\test\callconv.c
-; Line 34
+; Line 51
 $LN3:
-	sub	rsp, 104				; 00000068H
-; Line 35
-	movsd	xmm0, QWORD PTR __real@4028000000000000
-	movsd	QWORD PTR [rsp+88], xmm0
-	movsd	xmm0, QWORD PTR __real@4026000000000000
-	movsd	QWORD PTR [rsp+80], xmm0
-	movsd	xmm0, QWORD PTR __real@4024000000000000
-	movsd	QWORD PTR [rsp+72], xmm0
-	movsd	xmm0, QWORD PTR __real@4022000000000000
-	movsd	QWORD PTR [rsp+64], xmm0
-	movsd	xmm0, QWORD PTR __real@4020000000000000
-	movsd	QWORD PTR [rsp+56], xmm0
-	movsd	xmm0, QWORD PTR __real@401c000000000000
-	movsd	QWORD PTR [rsp+48], xmm0
+	sub	rsp, 56					; 00000038H
+; Line 52
 	movsd	xmm0, QWORD PTR __real@4018000000000000
 	movsd	QWORD PTR [rsp+40], xmm0
-	movsd	xmm0, QWORD PTR __real@4014000000000000
-	movsd	QWORD PTR [rsp+32], xmm0
+	mov	DWORD PTR [rsp+32], 5
 	movsd	xmm3, QWORD PTR __real@4010000000000000
 	movq	r9, xmm3
-	movsd	xmm2, QWORD PTR __real@4008000000000000
-	movq	r8, xmm2
-	mov	edx, 98					; 00000062H
-	mov	ecx, 97					; 00000061H
-	call	var_args
-; Line 36
-	add	rsp, 104				; 00000068H
+	mov	r8d, 3
+	movsd	xmm1, QWORD PTR __real@4000000000000000
+	movq	rdx, xmm1
+	mov	ecx, 1
+	call	unknown_function
+; Line 53
+	add	rsp, 56					; 00000038H
 	ret	0
-test_var_args_2 ENDP
+test_unknown_function ENDP
 _TEXT	ENDS
 ; Function compile flags: /Odtp
 _TEXT	SEGMENT
-test_var_args_1 PROC
+test_var_args_float PROC
 ; File c:\prj\misc\test\callconv.c
-; Line 30
+; Line 47
+$LN3:
+	sub	rsp, 120				; 00000078H
+; Line 48
+	movsd	xmm0, QWORD PTR __real@4028000000000000
+	movsd	QWORD PTR [rsp+104], xmm0
+	movsd	xmm0, QWORD PTR __real@4026000000000000
+	movsd	QWORD PTR [rsp+96], xmm0
+	movsd	xmm0, QWORD PTR __real@4024000000000000
+	movsd	QWORD PTR [rsp+88], xmm0
+	movsd	xmm0, QWORD PTR __real@4022000000000000
+	movsd	QWORD PTR [rsp+80], xmm0
+	movsd	xmm0, QWORD PTR __real@4020000000000000
+	movsd	QWORD PTR [rsp+72], xmm0
+	movsd	xmm0, QWORD PTR __real@401c000000000000
+	movsd	QWORD PTR [rsp+64], xmm0
+	movsd	xmm0, QWORD PTR __real@4018000000000000
+	movsd	QWORD PTR [rsp+56], xmm0
+	mov	DWORD PTR [rsp+48], 5
+	movsd	xmm0, QWORD PTR __real@4010000000000000
+	movsd	QWORD PTR [rsp+40], xmm0
+	mov	DWORD PTR [rsp+32], 3
+	movsd	xmm3, QWORD PTR __real@4000000000000000
+	movq	r9, xmm3
+	mov	r8d, 98					; 00000062H
+	mov	edx, 97					; 00000061H
+	movss	xmm0, DWORD PTR __real@3f800000
+	movd	ecx, xmm0
+	call	var_args
+; Line 49
+	add	rsp, 120				; 00000078H
+	ret	0
+test_var_args_float ENDP
+_TEXT	ENDS
+; Function compile flags: /Odtp
+_TEXT	SEGMENT
+test_var_args_int PROC
+; File c:\prj\misc\test\callconv.c
+; Line 43
 $LN3:
 	sub	rsp, 104				; 00000068H
-; Line 31
+; Line 44
 	mov	DWORD PTR [rsp+88], 108			; 0000006cH
 	mov	DWORD PTR [rsp+80], 107			; 0000006bH
 	mov	DWORD PTR [rsp+72], 106			; 0000006aH
@@ -197,29 +220,30 @@ $LN3:
 	mov	r9d, 100				; 00000064H
 	mov	r8d, 99					; 00000063H
 	mov	edx, 98					; 00000062H
-	mov	ecx, 97					; 00000061H
+	movss	xmm0, DWORD PTR __real@42c20000
+	movd	ecx, xmm0
 	call	var_args
-; Line 32
+; Line 45
 	add	rsp, 104				; 00000068H
 	ret	0
-test_var_args_1 ENDP
+test_var_args_int ENDP
 _TEXT	ENDS
 ; Function compile flags: /Odtp
 _TEXT	SEGMENT
 test_float_args PROC
 ; File c:\prj\misc\test\callconv.c
-; Line 26
+; Line 39
 $LN3:
 	sub	rsp, 104				; 00000068H
-; Line 27
-	movss	xmm0, DWORD PTR __real@41400000
-	movss	DWORD PTR [rsp+88], xmm0
-	movss	xmm0, DWORD PTR __real@41300000
-	movss	DWORD PTR [rsp+80], xmm0
-	movss	xmm0, DWORD PTR __real@41200000
-	movss	DWORD PTR [rsp+72], xmm0
-	movss	xmm0, DWORD PTR __real@41100000
-	movss	DWORD PTR [rsp+64], xmm0
+; Line 40
+	movsd	xmm0, QWORD PTR __real@4028000000000000
+	movsd	QWORD PTR [rsp+88], xmm0
+	movsd	xmm0, QWORD PTR __real@4026000000000000
+	movsd	QWORD PTR [rsp+80], xmm0
+	movsd	xmm0, QWORD PTR __real@4024000000000000
+	movsd	QWORD PTR [rsp+72], xmm0
+	movsd	xmm0, QWORD PTR __real@4022000000000000
+	movsd	QWORD PTR [rsp+64], xmm0
 	movss	xmm0, DWORD PTR __real@41000000
 	movss	DWORD PTR [rsp+56], xmm0
 	movss	xmm0, DWORD PTR __real@40e00000
@@ -233,7 +257,7 @@ $LN3:
 	mov	edx, 98					; 00000062H
 	mov	ecx, 97					; 00000061H
 	call	float_args
-; Line 28
+; Line 41
 	add	rsp, 104				; 00000068H
 	ret	0
 test_float_args ENDP
@@ -242,10 +266,10 @@ _TEXT	ENDS
 _TEXT	SEGMENT
 test_int_args PROC
 ; File c:\prj\misc\test\callconv.c
-; Line 22
+; Line 35
 $LN3:
 	sub	rsp, 104				; 00000068H
-; Line 23
+; Line 36
 	mov	DWORD PTR [rsp+88], 108			; 0000006cH
 	mov	DWORD PTR [rsp+80], 107			; 0000006bH
 	mov	DWORD PTR [rsp+72], 106			; 0000006aH
@@ -259,7 +283,7 @@ $LN3:
 	mov	edx, 98					; 00000062H
 	mov	ecx, 97					; 00000061H
 	call	int_args
-; Line 24
+; Line 37
 	add	rsp, 104				; 00000068H
 	ret	0
 test_int_args ENDP
@@ -271,51 +295,52 @@ c$ = 4
 e$ = 8
 f$ = 12
 args$ = 16
-a$ = 48
-b$ = 56
+x$ = 48
+a$ = 56
+b$ = 64
 var_args PROC
 ; File c:\prj\misc\test\callconv.c
-; Line 11
+; Line 24
 $LN3:
+	mov	DWORD PTR [rsp+24], r8d
 	mov	DWORD PTR [rsp+16], edx
-	mov	DWORD PTR [rsp+8], ecx
-	mov	QWORD PTR [rsp+24], r8
+	movss	DWORD PTR [rsp+8], xmm0
 	mov	QWORD PTR [rsp+32], r9
 	sub	rsp, 40					; 00000028H
-; Line 13
+; Line 26
 	lea	rax, QWORD PTR b$[rsp+8]
 	mov	QWORD PTR args$[rsp], rax
-; Line 14
+; Line 27
 	mov	rax, QWORD PTR args$[rsp]
 	add	rax, 8
 	mov	QWORD PTR args$[rsp], rax
 	mov	rax, QWORD PTR args$[rsp]
 	mov	eax, DWORD PTR [rax-8]
 	mov	DWORD PTR c$[rsp], eax
-; Line 15
+; Line 28
 	mov	rax, QWORD PTR args$[rsp]
 	add	rax, 8
 	mov	QWORD PTR args$[rsp], rax
 	mov	rax, QWORD PTR args$[rsp]
 	mov	eax, DWORD PTR [rax-8]
 	mov	DWORD PTR d$[rsp], eax
-; Line 16
+; Line 29
 	mov	rax, QWORD PTR args$[rsp]
 	add	rax, 8
 	mov	QWORD PTR args$[rsp], rax
 	mov	rax, QWORD PTR args$[rsp]
 	mov	eax, DWORD PTR [rax-8]
 	mov	DWORD PTR e$[rsp], eax
-; Line 17
+; Line 30
 	mov	rax, QWORD PTR args$[rsp]
 	add	rax, 8
 	mov	QWORD PTR args$[rsp], rax
 	mov	rax, QWORD PTR args$[rsp]
 	mov	eax, DWORD PTR [rax-8]
 	mov	DWORD PTR f$[rsp], eax
-; Line 18
+; Line 31
 	mov	QWORD PTR args$[rsp], 0
-; Line 19
+; Line 32
 	mov	eax, DWORD PTR d$[rsp]
 	mov	ecx, DWORD PTR c$[rsp]
 	add	ecx, eax
@@ -323,10 +348,74 @@ $LN3:
 	mov	ecx, DWORD PTR e$[rsp]
 	imul	ecx, DWORD PTR f$[rsp]
 	add	eax, ecx
-; Line 20
+; Line 33
 	add	rsp, 40					; 00000028H
 	ret	0
 var_args ENDP
+_TEXT	ENDS
+; Function compile flags: /Odtp
+_TEXT	SEGMENT
+d$ = 0
+c$ = 4
+e$ = 8
+f$ = 12
+args$ = 16
+a$ = 48
+b$ = 56
+var_args_int PROC
+; File c:\prj\misc\test\callconv.c
+; Line 13
+$LN3:
+	mov	DWORD PTR [rsp+16], edx
+	mov	DWORD PTR [rsp+8], ecx
+	mov	QWORD PTR [rsp+24], r8
+	mov	QWORD PTR [rsp+32], r9
+	sub	rsp, 40					; 00000028H
+; Line 15
+	lea	rax, QWORD PTR b$[rsp+8]
+	mov	QWORD PTR args$[rsp], rax
+; Line 16
+	mov	rax, QWORD PTR args$[rsp]
+	add	rax, 8
+	mov	QWORD PTR args$[rsp], rax
+	mov	rax, QWORD PTR args$[rsp]
+	mov	eax, DWORD PTR [rax-8]
+	mov	DWORD PTR c$[rsp], eax
+; Line 17
+	mov	rax, QWORD PTR args$[rsp]
+	add	rax, 8
+	mov	QWORD PTR args$[rsp], rax
+	mov	rax, QWORD PTR args$[rsp]
+	mov	eax, DWORD PTR [rax-8]
+	mov	DWORD PTR d$[rsp], eax
+; Line 18
+	mov	rax, QWORD PTR args$[rsp]
+	add	rax, 8
+	mov	QWORD PTR args$[rsp], rax
+	mov	rax, QWORD PTR args$[rsp]
+	mov	eax, DWORD PTR [rax-8]
+	mov	DWORD PTR e$[rsp], eax
+; Line 19
+	mov	rax, QWORD PTR args$[rsp]
+	add	rax, 8
+	mov	QWORD PTR args$[rsp], rax
+	mov	rax, QWORD PTR args$[rsp]
+	mov	eax, DWORD PTR [rax-8]
+	mov	DWORD PTR f$[rsp], eax
+; Line 20
+	mov	QWORD PTR args$[rsp], 0
+; Line 21
+	mov	eax, DWORD PTR d$[rsp]
+	mov	ecx, DWORD PTR c$[rsp]
+	add	ecx, eax
+	mov	eax, ecx
+	mov	ecx, DWORD PTR e$[rsp]
+	imul	ecx, DWORD PTR f$[rsp]
+	add	eax, ecx
+; Line 22
+	add	rsp, 40					; 00000028H
+	ret	0
+var_args_int ENDP
 _TEXT	ENDS
 ; Function compile flags: /Odtp
 _TEXT	SEGMENT
@@ -344,15 +433,15 @@ k$ = 88
 l$ = 96
 float_args PROC
 ; File c:\prj\misc\test\callconv.c
-; Line 7
+; Line 9
 	movss	DWORD PTR [rsp+32], xmm3
 	movss	DWORD PTR [rsp+24], xmm2
 	mov	DWORD PTR [rsp+16], edx
 	mov	DWORD PTR [rsp+8], ecx
-; Line 8
+; Line 10
 	movss	xmm0, DWORD PTR c$[rsp]
 	mulss	xmm0, DWORD PTR d$[rsp]
-; Line 9
+; Line 11
 	ret	0
 float_args ENDP
 _TEXT	ENDS
@@ -372,14 +461,14 @@ k$ = 88
 l$ = 96
 int_args PROC
 ; File c:\prj\misc\test\callconv.c
-; Line 3
+; Line 5
 	mov	DWORD PTR [rsp+32], r9d
 	mov	DWORD PTR [rsp+24], r8d
 	mov	DWORD PTR [rsp+16], edx
 	mov	DWORD PTR [rsp+8], ecx
-; Line 4
+; Line 6
 	mov	eax, DWORD PTR a$[rsp]
-; Line 5
+; Line 7
 	ret	0
 int_args ENDP
 _TEXT	ENDS
