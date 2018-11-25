@@ -1,5 +1,5 @@
 	.section	__TEXT,__text,regular,pure_instructions
-	.build_version ios, 12, 0
+	.build_version ios, 12, 1
 	.globl	_int_args               ; -- Begin function int_args
 	.p2align	2
 _int_args:                              ; @int_args
@@ -33,32 +33,32 @@ _int_args:                              ; @int_args
 _float_args:                            ; @float_args
 	.cfi_startproc
 ; %bb.0:
-	sub	sp, sp, #48             ; =48
-	.cfi_def_cfa_offset 48
-	ldr	s16, [sp, #52]
-	ldr	s17, [sp, #48]
-	str	w0, [sp, #44]
-	str	w1, [sp, #40]
-	str	s0, [sp, #36]
-	str	s1, [sp, #32]
-	str	s2, [sp, #28]
-	str	s3, [sp, #24]
-	str	s4, [sp, #20]
-	str	s5, [sp, #16]
-	str	s6, [sp, #12]
-	str	s7, [sp, #8]
-	ldr	s0, [sp, #36]
-	ldr	s1, [sp, #32]
+	sub	sp, sp, #64             ; =64
+	.cfi_def_cfa_offset 64
+	ldr	d16, [sp, #72]
+	ldr	d17, [sp, #64]
+	str	w0, [sp, #60]
+	str	w1, [sp, #56]
+	str	s0, [sp, #52]
+	str	s1, [sp, #48]
+	str	s2, [sp, #44]
+	str	s3, [sp, #40]
+	str	s4, [sp, #36]
+	str	s5, [sp, #32]
+	str	d6, [sp, #24]
+	str	d7, [sp, #16]
+	ldr	s0, [sp, #52]
+	ldr	s1, [sp, #48]
 	fmul	s0, s0, s1
-	str	s17, [sp, #4]           ; 4-byte Folded Spill
-	str	s16, [sp]               ; 4-byte Folded Spill
-	add	sp, sp, #48             ; =48
+	str	d17, [sp, #8]           ; 8-byte Folded Spill
+	str	d16, [sp]               ; 8-byte Folded Spill
+	add	sp, sp, #64             ; =64
 	ret
 	.cfi_endproc
                                         ; -- End function
-	.globl	_var_args               ; -- Begin function var_args
+	.globl	_var_args_int           ; -- Begin function var_args_int
 	.p2align	2
-_var_args:                              ; @var_args
+_var_args_int:                          ; @var_args_int
 	.cfi_startproc
 ; %bb.0:
 	sub	sp, sp, #48             ; =48
@@ -106,6 +106,57 @@ _var_args:                              ; @var_args
 	ret
 	.cfi_endproc
                                         ; -- End function
+	.globl	_var_args               ; -- Begin function var_args
+	.p2align	2
+_var_args:                              ; @var_args
+	.cfi_startproc
+; %bb.0:
+	sub	sp, sp, #64             ; =64
+	.cfi_def_cfa_offset 64
+	str	s0, [sp, #60]
+	str	w0, [sp, #56]
+	str	w1, [sp, #52]
+	add	x8, sp, #64             ; =64
+	str	x8, [sp, #40]
+	ldr	x8, [sp, #40]
+	add	x9, x8, #8              ; =8
+	str	x9, [sp, #40]
+	ldr	w0, [x8]
+	str	w0, [sp, #32]
+	ldr	w0, [sp, #32]
+	str	w0, [sp, #36]
+	ldr	x8, [sp, #40]
+	add	x9, x8, #8              ; =8
+	str	x9, [sp, #40]
+	ldr	w0, [x8]
+	str	w0, [sp, #24]
+	ldr	w0, [sp, #24]
+	str	w0, [sp, #28]
+	ldr	x8, [sp, #40]
+	add	x9, x8, #8              ; =8
+	str	x9, [sp, #40]
+	ldr	w0, [x8]
+	str	w0, [sp, #16]
+	ldr	w0, [sp, #16]
+	str	w0, [sp, #20]
+	ldr	x8, [sp, #40]
+	add	x9, x8, #8              ; =8
+	str	x9, [sp, #40]
+	ldr	w0, [x8]
+	str	w0, [sp, #8]
+	ldr	w0, [sp, #8]
+	str	w0, [sp, #12]
+	ldr	w0, [sp, #36]
+	ldr	w1, [sp, #28]
+	add	w0, w0, w1
+	ldr	w1, [sp, #20]
+	ldr	w10, [sp, #12]
+	mul	w10, w1, w10
+	add	w0, w0, w10
+	add	sp, sp, #64             ; =64
+	ret
+	.cfi_endproc
+                                        ; -- End function
 	.globl	_test_int_args          ; -- Begin function test_int_args
 	.p2align	2
 _test_int_args:                         ; @test_int_args
@@ -145,9 +196,9 @@ _test_int_args:                         ; @test_int_args
 _test_float_args:                       ; @test_float_args
 	.cfi_startproc
 ; %bb.0:
-	sub	sp, sp, #32             ; =32
-	stp	x29, x30, [sp, #16]     ; 8-byte Folded Spill
-	add	x29, sp, #16            ; =16
+	sub	sp, sp, #48             ; =48
+	stp	x29, x30, [sp, #32]     ; 8-byte Folded Spill
+	add	x29, sp, #32            ; =32
 	.cfi_def_cfa w29, 16
 	.cfi_offset w30, -8
 	.cfi_offset w29, -16
@@ -159,73 +210,77 @@ _test_float_args:                       ; @test_float_args
 	fmov	s3, #6.00000000
 	fmov	s4, #7.00000000
 	fmov	s5, #8.00000000
-	fmov	s6, #9.00000000
-	fmov	s7, #10.00000000
-	fmov	s16, #11.00000000
-	fmov	s17, #12.00000000
-	str	s16, [sp]
-	str	s17, [sp, #4]
+	fmov	d6, #9.00000000
+	fmov	d7, #10.00000000
+	fmov	d16, #11.00000000
+	fmov	d17, #12.00000000
+	str	d16, [sp]
+	str	d17, [sp, #8]
 	bl	_float_args
 	stur	s0, [x29, #-4]          ; 4-byte Folded Spill
-	ldp	x29, x30, [sp, #16]     ; 8-byte Folded Reload
-	add	sp, sp, #32             ; =32
+	ldp	x29, x30, [sp, #32]     ; 8-byte Folded Reload
+	add	sp, sp, #48             ; =48
 	ret
 	.cfi_endproc
                                         ; -- End function
-	.globl	_test_var_args_1        ; -- Begin function test_var_args_1
+	.section	__TEXT,__literal4,4byte_literals
+	.p2align	2               ; -- Begin function test_var_args_int
+lCPI6_0:
+	.long	1120010240              ; float 97
+	.section	__TEXT,__text,regular,pure_instructions
+	.globl	_test_var_args_int
 	.p2align	2
-_test_var_args_1:                       ; @test_var_args_1
+_test_var_args_int:                     ; @test_var_args_int
 	.cfi_startproc
 ; %bb.0:
-	sub	sp, sp, #112            ; =112
-	stp	x29, x30, [sp, #96]     ; 8-byte Folded Spill
-	add	x29, sp, #96            ; =96
+	sub	sp, sp, #96             ; =96
+	stp	x29, x30, [sp, #80]     ; 8-byte Folded Spill
+	add	x29, sp, #80            ; =80
 	.cfi_def_cfa w29, 16
 	.cfi_offset w30, -8
 	.cfi_offset w29, -16
 	mov	x8, sp
 	mov	w9, #108
 	mov	x10, x9
-	str	x10, [x8, #72]
+	str	x10, [x8, #64]
 	mov	w9, #107
 	mov	x10, x9
-	str	x10, [x8, #64]
+	str	x10, [x8, #56]
 	mov	w9, #106
 	mov	x10, x9
-	str	x10, [x8, #56]
+	str	x10, [x8, #48]
 	mov	w9, #105
 	mov	x10, x9
-	str	x10, [x8, #48]
+	str	x10, [x8, #40]
 	mov	w9, #104
 	mov	x10, x9
-	str	x10, [x8, #40]
+	str	x10, [x8, #32]
 	mov	w9, #103
 	mov	x10, x9
-	str	x10, [x8, #32]
+	str	x10, [x8, #24]
 	mov	w9, #102
 	mov	x10, x9
-	str	x10, [x8, #24]
+	str	x10, [x8, #16]
 	mov	w9, #101
 	mov	x10, x9
-	str	x10, [x8, #16]
+	str	x10, [x8, #8]
 	mov	w9, #100
 	mov	x10, x9
-	str	x10, [x8, #8]
-	mov	w9, #99
-	mov	x10, x9
 	str	x10, [x8]
-	mov	w0, #97
-	mov	w1, #98
+	adrp	x8, lCPI6_0@PAGE
+	ldr	s0, [x8, lCPI6_0@PAGEOFF]
+	mov	w0, #98
+	mov	w1, #99
 	bl	_var_args
 	stur	w0, [x29, #-4]          ; 4-byte Folded Spill
-	ldp	x29, x30, [sp, #96]     ; 8-byte Folded Reload
-	add	sp, sp, #112            ; =112
+	ldp	x29, x30, [sp, #80]     ; 8-byte Folded Reload
+	add	sp, sp, #96             ; =96
 	ret
 	.cfi_endproc
                                         ; -- End function
-	.globl	_test_var_args_2        ; -- Begin function test_var_args_2
+	.globl	_test_var_args_float    ; -- Begin function test_var_args_float
 	.p2align	2
-_test_var_args_2:                       ; @test_var_args_2
+_test_var_args_float:                   ; @test_var_args_float
 	.cfi_startproc
 ; %bb.0:
 	sub	sp, sp, #112            ; =112
@@ -236,31 +291,57 @@ _test_var_args_2:                       ; @test_var_args_2
 	.cfi_offset w29, -16
 	mov	x8, sp
 	mov	x9, #4622945017495814144
-	str	x9, [x8, #72]
+	str	x9, [x8, #80]
 	mov	x9, #4622382067542392832
-	str	x9, [x8, #64]
+	str	x9, [x8, #72]
 	mov	x9, #4621819117588971520
-	str	x9, [x8, #56]
+	str	x9, [x8, #64]
 	mov	x9, #4621256167635550208
-	str	x9, [x8, #48]
+	str	x9, [x8, #56]
 	mov	x9, #4620693217682128896
-	str	x9, [x8, #40]
+	str	x9, [x8, #48]
 	mov	x9, #4619567317775286272
-	str	x9, [x8, #32]
+	str	x9, [x8, #40]
 	mov	x9, #4618441417868443648
+	str	x9, [x8, #32]
+	mov	w10, #5
+	mov	x9, x10
 	str	x9, [x8, #24]
-	mov	x9, #4617315517961601024
-	str	x9, [x8, #16]
 	mov	x9, #4616189618054758400
+	str	x9, [x8, #16]
+	orr	w10, wzr, #0x3
+	mov	x9, x10
 	str	x9, [x8, #8]
-	mov	x9, #4613937818241073152
+	orr	x9, xzr, #0x4000000000000000
 	str	x9, [x8]
+	fmov	s0, #1.00000000
 	mov	w0, #97
 	mov	w1, #98
 	bl	_var_args
 	stur	w0, [x29, #-4]          ; 4-byte Folded Spill
 	ldp	x29, x30, [sp, #96]     ; 8-byte Folded Reload
 	add	sp, sp, #112            ; =112
+	ret
+	.cfi_endproc
+                                        ; -- End function
+	.globl	_test_unknown_function  ; -- Begin function test_unknown_function
+	.p2align	2
+_test_unknown_function:                 ; @test_unknown_function
+	.cfi_startproc
+; %bb.0:
+	stp	x29, x30, [sp, #-16]!   ; 8-byte Folded Spill
+	mov	x29, sp
+	.cfi_def_cfa w29, 16
+	.cfi_offset w30, -8
+	.cfi_offset w29, -16
+	orr	w0, wzr, #0x1
+	fmov	d0, #2.00000000
+	orr	w1, wzr, #0x3
+	fmov	d1, #4.00000000
+	mov	w2, #5
+	fmov	d2, #6.00000000
+	bl	_unknown_function
+	ldp	x29, x30, [sp], #16     ; 8-byte Folded Reload
 	ret
 	.cfi_endproc
                                         ; -- End function
