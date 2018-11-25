@@ -41,8 +41,8 @@ float_args:
 	movss	%xmm3, -24(%rbp)
 	movss	%xmm4, -28(%rbp)
 	movss	%xmm5, -32(%rbp)
-	movss	%xmm6, -36(%rbp)
-	movss	%xmm7, -40(%rbp)
+	movsd	%xmm6, -40(%rbp)
+	movsd	%xmm7, -48(%rbp)
 	movss	-12(%rbp), %xmm0
 	mulss	-16(%rbp), %xmm0
 	popq	%rbp
@@ -51,9 +51,9 @@ float_args:
 	.cfi_endproc
 .LFE1:
 	.size	float_args, .-float_args
-	.globl	var_args
-	.type	var_args, @function
-var_args:
+	.globl	var_args_int
+	.type	var_args_int, @function
+var_args_int:
 .LFB2:
 	.cfi_startproc
 	pushq	%rbp
@@ -176,11 +176,137 @@ var_args:
 	ret
 	.cfi_endproc
 .LFE2:
+	.size	var_args_int, .-var_args_int
+	.globl	var_args
+	.type	var_args, @function
+var_args:
+.LFB3:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$240, %rsp
+	movss	%xmm0, -228(%rbp)
+	movl	%edi, -232(%rbp)
+	movl	%esi, -236(%rbp)
+	movq	%rdx, -160(%rbp)
+	movq	%rcx, -152(%rbp)
+	movq	%r8, -144(%rbp)
+	movq	%r9, -136(%rbp)
+	testb	%al, %al
+	je	.L18
+	movaps	%xmm1, -112(%rbp)
+	movaps	%xmm2, -96(%rbp)
+	movaps	%xmm3, -80(%rbp)
+	movaps	%xmm4, -64(%rbp)
+	movaps	%xmm5, -48(%rbp)
+	movaps	%xmm6, -32(%rbp)
+	movaps	%xmm7, -16(%rbp)
+.L18:
+	movq	%fs:40, %rax
+	movq	%rax, -184(%rbp)
+	xorl	%eax, %eax
+	movl	$16, -208(%rbp)
+	movl	$64, -204(%rbp)
+	leaq	16(%rbp), %rax
+	movq	%rax, -200(%rbp)
+	leaq	-176(%rbp), %rax
+	movq	%rax, -192(%rbp)
+	movl	-208(%rbp), %eax
+	cmpl	$48, %eax
+	jnb	.L19
+	movq	-192(%rbp), %rax
+	movl	-208(%rbp), %edx
+	movl	%edx, %edx
+	addq	%rdx, %rax
+	movl	-208(%rbp), %edx
+	addl	$8, %edx
+	movl	%edx, -208(%rbp)
+	jmp	.L20
+.L19:
+	movq	-200(%rbp), %rax
+	leaq	8(%rax), %rdx
+	movq	%rdx, -200(%rbp)
+.L20:
+	movl	(%rax), %eax
+	movl	%eax, -224(%rbp)
+	movl	-208(%rbp), %eax
+	cmpl	$48, %eax
+	jnb	.L21
+	movq	-192(%rbp), %rax
+	movl	-208(%rbp), %edx
+	movl	%edx, %edx
+	addq	%rdx, %rax
+	movl	-208(%rbp), %edx
+	addl	$8, %edx
+	movl	%edx, -208(%rbp)
+	jmp	.L22
+.L21:
+	movq	-200(%rbp), %rax
+	leaq	8(%rax), %rdx
+	movq	%rdx, -200(%rbp)
+.L22:
+	movl	(%rax), %eax
+	movl	%eax, -220(%rbp)
+	movl	-208(%rbp), %eax
+	cmpl	$48, %eax
+	jnb	.L23
+	movq	-192(%rbp), %rax
+	movl	-208(%rbp), %edx
+	movl	%edx, %edx
+	addq	%rdx, %rax
+	movl	-208(%rbp), %edx
+	addl	$8, %edx
+	movl	%edx, -208(%rbp)
+	jmp	.L24
+.L23:
+	movq	-200(%rbp), %rax
+	leaq	8(%rax), %rdx
+	movq	%rdx, -200(%rbp)
+.L24:
+	movl	(%rax), %eax
+	movl	%eax, -216(%rbp)
+	movl	-208(%rbp), %eax
+	cmpl	$48, %eax
+	jnb	.L25
+	movq	-192(%rbp), %rax
+	movl	-208(%rbp), %edx
+	movl	%edx, %edx
+	addq	%rdx, %rax
+	movl	-208(%rbp), %edx
+	addl	$8, %edx
+	movl	%edx, -208(%rbp)
+	jmp	.L26
+.L25:
+	movq	-200(%rbp), %rax
+	leaq	8(%rax), %rdx
+	movq	%rdx, -200(%rbp)
+.L26:
+	movl	(%rax), %eax
+	movl	%eax, -212(%rbp)
+	movl	-224(%rbp), %edx
+	movl	-220(%rbp), %eax
+	addl	%eax, %edx
+	movl	-216(%rbp), %eax
+	imull	-212(%rbp), %eax
+	addl	%edx, %eax
+	movq	-184(%rbp), %rcx
+	xorq	%fs:40, %rcx
+	je	.L28
+	call	__stack_chk_fail
+.L28:
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE3:
 	.size	var_args, .-var_args
 	.globl	test_int_args
 	.type	test_int_args, @function
 test_int_args:
-.LFB3:
+.LFB4:
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -206,26 +332,28 @@ test_int_args:
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE3:
+.LFE4:
 	.size	test_int_args, .-test_int_args
 	.globl	test_float_args
 	.type	test_float_args, @function
 test_float_args:
-.LFB4:
+.LFB5:
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
 	.cfi_offset 6, -16
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register 6
-	movss	.LC0(%rip), %xmm0
+	movsd	.LC0(%rip), %xmm2
+	movsd	.LC1(%rip), %xmm1
+	movsd	.LC2(%rip), %xmm0
 	leaq	-8(%rsp), %rsp
-	movss	%xmm0, (%rsp)
-	movss	.LC1(%rip), %xmm0
+	movsd	%xmm0, (%rsp)
+	movsd	.LC3(%rip), %xmm0
 	leaq	-8(%rsp), %rsp
-	movss	%xmm0, (%rsp)
-	movss	.LC2(%rip), %xmm7
-	movss	.LC3(%rip), %xmm6
+	movsd	%xmm0, (%rsp)
+	movapd	%xmm2, %xmm7
+	movapd	%xmm1, %xmm6
 	movss	.LC4(%rip), %xmm5
 	movss	.LC5(%rip), %xmm4
 	movss	.LC6(%rip), %xmm3
@@ -241,43 +369,11 @@ test_float_args:
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE4:
-	.size	test_float_args, .-test_float_args
-	.globl	test_var_args_1
-	.type	test_var_args_1, @function
-test_var_args_1:
-.LFB5:
-	.cfi_startproc
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset 6, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register 6
-	pushq	$108
-	pushq	$107
-	pushq	$106
-	pushq	$105
-	pushq	$104
-	pushq	$103
-	movl	$102, %r9d
-	movl	$101, %r8d
-	movl	$100, %ecx
-	movl	$99, %edx
-	movl	$98, %esi
-	movl	$97, %edi
-	movl	$0, %eax
-	call	var_args
-	addq	$48, %rsp
-	nop
-	leave
-	.cfi_def_cfa 7, 8
-	ret
-	.cfi_endproc
 .LFE5:
-	.size	test_var_args_1, .-test_var_args_1
-	.globl	test_var_args_2
-	.type	test_var_args_2, @function
-test_var_args_2:
+	.size	test_float_args, .-test_float_args
+	.globl	test_var_args_int
+	.type	test_var_args_int, @function
+test_var_args_int:
 .LFB6:
 	.cfi_startproc
 	pushq	%rbp
@@ -285,25 +381,57 @@ test_var_args_2:
 	.cfi_offset 6, -16
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register 6
-	subq	$16, %rsp
-	movsd	.LC10(%rip), %xmm7
-	movsd	.LC11(%rip), %xmm6
-	movsd	.LC12(%rip), %xmm5
-	movsd	.LC13(%rip), %xmm4
-	movsd	.LC14(%rip), %xmm3
-	movsd	.LC15(%rip), %xmm2
-	movsd	.LC16(%rip), %xmm1
-	movabsq	$4613937818241073152, %rax
-	movsd	.LC18(%rip), %xmm0
+	subq	$8, %rsp
+	pushq	$108
+	pushq	$107
+	pushq	$106
+	pushq	$105
+	pushq	$104
+	movl	$103, %r9d
+	movl	$102, %r8d
+	movl	$101, %ecx
+	movl	$100, %edx
+	movl	$99, %esi
+	movl	$98, %edi
+	movss	.LC10(%rip), %xmm0
+	movl	$1, %eax
+	call	var_args
+	addq	$48, %rsp
+	nop
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE6:
+	.size	test_var_args_int, .-test_var_args_int
+	.globl	test_var_args_float
+	.type	test_var_args_float, @function
+test_var_args_float:
+.LFB7:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movsd	.LC0(%rip), %xmm7
+	movsd	.LC1(%rip), %xmm6
+	movsd	.LC11(%rip), %xmm5
+	movsd	.LC12(%rip), %xmm4
+	movsd	.LC13(%rip), %xmm3
+	movsd	.LC14(%rip), %xmm2
+	movsd	.LC15(%rip), %xmm1
+	movsd	.LC2(%rip), %xmm0
 	leaq	-8(%rsp), %rsp
 	movsd	%xmm0, (%rsp)
-	movsd	.LC19(%rip), %xmm0
+	movsd	.LC3(%rip), %xmm0
 	leaq	-8(%rsp), %rsp
 	movsd	%xmm0, (%rsp)
-	movq	%rax, -8(%rbp)
-	movsd	-8(%rbp), %xmm0
+	movl	$5, %ecx
+	movl	$3, %edx
 	movl	$98, %esi
 	movl	$97, %edi
+	movss	.LC16(%rip), %xmm0
 	movl	$8, %eax
 	call	var_args
 	addq	$16, %rsp
@@ -312,21 +440,55 @@ test_var_args_2:
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE6:
-	.size	test_var_args_2, .-test_var_args_2
+.LFE7:
+	.size	test_var_args_float, .-test_var_args_float
+	.globl	test_unknown_function
+	.type	test_unknown_function, @function
+test_unknown_function:
+.LFB8:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$16, %rsp
+	movsd	.LC13(%rip), %xmm1
+	movsd	.LC14(%rip), %xmm0
+	movabsq	$4611686018427387904, %rax
+	movapd	%xmm1, %xmm2
+	movl	$5, %edx
+	movapd	%xmm0, %xmm1
+	movl	$3, %esi
+	movq	%rax, -8(%rbp)
+	movsd	-8(%rbp), %xmm0
+	movl	$1, %edi
+	movl	$3, %eax
+	call	unknown_function
+	nop
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE8:
+	.size	test_unknown_function, .-test_unknown_function
 	.section	.rodata
-	.align 4
+	.align 8
 .LC0:
-	.long	1094713344
-	.align 4
+	.long	0
+	.long	1076101120
+	.align 8
 .LC1:
-	.long	1093664768
-	.align 4
+	.long	0
+	.long	1075970048
+	.align 8
 .LC2:
-	.long	1092616192
-	.align 4
+	.long	0
+	.long	1076363264
+	.align 8
 .LC3:
-	.long	1091567616
+	.long	0
+	.long	1076232192
 	.align 4
 .LC4:
 	.long	1090519040
@@ -345,41 +507,31 @@ test_var_args_2:
 	.align 4
 .LC9:
 	.long	1077936128
-	.align 8
+	.align 4
 .LC10:
-	.long	0
-	.long	1076101120
+	.long	1120010240
 	.align 8
 .LC11:
 	.long	0
-	.long	1075970048
+	.long	1075838976
 	.align 8
 .LC12:
 	.long	0
-	.long	1075838976
+	.long	1075576832
 	.align 8
 .LC13:
 	.long	0
-	.long	1075576832
+	.long	1075314688
 	.align 8
 .LC14:
 	.long	0
-	.long	1075314688
+	.long	1074790400
 	.align 8
 .LC15:
 	.long	0
-	.long	1075052544
-	.align 8
+	.long	1073741824
+	.align 4
 .LC16:
-	.long	0
-	.long	1074790400
-	.align 8
-.LC18:
-	.long	0
-	.long	1076363264
-	.align 8
-.LC19:
-	.long	0
-	.long	1076232192
+	.long	1065353216
 	.ident	"GCC: (Ubuntu 5.4.0-6ubuntu1~16.04.10) 5.4.0 20160609"
 	.section	.note.GNU-stack,"",@progbits
