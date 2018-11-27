@@ -344,24 +344,24 @@ test_float_args:
 	.cfi_offset 6, -16
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register 6
-	movsd	.LC0(%rip), %xmm2
-	movsd	.LC1(%rip), %xmm1
-	movsd	.LC2(%rip), %xmm0
+	movsd	.LC0(%rip), %xmm2		; 10.0
+	movsd	.LC1(%rip), %xmm1		; 9.0
+	movsd	.LC2(%rip), %xmm0		; 12.0
 	leaq	-8(%rsp), %rsp
-	movsd	%xmm0, (%rsp)
-	movsd	.LC3(%rip), %xmm0
+	movsd	%xmm0, (%rsp)			; 12.0
+	movsd	.LC3(%rip), %xmm0		; 11.0
 	leaq	-8(%rsp), %rsp
-	movsd	%xmm0, (%rsp)
-	movapd	%xmm2, %xmm7
-	movapd	%xmm1, %xmm6
-	movss	.LC4(%rip), %xmm5
-	movss	.LC5(%rip), %xmm4
-	movss	.LC6(%rip), %xmm3
-	movss	.LC7(%rip), %xmm2
-	movss	.LC8(%rip), %xmm1
-	movss	.LC9(%rip), %xmm0
-	movl	$98, %esi
-	movl	$97, %edi
+	movsd	%xmm0, (%rsp)			; 11.0
+	movapd	%xmm2, %xmm7			; 10.0
+	movapd	%xmm1, %xmm6			; 9.0
+	movss	.LC4(%rip), %xmm5		; 8,0
+	movss	.LC5(%rip), %xmm4		; 7.0
+	movss	.LC6(%rip), %xmm3		; 6.0
+	movss	.LC7(%rip), %xmm2		; 5.0
+	movss	.LC8(%rip), %xmm1		; 4.0
+	movss	.LC9(%rip), %xmm0		; 3.0
+	movl	$98, %esi				; 'b'
+	movl	$97, %edi				; 'a'
 	call	float_args
 	addq	$16, %rsp
 	nop
@@ -484,11 +484,11 @@ test_unknown_function:
 	.align 8
 .LC2:
 	.long	0
-	.long	1076363264
+	.long	1076363264			; 12.0
 	.align 8
 .LC3:
 	.long	0
-	.long	1076232192
+	.long	1076232192			; 11.0
 	.align 4
 .LC4:
 	.long	1090519040
