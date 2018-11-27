@@ -534,29 +534,29 @@ test_var_args_float:                    // @test_var_args_float
 	sub	sp, sp, #32             // =32
 	stp	x29, x30, [sp, #16]     // 8-byte Folded Spill
 	add	x29, sp, #16            // =16
-	orr	w8, wzr, #0x3f800000
+	orr	w8, wzr, #0x3f800000			; 1.0
 	fmov	s0, w8
-	mov	w0, #97
-	mov	w1, #98
-	orr	x9, xzr, #0x4000000000000000
+	mov	w0, #97							; 'a'
+	mov	w1, #98							; 'b'
+	orr	x9, xzr, #0x4000000000000000	; 2.0
 	fmov	d1, x9
-	orr	w2, wzr, #0x3
-	mov	x9, #4616189618054758400
+	orr	w2, wzr, #0x3					; 3
+	mov	x9, #4616189618054758400		; 4.0
 	fmov	d2, x9
-	mov	w3, #5
-	mov	x9, #4618441417868443648
+	mov	w3, #5							; 5
+	mov	x9, #4618441417868443648		; 6.0
 	fmov	d3, x9
-	mov	x9, #4619567317775286272
+	mov	x9, #4619567317775286272		; 7.0
 	fmov	d4, x9
-	mov	x9, #4620693217682128896
+	mov	x9, #4620693217682128896		; 8.0
 	fmov	d5, x9
-	mov	x9, #4621256167635550208
+	mov	x9, #4621256167635550208		; 9.0
 	fmov	d6, x9
-	mov	x9, #4621819117588971520
+	mov	x9, #4621819117588971520		; 10.0
 	fmov	d7, x9
-	mov	x9, #4622382067542392832
+	mov	x9, #4622382067542392832		; 11.0
 	fmov	d16, x9
-	mov	x9, #4622945017495814144
+	mov	x9, #4622945017495814144		; 12.0
 	fmov	d17, x9
 	mov	x9, sp
 	str	d16, [x9]
@@ -576,14 +576,14 @@ test_unknown_function:                  // @test_unknown_function
 // %bb.0:
 	stp	x29, x30, [sp, #-16]!   // 8-byte Folded Spill
 	mov	x29, sp
-	orr	w0, wzr, #0x1
-	orr	x8, xzr, #0x4000000000000000
+	orr	w0, wzr, #0x1						; 1
+	orr	x8, xzr, #0x4000000000000000		; 2.0
 	fmov	d0, x8
-	orr	w1, wzr, #0x3
-	mov	x8, #4616189618054758400
+	orr	w1, wzr, #0x3						; 3
+	mov	x8, #4616189618054758400			; 4.0
 	fmov	d1, x8
-	mov	w2, #5
-	mov	x8, #4618441417868443648
+	mov	w2, #5								; 5
+	mov	x8, #4618441417868443648			; 6.0
 	fmov	d2, x8
 	adrp	x8, :got:unknown_function
 	ldr	x8, [x8, :got_lo12:unknown_function]
