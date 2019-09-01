@@ -48,6 +48,7 @@ string trim_padding(string s) {
 
 struct rsa_public_key {
 	RSA *_rsa;
+
 	bool load(FILE *fp) {
 		if (!fp) {
 			return false;
@@ -60,6 +61,28 @@ struct rsa_public_key {
 		rewind(fp);
 		_rsa = PEM_read_RSA_PUBKEY(fp, NULL, NULL, NULL);
 		return _rsa != NULL;
+	}
+};
+
+struct ec_public_key {
+	EC_KEY *_ec_key;
+
+	bool load(FILE *fp) {
+		if (!fp) {
+			return false;
+		}
+		rewind(fp);
+		_ec_key = PEM_read_EC_PUBKEY(fp, NULL, NULL, NULL);
+		return _ec_key != NULL;
+	}
+
+	int to_binary(unsigned char *buffer, int buffer_length) {
+		if (!_ec_key) {
+			return 0;
+		}
+		const EC_GROUP *group = EC_KEY_get0_group(_ec_key);
+		const EC_POINT *point = EC_KEY_get0_public_key(_ec_key);
+		return EC_POINT_point2oct(group, point, POINT_CONVERSION_UNCOMPRESSED, buffer, buffer_length, NULL);
 	}
 };
 
@@ -102,19 +125,29 @@ struct openssh_public_key {
 	}
 
 	bool load_pem(FILE *fp) {
-		rsa_public_key pubkey;
-		if (!pubkey.load(fp)) {
-			return false;
+		rsa_public_key rsa_pubkey;
+		ec_public_key ec_pubkey;
+		if (rsa_pubkey.load(fp)) {
+			_length = 0;
+			append((const unsigned char *)"ssh-rsa", 7);
+			unsigned char temp[1024] = {};
+			int len = BN_bn2bin(rsa_pubkey._rsa->e, temp + 1);
+			append(temp + 1, len);
+			len = BN_bn2bin(rsa_pubkey._rsa->n, temp + 1);
+			int sign = (temp[1] & 0x80) != 0;
+			append(temp + 1 - sign, len + sign);
+			return true;
 		}
-		_length = 0;
-		append((const unsigned char *)"ssh-rsa", 7);
-		unsigned char temp[1024] = {};
-		int len = BN_bn2bin(pubkey._rsa->e, temp + 1);
-		append(temp + 1, len);
-		len = BN_bn2bin(pubkey._rsa->n, temp + 1);
-		int sign = (temp[1] & 0x80) != 0;
-		append(temp + 1 - sign, len + sign);
-		return true;
+		if (ec_pubkey.load(fp)) {
+			_length = 0;
+			append((const unsigned char *)"ecdsa-sha2-nistp256", 19);
+			append((const unsigned char *)"nistp256", 8);
+			unsigned char temp[1024] = {};
+			int size = ec_pubkey.to_binary(temp, 1024);
+			append(temp, size);
+			return true;
+		}
+		return false;
 	}
 
 	string fingerprint_md5() const {
