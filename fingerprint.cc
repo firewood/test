@@ -76,7 +76,7 @@ struct ec_public_key {
 		return _ec_key != NULL;
 	}
 
-	int to_binary(unsigned char *buffer, int buffer_length) {
+	int to_binary(unsigned char *buffer, int buffer_length) const {
 		if (!_ec_key) {
 			return 0;
 		}
