@@ -152,18 +152,15 @@ struct openssh_public_key {
 
 	string fingerprint_md5() const {
 		char buffer[256] = {};
-		string f;
 		unsigned char md5[16];
 		EVP_Digest(_buffer, _length, md5, NULL, EVP_md5(), NULL);
 		for (int i = 0; i < 16; ++i) {
-			sprintf(buffer + strlen(buffer), ":%02x", md5[i]);
+			sprintf(buffer + i * 3, ":%02x", md5[i]);
 		}
 		return buffer + 1;
 	}
 
 	string fingerprint_sha256() const {
-		char buffer[256] = {};
-		string f;
 		unsigned char sha2[32] = {};
 		EVP_Digest(_buffer, _length, sha2, NULL, EVP_sha256(), NULL);
 		return "SHA256:" + trim_padding(encode_base64(sha2, 32));
